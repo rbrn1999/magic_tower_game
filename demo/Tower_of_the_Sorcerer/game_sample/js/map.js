@@ -7,9 +7,9 @@ var Map = function(map) //碰撞框事件的object
     this.load = function(){
 
         this.score = new Score();
-        this.score.position = {x:200,y:0}; //分數板位置
-        this.numBomb = new NumBomb();
-        this.numBomb.position = {x:200,y:400}; //分數板位置
+        this.score.position = {x:200,y:700}; //分數板位置
+        this.playerState = new PlayerState();
+        this.playerState.position = {x:200,y:100}; //分數板位置
         this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png',this,{down:{from:0}});  //定義floor2
         this.mapFloor.scale = 2;    //size
         this.mapWall = new Framework.Sprite(define.imagePath + 'stone1.png');    //定義treeStone
@@ -95,7 +95,6 @@ var Map = function(map) //碰撞框事件的object
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;   //圖片
             m_map.score.addScore(200);  //加分
-            m_map.numBomb.addBomb(1);   //加bomb
         }else if(item === constants.ItemEnum.INCREASE_POWER){
             player.increaseBombPower();
             m_map.mapArray[player.position.y][player.position.x] = 0;
@@ -198,7 +197,7 @@ var Map = function(map) //碰撞框事件的object
         }
         this.player1.draw(ctx);
         this.score.draw(ctx);
-        this.numBomb.draw(ctx);
+        this.playerState.draw(ctx);
 	}	
 
     var m_map = this;
@@ -249,7 +248,17 @@ var Map = function(map) //碰撞框事件的object
             }
         }
     }
+
     
+    this.sleep = function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+     }
+    this.slowDraw = async function() {
+        console.log('wait...')
+        await this.sleep(500);
+        this.draw();
+     }
+
     this.setMapPosition = function(newMapPosition){ //切換地圖
         mapPosition = newMapPosition;
         console.log("Map Position" + mapPosition);

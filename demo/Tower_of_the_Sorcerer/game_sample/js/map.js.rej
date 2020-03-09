@@ -1,0 +1,9 @@
+diff a/demo/Tower_of_the_Sorcerer/game_sample/js/map.js b/demo/Tower_of_the_Sorcerer/game_sample/js/map.js	(rejected hunks)
+@@ -262,6 +262,7 @@
+         await this.sleep(500);
+         this.draw();
+      }
++
+     this.setMapPosition = function(newMapPosition){ //切換地圖
+         mapPosition = newMapPosition;
+         console.log("Map Position" + mapPosition);
