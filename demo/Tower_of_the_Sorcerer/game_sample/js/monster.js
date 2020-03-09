@@ -38,75 +38,13 @@ var Monster = function(file, map, options) {
 
 
     //moveStep為位移量  格式範例{x:1,y:0}
-    this.walk = function(moveStep){
-        if(this.isWalking === false){
-            if(moveStep.x > 0){
-                this.playerDirection = this.constants.DirectionEnum.RIGHT;
-            }else if(moveStep.x <0){
-                this.playerDirection = this.constants.DirectionEnum.LEFT;
-            }
-
-            if(moveStep.y > 0){
-                this.playerDirection = this.constants.DirectionEnum.DOWN;
-            }else if(moveStep.y < 0){
-                this.playerDirection = this.constants.DirectionEnum.UP;
-            }
-            this.isWalking = true;
-            this.walkTarget = {x:this.mapPosition.x + moveStep.x, y:this.mapPosition.y + moveStep.y};
-            this.sprite.start({ from: this.playerDirection * 3, to: this.playerDirection * 3 + 2, loop: true});
-        }
-    }
-
     this.die = function(){
         this.isdead = true;
-    }
-
-    this.stopWalk = function()
-    {
-        this.canWalking = false;
-    }
-
-    this.walkEnd = function(){    }
-
-    var walkSpeed = 8;
-    this.walkAlittle = function(){
-
-        if(this.playerDirection === this.constants.DirectionEnum.DOWN){
-            this.spritePosition = {x:this.spritePosition.x, y:this.spritePosition.y + walkSpeed};
-        }
-        else if(this.playerDirection === this.constants.DirectionEnum.LEFT){
-            this.spritePosition = {x:this.spritePosition.x - walkSpeed, y:this.spritePosition.y};
-        }
-        else if(this.playerDirection === this.constants.DirectionEnum.RIGHT){
-            this.spritePosition = {x:this.spritePosition.x + walkSpeed, y:this.spritePosition.y};
-        }
-        else if(this.playerDirection === this.constants.DirectionEnum.UP){
-            this.spritePosition = {x:this.spritePosition.x, y:this.spritePosition.y - walkSpeed};
-        }
     }
 
     this.update = function(){
         if(this.isdead ){ return; }
         this.sprite.update();
-        /*if(this.isWalking){
-            if(this.walkTarget.x * PIXEL_CONST === this.spritePosition.x && this.walkTarget.y * PIXEL_CONST === this.spritePosition.y){
-                this.isWalking = false;
-                this.sprite.stop();
-                this.sprite.index = this.playerDirection * 3 + 1;
-                this.mapPosition = this.walkTarget;
-                //callback
-                for(var i=0; i<this.StepMovedCallBack.length; i++){
-                    this.StepMovedCallBack[i](this);
-                }
-            }else{
-                this.walkAlittle();
-            }
-        }
-        else{
-            if(this.canWalking){
-                this.randomWalk();
-            }
-        }*/
     }
 
 
@@ -115,36 +53,6 @@ var Monster = function(file, map, options) {
         this.sprite.position = {x: this.spritePosition.x, y: this.spritePosition.y};
         this.sprite.draw(ctx);
     }
-    var walkDir = 0;
-    /*this.randomWalk = function(){
-        //var randNum = Math.floor(Math.random() * 100);
-        var randNum = Framework.Game._currentLevel.cycleCount % 553;
-        walkDir++;
-        var walkStep = {x:0,y:0}
-        if(randNum % 117 == 0)
-        {
-            walkStep.x = 1
-        }else if(randNum % 79 == 0)
-        {
-            walkStep.x = -1
-        }else if(randNum % 133 == 0)
-        {
-            walkStep.y = 1
-        }else if(randNum % 157 == 0)
-        {
-            walkStep.y = -1
-        }else
-        {
-            walkDir = 0;
-            return;
-        }
-
-        if(this.map.checkIsWalkAble(this.mapPosition.x + walkStep.x,this.mapPosition.y + walkStep.y))
-        {
-            this.walk(walkStep);
-        }
-    }*/
-
 };
 
 Object.defineProperty(Monster.prototype, 'position', {
