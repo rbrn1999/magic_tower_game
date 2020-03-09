@@ -1,6 +1,9 @@
 var Map = function(map) //碰撞框事件的object
 {
-    this.mapArray = map;    //
+    var mapPosition = 0;
+    this.mapList = new Terrain();
+    this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
+    //console.log(this.mapArray);
     this.load = function(){
 
         this.score = new Score();
@@ -170,8 +173,6 @@ var Map = function(map) //碰撞框事件的object
   //               }
 		// 	}
 		// }
-
-
         for(var i=0; i<this.tileArray.length; i++)
         {
             this.tileArray[i].draw(ctx);
@@ -218,7 +219,6 @@ var Map = function(map) //碰撞框事件的object
                         break;
                     }else if(m_map.mapArray[explorePos.y][explorePos.x] >= 2){
                         //box
-                        m_map.checkBoxExplore(explorePos);
                         hasExploreBox = true;
                     }
 
@@ -247,21 +247,14 @@ var Map = function(map) //碰撞框事件的object
             }
         }
     }
-
-    this.checkBoxExplore = function(explorePos)
-    {
-        for(var j=0; j<m_map.boxArray.length; j++){
-            if(m_map.boxArray[j] != undefined){
-                var boxPosition = m_map.boxArray[j].position;
-                if(boxPosition.x === explorePos.x && boxPosition.y === explorePos.y){
-                    m_map.boxArray[j].explored();
-                    m_map.mapArray[explorePos.y][explorePos.x] = m_map.boxArray[j].item;
-                    m_map.tileArray[explorePos.y*26+explorePos.x].tileType = m_map.boxArray[j].item;    //爆炸後顯示道具圖片
-                    m_map.boxArray.splice(j,1);
-                    m_map.score.addScore(100);
-                }
-            }
-        }
+    
+    this.setMapPosition = function(newMapPosition){ //切換地圖
+        mapPosition = newMapPosition;
+        this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
+        this.init();
+        this.update();
+        this.draw();
+        console.log("Map Position" + mapPosition);
     }
 
     this.getLeftMonsterNum = function()
@@ -316,6 +309,12 @@ var Map = function(map) //碰撞框事件的object
                 this.pressWalk = true;
                 this.keyPress = "Up";
             }
+        }
+        if(e.key === "A") {
+            this.setMapPosition(--mapPosition);
+        }
+        if(e.key === "D") {
+            this.setMapPosition(++mapPosition);
         }
 
         if(e.key === 'Space'){
