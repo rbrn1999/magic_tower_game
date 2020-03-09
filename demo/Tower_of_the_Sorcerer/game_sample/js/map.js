@@ -32,7 +32,7 @@ var Map = function(map) //碰撞框事件的object
 
         this.monster = [];  //有n個怪物 怪物array
         this.stopMonster = false;
-        this.stopMonsterCounter =0;
+        this.stopMonsterCounter = 0;
     }
 
     this.init = function()
@@ -162,16 +162,16 @@ var Map = function(map) //碰撞框事件的object
 		// 	for(var j=0; j<line.length; j++){
 		// 		this.mapFloor.position = {x: j * 64, y: i * 64};
 		// 		this.mapFloor.draw(ctx);
-  //               if(line[j] === 1){
-  //                   this.mapWall.position = {x: j * 64, y: i * 64};
-  //                   this.mapWall.draw(ctx);
-  //               }else if(line[j] === -1){
-  //                   this.increaseBombNum.position = {x: j * 64, y: i * 64};
-  //                   this.increaseBombNum.draw(ctx);
-  //               }else if(line[j] === -2){
-  //                   this.increaseBombPower.position = {x: j * 64, y: i * 64};
-  //                   this.increaseBombPower.draw(ctx);
-  //               }
+        //         if(line[j] === 1){
+        //             this.mapWall.position = {x: j * 64, y: i * 64};
+        //             this.mapWall.draw(ctx);
+        //         }else if(line[j] === -1){
+        //             this.increaseBombNum.position = {x: j * 64, y: i * 64};
+        //             this.increaseBombNum.draw(ctx);
+        //         }else if(line[j] === -2){
+        //             this.increaseBombPower.position = {x: j * 64, y: i * 64};
+        //             this.increaseBombPower.draw(ctx);
+        //         }
 		// 	}
 		// }
         for(var i=0; i<this.tileArray.length; i++)
