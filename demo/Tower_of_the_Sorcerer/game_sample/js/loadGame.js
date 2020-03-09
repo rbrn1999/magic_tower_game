@@ -59,8 +59,6 @@ var loadGameEnd;
         { src: 'game_sample/js/score.js', lookFor: 'Score' },
         { src: 'game_sample/js/bombMan.js', lookFor: 'BombMan' },
         { src: 'game_sample/js/monster.js', lookFor: 'Monster' },
-        { src: 'game_sample/js/explore.js', lookFor: 'Explore' },
-        { src: 'game_sample/js/bomb.js', lookFor: 'Bomb' },
         { src: 'game_sample/js/box.js', lookFor: 'Box' },
         { src: 'game_sample/js/terrain.js', lookFor: 'Terrain' },
         { src: 'game_sample/js/mapTile.js', lookFor: 'MapTile' },

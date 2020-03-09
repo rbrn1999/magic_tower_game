@@ -1,7 +1,6 @@
 var Map = function(map) //碰撞框事件的object
 {
     var mapPosition = 0;
-    var mapCheck = [];
     this.mapList = new Terrain();
     this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
     //console.log(this.mapArray);
@@ -18,8 +17,7 @@ var Map = function(map) //碰撞框事件的object
         this.mapLightBlueStone = new Framework.Sprite(define.imagePath + 'stone.png');    //定義treeStone
         this.mapLightBlueStone.scale = 2; //size
         var mapBoxPic = new Framework.Sprite(define.imagePath + 'box.png'); //定義box
-        var bombPic  = new Framework.Sprite(define.imagePath + 'bomb.png'); //定義bomb
-        var bombPic  = new Framework.Sprite(define.imagePath + 'explore.png');  //定義
+
         var newMonster = new Monster(define.imagePath + 'monster.png',this, {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});   //定義
         
         this.increaseBombNum  = new Framework.Sprite(define.imagePath + 'increaseBombNum.png'); //定義道具甲
@@ -42,7 +40,6 @@ var Map = function(map) //碰撞框事件的object
         this.constants = new Constants();
         //this.mapArray = [];
         this.boxArray = [];
-        this.bombArray = [];
         this.itemArray = [];
         this.tileArray = [];
         this.exploreArray = [];
@@ -92,12 +89,10 @@ var Map = function(map) //碰撞框事件的object
         var constants = new Constants();
         var item = m_map.mapArray[player.position.y][player.position.x];
         if(item === constants.ItemEnum.INCREASE_BOMB){
-            player.increaseBombNum();
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;   //圖片
             m_map.score.addScore(200);  //加分
         }else if(item === constants.ItemEnum.INCREASE_POWER){
-            player.increaseBombPower();
             m_map.mapArray[player.position.y][player.position.x] = 0;
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
             m_map.score.addScore(200);
@@ -120,14 +115,6 @@ var Map = function(map) //碰撞框事件的object
         for(var i=0; i<this.boxArray.length; i++)
         {
             this.boxArray[i].update();
-        }
-        for(var i=0; i<this.bombArray.length; i++)
-        {
-            this.bombArray[i].update();
-        }
-        for(var i=0; i<this.exploreArray.length; i++)
-        {
-            this.exploreArray[i].update();
         }
         if(this.pressWalk === true && this.player1.isWalking === false)
         {
@@ -179,19 +166,6 @@ var Map = function(map) //碰撞框事件的object
         {
             this.tileArray[i].draw(ctx);
         }
-
-        for(var i=0; i<this.boxArray.length; i++)
-        {
-            this.boxArray[i].draw(ctx);
-        }
-        for(var i=0; i<this.bombArray.length; i++)
-        {
-            this.bombArray[i].draw(ctx);
-        }
-        for(var i=0; i<this.exploreArray.length; i++)
-        {
-            this.exploreArray[i].draw(ctx);
-        }
         for(var i=0;i<this.monster.length;i++)
         {
             this.monster[i].draw(ctx);
@@ -202,72 +176,12 @@ var Map = function(map) //碰撞框事件的object
 	}	
 
     var m_map = this;
-    this.bombExploredHandler = function(exploredArray, bomb){
-        var index = m_map.bombArray.indexOf(bomb);
-        m_map.bombArray.splice(index,1);
-        m_map.mapArray[bomb.position.y][bomb.position.x] = 0;
-        looptop:
-        for(var i=0; i<exploredArray.length; i++){
-            for(var j=0;j<exploredArray[i].length;j++)
-            {
-                var explorePos = exploredArray[i][j];
-                var hasExploreBox = false;
-                if(explorePos.x>0 && explorePos.y>0 && explorePos.y<m_map.mapArray.length && explorePos.x<m_map.mapArray[0].length){
-                    if(m_map.mapArray[explorePos.y][explorePos.x]<0){
-                        //item
-                    }else if(m_map.mapArray[explorePos.y][explorePos.x] == 1)
-                    {
-                        //wall
-                        break;
-                    }else if(m_map.mapArray[explorePos.y][explorePos.x] >= 2){
-                        //box
-                        hasExploreBox = true;
-                    }
-
-                    if(m_map.mapArray[explorePos.y][explorePos.x] != 1){
-                        var explore = new Explore();
-                        explore.position = explorePos;
-                        explore.ExploredEndCallBack.push(m_map.exploreEndHandler);
-                        m_map.exploreArray.push(explore);
-                        if(hasExploreBox)
-                        {
-                            break;
-                        }
-                    }
-                    if(explorePos.x === m_map.player1.position.x && explorePos.y === m_map.player1.position.y){ //玩家碰到火焰亡
-                        m_map.player1.die();
-                        break looptop;
-                    }
-                    for(var k=0;k<m_map.monster.length;k++)
-                    {
-                        if(explorePos.x === m_map.monster[k].position.x && explorePos.y === m_map.monster[k].position.y){   //怪物碰到火焰亡
-                            m_map.monster[k].die();
-                            m_map.score.addScore(500);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     
-    this.sleep = function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-     }
-    this.slowDraw = async function() {
-        console.log('wait...')
-        await this.sleep(500);
-        this.draw();
-     }
-
     this.setMapPosition = function(newMapPosition){ //切換地圖
         mapPosition = newMapPosition;
         console.log("Map Position" + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
-        if (!mapCheck.find(element => element == mapPosition)){
-            this.init();
-            mapCheck.push(mapPosition);
-        }
+        this.init();
         this.update();
         this.draw();
     }
@@ -333,14 +247,7 @@ var Map = function(map) //碰撞框事件的object
         }
 
         if(e.key === 'Space'){
-            var bomb = this.player1.placeBomb();
-            if(!Framework.Util.isNull(bomb))
-            {
-                bomb.ExploredCallBack.push(Framework.Game._currentLevel.map.bombExploredHandler);
-                this.bombArray.push(bomb);
-                var bombPosition = bomb.position;
-                this.mapArray[bombPosition.y][bombPosition.x] = 3;
-            }
+            console.log("Press Space");
         }
     }
 

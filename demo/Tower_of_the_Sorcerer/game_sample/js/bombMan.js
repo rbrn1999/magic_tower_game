@@ -102,29 +102,6 @@ var BombMan = function(file, options) {//一個玩家的object
         this.sprite.draw(ctx);
     }
 
-    this.increaseBombNum = function(){
-        this.maxBombNum += 1;
-    }
-
-    this.increaseBombPower = function(){
-        this.bombPower += 1;
-    }
-
-    this.bombExploredHandler = function(exploredArray, bomb){
-        m_bombMan.bombNum -= 1;
-    }
-
-    this.placeBomb = function(){
-        if(this.bombNum < this.maxBombNum){
-            var bomb = new Bomb(this.bombPower);
-            bomb.position = this.mapPosition;
-            bomb.ExploredCallBack.push(this.bombExploredHandler);
-            this.bombNum += 1;
-            return bomb;
-        }
-        return null;
-    }
-
 };
 
 Object.defineProperty(BombMan.prototype, 'position', {

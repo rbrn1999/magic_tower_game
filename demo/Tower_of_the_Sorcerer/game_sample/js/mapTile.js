@@ -1,4 +1,3 @@
-
 var MapTile = function() {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
