@@ -353,7 +353,7 @@ var Map = function(map) //碰撞框事件的object
         if(y < 0 || y > this.mapArray.length){ return false; }
 
         if(this.mapArray[y][x] > 0){ return false; }
-        else{ return true;}
+        else{ return true; }
     }
 
     this.keyup = function(e, list){
