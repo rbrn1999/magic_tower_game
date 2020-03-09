@@ -1,6 +1,7 @@
 var Map = function(map) //碰撞框事件的object
 {
     var mapPosition = 0;
+    var mapCheck = [];
     this.mapList = new Terrain();
     this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
     //console.log(this.mapArray);
@@ -263,7 +264,10 @@ var Map = function(map) //碰撞框事件的object
         mapPosition = newMapPosition;
         console.log("Map Position" + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
-        this.init();
+        if (!mapCheck.find(element => element == mapPosition)){
+            this.init();
+            mapCheck.push(mapPosition);
+        }
         this.update();
         this.draw();
     }
