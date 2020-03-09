@@ -250,11 +250,11 @@ var Map = function(map) //碰撞框事件的object
     
     this.setMapPosition = function(newMapPosition){ //切換地圖
         mapPosition = newMapPosition;
+        console.log("Map Position" + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
         this.init();
         this.update();
         this.draw();
-        console.log("Map Position" + mapPosition);
     }
 
     this.getLeftMonsterNum = function()
