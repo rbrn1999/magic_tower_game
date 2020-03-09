@@ -250,6 +250,15 @@ var Map = function(map) //碰撞框事件的object
         }
     }
     
+    this.sleep = function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+     }
+    this.slowDraw = async function() {
+        console.log('wait...')
+        await this.sleep(500);
+        this.draw();
+     }
+
     this.setMapPosition = function(newMapPosition){ //切換地圖
         mapPosition = newMapPosition;
         console.log("Map Position" + mapPosition);
