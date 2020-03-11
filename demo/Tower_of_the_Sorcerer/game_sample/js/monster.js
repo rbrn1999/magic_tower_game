@@ -24,7 +24,7 @@ var Monster = function(file, map, options) {
 
     this.isWalking = false;
 
-    var m_monster = this;
+    //var m_monster = this;
 
     this.playerDirection = this.constants.DirectionEnum.DOWN;
     //以下這句話的意思是當options.position為undefined時this.sprite.position = x: 0, y: 0}

@@ -3,10 +3,15 @@ var Level2_change = Framework.Class(Framework.Level , {
     load: function() {
         //0 空地  1牆壁  2空木箱  3增加炸彈木箱道具  4增加威力道具木箱  5有獎的箱 -1增加炸彈數道具  -2增加炸彈power道具 
         this.mapArray = [];
+        this.playerPositionArray = [];
         var mapList = new Terrain();
         for (var i = 0; i < mapList.terrainList.length; i++) {
             this.mapArray[i] = [];
             this.mapArray[i].push(mapList.terrainList[i]);
+        }
+        console.log(mapList.spwanPositionList.length);
+        for (var i = 0; i < mapList.spwanPositionList.length; i++) {
+            this.playerPositionArray.push(mapList.spwanPositionList[i]);
         }
 
         this.map = new Map(this.mapArray);  //將關卡地圖 push進Map裡做畫面
@@ -16,7 +21,7 @@ var Level2_change = Framework.Class(Framework.Level , {
     initialize: function() {    //初始化地圖
         
         this.map.init();
-        this.map.setPlayerPosition({x:15,y:1});     //角色spawn的位置
+        this.map.setPlayerPosition(this.playerPositionArray[0][0]);     //角色spawn的位置
         this.map.addMonster({x:16, y:4});   //怪物spawn的位置
         this.map.addMonster({x:18, y:10});   //怪物spawn的位置
         this.map.addMonster({x:20, y:4});   //怪物spawn的位置

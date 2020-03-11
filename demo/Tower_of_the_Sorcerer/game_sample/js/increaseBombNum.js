@@ -1,40 +1,31 @@
-
 var IncreaseBombNum = function() {
-    this.url = file;       
-    this.sprite = new Framework.Sprite(define.imagePath + 'increaseBombNum.png'); 
+    this.sprite = new Framework.Sprite(define.imagePath + 'increaseBombNum.png');
     this.sprite.scale = 2;
-    this.sprite.index = 1;
-    var PIXEL_CONST = 64;
-
     this.mapPosition = {x:0, y:0};
-    
-
-    this.eaten = function(){
-
+    this.spritePosition = {}
+    this._tileType = 0;
+    this.update = function() {
     }
-
-    //被炸彈炸到的function
-    this.explored = function(){
-
-    }
-
-    this.update = function(){
-
-    }
-
-
-    this.draw = function(ctx){
-        this.sprite.position = {x: this.mapPosition.x * PIXEL_CONST, y: this.mapPosition.y * PIXEL_CONST};
+    this.draw = function(ctx) {
         this.sprite.draw(ctx);
     }
-
 };
 
-Object.defineProperty(Box.prototype, 'position', {
+Object.defineProperty(IncreaseBombNum.prototype, 'position', {
     get: function() {
         return this.mapPosition;
     },
     set: function(newValue) {
         this.mapPosition = newValue;
+        this.sprite.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
+    }
+});
+
+Object.defineProperty(IncreaseBombNum.prototype, 'tileType', {
+    get: function() {
+        return this._tileType;
+    },
+    set: function(newValue) {
+        this._tileType = newValue;
     }
 }); 

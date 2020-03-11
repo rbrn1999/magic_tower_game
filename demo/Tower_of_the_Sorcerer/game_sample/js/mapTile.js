@@ -2,9 +2,6 @@ var MapTile = function() {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.mapWall = new Framework.Sprite(define.imagePath + 'stone1.png');
-    this.mapWall.scale = 2; //size
-
     this.mapLightBlueStone = new Framework.Sprite(define.imagePath + 'stone.png');
     this.mapLightBlueStone.scale = 2; //size
 
@@ -28,9 +25,7 @@ var MapTile = function() {  //畫面的object
     this.draw = function(ctx){  //畫道具的圖??
 
         this.mapFloor.draw(ctx);
-        if(this._tileType === 1){
-            this.mapWall.draw(ctx);
-        }else if(this._tileType === -99){
+        if(this._tileType === -99){
             this.mapLightBlueStone.draw(ctx);
         }
         else if(this._tileType === -1){
@@ -51,7 +46,6 @@ Object.defineProperty(MapTile.prototype, 'position', {  //圖片位置 是該格
     set: function(newValue) {
         this.mapPosition = newValue;
         this.mapFloor.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
-        this.mapWall.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
         this.mapLightBlueStone.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
         this.increaseBombNum.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
         this.increaseBombPower.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
