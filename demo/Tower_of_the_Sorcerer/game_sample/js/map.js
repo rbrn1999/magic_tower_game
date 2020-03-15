@@ -13,8 +13,8 @@ var Map = function(map) //碰撞框事件的object
         this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png',this,{down:{from:0}});  //定義floor2
         this.mapWall = new Framework.Sprite(define.imagePath + 'stone1.png');    //定義treeStone
         this.mapLightBlueStone = new Framework.Sprite(define.imagePath + 'stone.png');    //定義treeStone
-        this.doorDown = new Framework.Sprite(define.imagePath + 'doordown.png');
-        this.doorUp = new Framework.Sprite(define.imagePath + 'doorup.png');
+        this.stageDown = new Framework.Sprite(define.imagePath + 'doordown.png');
+        this.stageUp = new Framework.Sprite(define.imagePath + 'doorup.png');
         var newMonster = new Monster(define.imagePath + 'monster.png',this, {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});   //定義
         
         this.increaseBombNum  = new Framework.Sprite(define.imagePath + 'increaseBombNum.png'); //定義道具甲
@@ -33,7 +33,7 @@ var Map = function(map) //碰撞框事件的object
         this.player1.StepMovedCallBack.push(this.playerMovedHandler);
         this.constants = new Constants();
         //this.mapArray = [];
-        this.doorArray = [];
+        this.stageArray = [];
         this.stoneArray = [];
         this.itemArray = [];
         this.tileArray = [];
@@ -44,13 +44,13 @@ var Map = function(map) //碰撞框事件的object
             for(var j=0; j<line.length; j++){
                 var tile = new MapTile();
                 var stoneWall = new StoneWall();
-                var door = new Door();
+                var stage = new Stage();
                 tile.tileType = 0;
                 tile.position = {x:j,y:i}
                 /*if(line[j] === 2){
                     var box = new Box(this.constants.ItemEnum.NONE);
                     box.position = {x:j, y:i};
-                    this.boxArray.push(door);
+                    this.boxArray.push(stage);
                 }*/
                 if(line[j] > 0){
                     //console.log("init stoneWall");
@@ -59,10 +59,10 @@ var Map = function(map) //碰撞框事件的object
                     this.stoneArray.push(stoneWall);
                 }
                 else if(line[j] === -97 || line[j] === -98){
-                    //console.log("init door");
-                    door.position = {x:j, y:i};
-                    door.tileType = line[j];
-                    this.doorArray.push(door);
+                    //console.log("init stage");
+                    stage.position = {x:j, y:i};
+                    stage.tileType = line[j];
+                    this.stageArray.push(stage);
                 }
                 else{
                     tile.tileType = line[j];
@@ -179,9 +179,9 @@ var Map = function(map) //碰撞框事件的object
         //         }
 		// 	}
         // }
-        for(var i=0; i<this.doorArray.length; i++)
+        for(var i=0; i<this.stageArray.length; i++)
         {
-            this.doorArray[i].draw(ctx);
+            this.stageArray[i].draw(ctx);
         }
         for(var i=0; i<this.stoneArray.length; i++)
         {
