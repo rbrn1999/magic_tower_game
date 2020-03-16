@@ -8,9 +8,12 @@ var Constants = function() {
     };
 
     this.ItemEnum = {
-        NONE : 0,
-        INCREASE_BOMB : -1,
-        INCREASE_POWER : -2,
-        STOP_MONSTER : -3
+        MAP_FLOOR : 0,
+        YELLOW_KEY : -1,
+        BLUE_KEY : -2,
+        RED_KEY : -3,
+        STAGE_UP : -97,
+        STAGE_DOWN : -98,
+        BLUE_STONE : -99
     };
 };

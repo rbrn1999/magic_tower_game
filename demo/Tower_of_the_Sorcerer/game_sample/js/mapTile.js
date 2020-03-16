@@ -28,11 +28,11 @@ var MapTile = function() {  //畫面的object
         if(this._tileType === -99){
             this.mapLightBlueStone.draw(ctx);
         }
-        else if(this._tileType === -1){
+        else if(this._tileType === -30){
             this.increaseBombNum.draw(ctx);
-        }else if(this._tileType === -2){
+        }else if(this._tileType === -31){
             this.increaseBombPower.draw(ctx);
-        }else if(this._tileType === -3){
+        }else if(this._tileType === -32){
             this.stopMonster.draw(ctx);
         }
     }
