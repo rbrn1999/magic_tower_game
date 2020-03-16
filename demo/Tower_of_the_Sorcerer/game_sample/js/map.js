@@ -47,7 +47,6 @@ var Map = function(map) //碰撞框事件的object
                 var stoneWall = new StoneWall();
                 var stage = new Stage();
                 tile.tileType = 0;
-                tile.position = {x:j,y:i}
                 /*if(line[j] === 2){
                     var box = new Box(this.constants.ItemEnum.NONE);
                     box.position = {x:j, y:i};
@@ -57,15 +56,16 @@ var Map = function(map) //碰撞框事件的object
                     //console.log("init stoneWall");
                     stoneWall.position = {x:j, y:i};
                     stoneWall.tileType = line[j];
-                    this.stoneArray.push(stoneWall);
+                    this.tileArray.push(stoneWall);
                 }
                 else if(line[j] === -97 || line[j] === -98){
                     //console.log("init stage");
                     stage.position = {x:j, y:i};
                     stage.tileType = line[j];
-                    this.stageArray.push(stage);
+                    this.tileArray.push(stage);
                 }
                 else{
+                    tile.position = {x:j,y:i};
                     tile.tileType = line[j];
                     this.tileArray.push(tile);
                 }
@@ -181,15 +181,7 @@ var Map = function(map) //碰撞框事件的object
         //         }
 		// 	}
         // }
-        for(var i=0; i<this.stageArray.length; i++)
-        {
-            this.stageArray[i].draw(ctx);
-        }
-        for(var i=0; i<this.stoneArray.length; i++)
-        {
-            //console.log("draw stoneArray");
-            this.stoneArray[i].draw(ctx);
-        }
+
         for(var i=0; i<this.tileArray.length; i++)
         {
             this.tileArray[i].draw(ctx);
