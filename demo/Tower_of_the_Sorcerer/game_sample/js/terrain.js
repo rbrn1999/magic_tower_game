@@ -414,15 +414,15 @@ var Terrain = function() {
     this.spwanPositionList.push(this.position9);
     this.spwanPositionList.push(this.position10);
     this.spwanPositionList.push(this.position11);
-    //this.spwanPositionList.push(this.position12);
-    //this.spwanPositionList.push(this.position13);
-    //this.spwanPositionList.push(this.position14);
-    //this.spwanPositionList.push(this.position15);
-    //this.spwanPositionList.push(this.position16);
-    //this.spwanPositionList.push(this.position17);
-    //this.spwanPositionList.push(this.position18);
-    //this.spwanPositionList.push(this.position19);
-    //this.spwanPositionList.push(this.position20);
-    //this.spwanPositionList.push(this.position21);
+    this.spwanPositionList.push(this.position12);
+    this.spwanPositionList.push(this.position13);
+    this.spwanPositionList.push(this.position14);
+    this.spwanPositionList.push(this.position15);
+    this.spwanPositionList.push(this.position16);
+    this.spwanPositionList.push(this.position17);
+    this.spwanPositionList.push(this.position18);
+    this.spwanPositionList.push(this.position19);
+    this.spwanPositionList.push(this.position20);
+    this.spwanPositionList.push(this.position21);
 
 };

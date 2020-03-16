@@ -1,9 +1,10 @@
-var Map = function(map) //碰撞框事件的object
+var Map = function(map, playerPosition) //碰撞框事件的object
 {
     var mapPosition = 0;
     this.mapList = new Terrain();
     this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
-    //console.log(this.mapArray);
+    this.playerSpwanPositionArray = this.mapList.spwanPositionList[mapPosition]; //設定player在第幾張地圖的重生點位置
+    console.log(this.playerSpwanPositionArray);
     this.load = function(){
 
         this.showLevelBroad = new ShowLevelBroad();

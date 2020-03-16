@@ -14,7 +14,7 @@ var Level2_change = Framework.Class(Framework.Level , {
             this.playerPositionArray.push(mapList.spwanPositionList[i]);
         }
 
-        this.map = new Map(this.mapArray);  //將關卡地圖 push進Map裡做畫面
+        this.map = new Map(this.mapArray, this.playerPositionArray);  //將關卡地圖 push進Map裡做畫面
         this.map.load();
     },
 
