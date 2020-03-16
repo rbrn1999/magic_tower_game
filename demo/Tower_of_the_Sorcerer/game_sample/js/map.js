@@ -31,6 +31,7 @@ var Map = function(map) //碰撞框事件的object
     this.init = function()
     {
         this.player1.StepMovedCallBack.push(this.playerMovedHandler);
+        console.log("plater1 callback");
         this.constants = new Constants();
         //this.mapArray = [];
         this.stageArray = [];
@@ -95,10 +96,10 @@ var Map = function(map) //碰撞框事件的object
         var constants = new Constants();
         var item = m_map.mapArray[player.position.y][player.position.x];
         if(item === -97){//上樓
-            this.setMapPosition(++mapPosition);
+            m_map.setMapPosition(++mapPosition);
         }
         else if(item === -98){//下樓
-            this.setMapPosition(++mapPosition);
+            m_map.setMapPosition(++mapPosition);
         }
         else if(item === constants.ItemEnum.INCREASE_BOMB){
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒換成0
@@ -160,6 +161,7 @@ var Map = function(map) //碰撞框事件的object
                 }
             }
         }
+        this.score.update();
 	}
 	this.draw = function(ctx) {
 		// for(var i=0; i<this.mapArray.length; i++){

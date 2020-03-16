@@ -23,8 +23,8 @@ var Level2_change = Framework.Class(Framework.Level , {
         this.map.init();
         this.map.setPlayerPosition(this.playerPositionArray[0][0]);     //角色spawn的位置
         this.map.addMonster({x:16, y:4});   //怪物spawn的位置
-        this.map.addMonster({x:18, y:10});   //怪物spawn的位置
-        this.map.addMonster({x:20, y:4});   //怪物spawn的位置
+        this.map.addMonster({x:16, y:10});   //怪物spawn的位置
+        this.map.addMonster({x:22, y:4});   //怪物spawn的位置
     },
 
     update: function() {     
