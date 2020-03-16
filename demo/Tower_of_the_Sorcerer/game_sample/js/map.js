@@ -47,7 +47,6 @@ var Map = function(map) //碰撞框事件的object
                 var stoneWall = new StoneWall();
                 var stage = new Stage();
                 tile.tileType = 0;
-                tile.position = {x:j,y:i}
                 /*if(line[j] === 2){
                     var box = new Box(this.constants.ItemEnum.NONE);
                     box.position = {x:j, y:i};
