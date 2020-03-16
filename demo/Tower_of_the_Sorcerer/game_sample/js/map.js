@@ -6,6 +6,8 @@ var Map = function(map) //碰撞框事件的object
     //console.log(this.mapArray);
     this.load = function(){
 
+        this.showLevelBroad = new ShowLevelBroad();
+        this.showLevelBroad.position = {x:200,y:0}; //分數板位置
         this.score = new Score();
         this.score.position = {x:200,y:700}; //分數板位置
         this.playerState = new PlayerState();
@@ -74,6 +76,7 @@ var Map = function(map) //碰撞框事件的object
         mapPosition = newMapPosition;
         console.log("Map Position" + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
+        this.showLevelBroad.setMapLevel(mapPosition);
         this.init();
         this.update();
         this.draw(Framework.Game._context);
@@ -155,6 +158,7 @@ var Map = function(map) //碰撞框事件的object
             }
         }
         this.score.update();
+        this.showLevelBroad.update();
         this.playerState.update();
 	}
 	this.draw = function(ctx) {
@@ -185,6 +189,7 @@ var Map = function(map) //碰撞框事件的object
             this.monster[i].draw(ctx);
         }
         this.player1.draw(ctx);
+        this.showLevelBroad.draw(ctx);
         this.score.draw(ctx);
         this.playerState.draw(ctx);
 	}	
@@ -245,10 +250,20 @@ var Map = function(map) //碰撞框事件的object
             }
         }
         if(e.key === "A") {
-            this.setMapPosition(--mapPosition);
+            if(mapPosition > 0){
+                this.setMapPosition(--mapPosition);
+            }
+            else{
+                console.log("You can not go deeper, there are hell!!");
+            }
         }
         if(e.key === "D") {
-            this.setMapPosition(++mapPosition);
+            if(mapPosition < this.mapList.terrainList.length-1){
+                this.setMapPosition(++mapPosition);
+            }
+            else{
+                console.log("You can not go upper, there are sky!!");
+            }  
         }
 
         if(e.key === 'Space'){

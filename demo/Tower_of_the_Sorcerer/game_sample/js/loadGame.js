@@ -57,6 +57,7 @@ var loadGameEnd;
         { src: 'game_sample/js/constants.js', lookFor: 'Constants' },
         { src: 'game_sample/js/playerState.js', lookFor: 'PlayerState' },
         { src: 'game_sample/js/score.js', lookFor: 'Score' },
+        { src: 'game_sample/js/showLevelBroad.js', lookFor: 'ShowLevelBroad' },
         { src: 'game_sample/js/bombMan.js', lookFor: 'BombMan' },
         { src: 'game_sample/js/monster.js', lookFor: 'Monster' },
         { src: 'game_sample/js/box.js', lookFor: 'Box' },
