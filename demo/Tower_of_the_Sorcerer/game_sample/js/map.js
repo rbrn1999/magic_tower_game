@@ -76,7 +76,7 @@ var Map = function(map) //碰撞框事件的object
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
         this.init();
         this.update();
-        this.draw();
+        this.draw(Framework.Game._context);
     }
 
     this.setPlayerPosition = function(playerPosition){  //改玩家位置
