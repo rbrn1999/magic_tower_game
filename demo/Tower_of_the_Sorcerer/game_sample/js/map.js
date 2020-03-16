@@ -255,7 +255,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 this.setMapPosition(--mapPosition);
             }
             else{
-                console.log("You can not go deeper, there are hell!!");
+                console.log("You can not go deeper, there is hell!!");
             }
         }
         if(e.key === "D") {
@@ -263,7 +263,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 this.setMapPosition(++mapPosition);
             }
             else{
-                console.log("You can not go upper, there are sky!!");
+                console.log("You can not go upper, there is sky!!");
             }  
         }
 
