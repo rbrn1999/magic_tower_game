@@ -34,9 +34,6 @@ var Map = function(map) //碰撞框事件的object
         console.log("plater1 callback");
         this.constants = new Constants();
         //this.mapArray = [];
-        this.stageArray = [];
-        this.stoneArray = [];
-        this.itemArray = [];
         this.tileArray = [];
         this.exploreArray = [];
 
@@ -99,7 +96,7 @@ var Map = function(map) //碰撞框事件的object
             m_map.setMapPosition(++mapPosition);
         }
         else if(item === -98){//下樓
-            m_map.setMapPosition(++mapPosition);
+            m_map.setMapPosition(--mapPosition);
         }
         else if(item === constants.ItemEnum.INCREASE_BOMB){
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒換成0
@@ -129,10 +126,6 @@ var Map = function(map) //碰撞框事件的object
         {
             this.boxArray[i].update();
         }*/
-        for(var i=0; i<this.itemArray.length; i++)
-        {
-            this.itemArray[i].update();
-        }
         if(this.pressWalk === true && this.player1.isWalking === false)
         {
             if(this.checkIsWalkAble(this.player1.position.x+this.playerWalkDirection.x,this.player1.position.y+this.playerWalkDirection.y))
@@ -162,6 +155,7 @@ var Map = function(map) //碰撞框事件的object
             }
         }
         this.score.update();
+        this.playerState.update();
 	}
 	this.draw = function(ctx) {
 		// for(var i=0; i<this.mapArray.length; i++){
@@ -185,10 +179,6 @@ var Map = function(map) //碰撞框事件的object
         for(var i=0; i<this.tileArray.length; i++)
         {
             this.tileArray[i].draw(ctx);
-        }
-        for(var i=0; i<this.itemArray.length; i++)
-        {
-            this.itemArray[i].draw(ctx);
         }
         for(var i=0;i<this.monster.length;i++)
         {

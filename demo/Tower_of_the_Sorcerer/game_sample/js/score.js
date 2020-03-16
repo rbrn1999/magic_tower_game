@@ -12,6 +12,7 @@ var Score = function() {
 
 
     this.draw = function(ctx){
+        console.log(ctx);
         ctx.globalAlpha=0.8;
         ctx.fillStyle = 'black'; //背景色
         ctx.fillRect(this._position.x - 10, this._position.y, 300, 100);    //框的大小
