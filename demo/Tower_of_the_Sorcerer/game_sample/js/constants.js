@@ -8,6 +8,8 @@ var Constants = function() {
     };
 
     this.ItemEnum = {
+        LAVA_WALL : 2,
+        STONE_WALL : 1,
         MAP_FLOOR : 0,
         YELLOW_KEY : -1,
         BLUE_KEY : -2,

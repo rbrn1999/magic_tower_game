@@ -22,6 +22,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png',this,{down:{from:0}});  //定義floor2
         this.mapWall = new Framework.Sprite(define.imagePath + 'stone1.png');    //定義treeStone
         this.mapLightBlueStone = new Framework.Sprite(define.imagePath + 'stone.png');    //定義treeStone
+        var lavaWall = new Framework.AnimationSprite({url: define.imagePath + "lava.png",col: 4, row: 1, loop: true,speed: 6});
         this.stageDown = new Framework.Sprite(define.imagePath + 'doordown.png');
         this.stageUp = new Framework.Sprite(define.imagePath + 'doorup.png');
         var newMonster = new Monster(define.imagePath + 'monster.png',this, {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});   //定義
@@ -56,17 +57,23 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 var stoneWall = new StoneWall();
                 var stage = new Stage();
                 var keys = new Keys();
+                var animationWall = new AnimationWall();
                 tile.tileType = 0;
                 /*if(line[j] === 2){
                     var box = new Box(this.constants.ItemEnum.NONE);
                     box.position = {x:j, y:i};
                     this.boxArray.push(stage);
                 }*/
-                if(line[j] > 0){
+                if(line[j] === this.constants.ItemEnum.STONE_WALL){
                     //console.log("init stoneWall");
                     stoneWall.position = {x:j, y:i};
                     stoneWall.tileType = line[j];
                     this.tileArray.push(stoneWall);
+                }
+                else if(line[j] === this.constants.ItemEnum.LAVA_WALL){
+                    animationWall.position = {x:j, y:i};
+                    animationWall.tileType = line[j];
+                    this.tileArray.push(animationWall);
                 }
                 else if(line[j] === this.constants.ItemEnum.YELLOW_KEY || line[j] === this.constants.ItemEnum.BLUE_KEY || line[j] === this.constants.ItemEnum.RED_KEY){
                     keys.position = {x:j, y:i};
