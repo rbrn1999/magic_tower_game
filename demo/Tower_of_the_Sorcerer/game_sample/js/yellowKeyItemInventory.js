@@ -24,7 +24,7 @@ var YellowKeyItemInventory = function() {
     }
     
 
-    this.addYellowkey = function(yellowkey){
+    this.addYellowKey = function(yellowkey){
         this._yellowKey += yellowkey;
     }
 

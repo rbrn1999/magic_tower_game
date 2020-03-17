@@ -8,6 +8,9 @@ var Constants = function() {
     };
 
     this.ItemEnum = {
+        RED_DOOR : 12,
+        BLUE_DOOR : 11,
+        YELLOW_DOOR : 10,
         LAVA_WALL : 2,
         STONE_WALL : 1,
         MAP_FLOOR : 0,

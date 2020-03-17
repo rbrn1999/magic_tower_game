@@ -64,6 +64,7 @@ var loadGameEnd;
         { src: 'game_sample/js/bombMan.js', lookFor: 'BombMan' },
         { src: 'game_sample/js/monster.js', lookFor: 'Monster' },
         { src: 'game_sample/js/box.js', lookFor: 'Box' },
+        { src: 'game_sample/js/door.js', lookFor: 'Door' },
         { src: 'game_sample/js/animationWall.js', lookFor: 'AnimationWall' },
         { src: 'game_sample/js/stoneWall.js', lookFor: 'StoneWall' },
         { src: 'game_sample/js/stage.js', lookFor: 'Stage' },

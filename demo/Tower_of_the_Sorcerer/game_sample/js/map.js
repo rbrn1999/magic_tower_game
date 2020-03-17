@@ -23,6 +23,9 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         this.mapWall = new Framework.Sprite(define.imagePath + 'stone1.png');    //定義treeStone
         this.mapLightBlueStone = new Framework.Sprite(define.imagePath + 'stone.png');    //定義treeStone
         var lavaWall = new Framework.AnimationSprite({url: define.imagePath + "lava.png",col: 4, row: 1, loop: true,speed: 6});
+        var yellowDoor = new Framework.AnimationSprite({url: define.imagePath + "d1.png",col: 4, row: 1, loop: true,speed: 6});
+        var blueDoor = new Framework.AnimationSprite({url: define.imagePath + "d2.png",col: 4, row: 1, loop: true,speed: 6});
+        var redWall = new Framework.AnimationSprite({url: define.imagePath + "d3.png",col: 4, row: 1, loop: true,speed: 6});
         this.stageDown = new Framework.Sprite(define.imagePath + 'doordown.png');
         this.stageUp = new Framework.Sprite(define.imagePath + 'doorup.png');
         var newMonster = new Monster(define.imagePath + 'monster.png',this, {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});   //定義
@@ -58,6 +61,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 var stage = new Stage();
                 var keys = new Keys();
                 var animationWall = new AnimationWall();
+                var door = new Door();
                 tile.tileType = 0;
                 /*if(line[j] === 2){
                     var box = new Box(this.constants.ItemEnum.NONE);
@@ -74,6 +78,11 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                     animationWall.position = {x:j, y:i};
                     animationWall.tileType = line[j];
                     this.tileArray.push(animationWall);
+                }
+                else if(line[j] >= this.constants.ItemEnum.YELLOW_DOOR && line[j] <= this.constants.ItemEnum.RED_DOOR){
+                    door.position = {x:j, y:i};
+                    door.tileType = line[j];
+                    this.tileArray.push(door);
                 }
                 else if(line[j] === this.constants.ItemEnum.YELLOW_KEY || line[j] === this.constants.ItemEnum.BLUE_KEY || line[j] === this.constants.ItemEnum.RED_KEY){
                     keys.position = {x:j, y:i};
@@ -128,7 +137,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒換成0
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;   //圖片換成0
             m_map.score.addScore(200);  //加分
-            m_map.yellowKeyItemInventory.addYellowkey(1);
+            m_map.yellowKeyItemInventory.addYellowKey(1);
         }else if(item === constants.ItemEnum.BLUE_KEY){
             m_map.mapArray[player.position.y][player.position.x] = 0;
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
@@ -296,6 +305,21 @@ var Map = function(map, playerPosition) //碰撞框事件的object
             else{
                 console.log("You can not go upper, there is sky!!");
             }  
+        }
+        if(e.key === "I") {
+            this.yellowKeyItemInventory.addYellowKey(1);
+            this.update();
+            this.draw(Framework.Game._context);
+        }
+        if(e.key === "O") {
+            this.blueKeyItemInventory.addBlueKey(1);
+            this.update();
+            this.draw(Framework.Game._context);
+        }
+        if(e.key === "P") {
+            this.redKeyItemInventory.addRedKey(1);
+            this.update();
+            this.draw(Framework.Game._context);
         }
 
         if(e.key === 'Space'){
