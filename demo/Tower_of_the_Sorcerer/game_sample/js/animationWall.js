@@ -2,7 +2,12 @@ var AnimationWall = function(file,position) {  //畫面的object
     this.lavaWall = new Framework.AnimationSprite({url:define.imagePath + 'lava.png', col:4 , row:1 , loop:true , speed:12}); 
     this.lavaWall.scale = 2;
     this.lavaWall.index = 1;
+
+    this.skyWall = new Framework.AnimationSprite({url:define.imagePath + 'sky.png', col:4 , row:1 , loop:true , speed:12}); 
+    this.skyWall.scale = 2;
+    this.skyWall.index = 1;
     this.lavaWall.start({from:0, to: 4, loop: true, speed: 6});
+    this.skyWall.start({from:0, to: 4, loop: true, speed: 6});
     var PIXEL_CONST = 64;
 
     this.mapPosition = {x:0, y:0};
@@ -18,6 +23,10 @@ var AnimationWall = function(file,position) {  //畫面的object
             this.lavaWall.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
             this.lavaWall.draw(ctx);
         }
+        if(this._tileType === 3){
+            this.skyWall.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
+            this.skyWall.draw(ctx);
+        }
     }
 
 };
@@ -29,6 +38,7 @@ Object.defineProperty(AnimationWall.prototype, 'position', {  //圖片位置 是
     set: function(newValue) {
         this.mapPosition = newValue;
         this.lavaWall.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
+        this.skyWall.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
     }
 }); 
 

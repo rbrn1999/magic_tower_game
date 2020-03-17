@@ -69,6 +69,7 @@ var loadGameEnd;
         { src: 'game_sample/js/stoneWall.js', lookFor: 'StoneWall' },
         { src: 'game_sample/js/stage.js', lookFor: 'Stage' },
         { src: 'game_sample/js/keys.js', lookFor: 'Keys' },
+        { src: 'game_sample/js/doorPickAxe.js', lookFor: 'DoorPickAxe' },
         { src: 'game_sample/js/increaseBombNum.js', lookFor: 'IncreaseBombNum' },
         { src: 'game_sample/js/terrain.js', lookFor: 'Terrain' },
         { src: 'game_sample/js/mapTile.js', lookFor: 'MapTile' },

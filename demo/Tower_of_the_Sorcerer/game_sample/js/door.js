@@ -10,9 +10,17 @@ var Door = function(file,position) {  //畫面的object
     this.redDoor = new Framework.AnimationSprite({url:define.imagePath + 'd3.png', col:4 , row:1 , loop:true , speed:12}); 
     this.redDoor.scale = 2;
     this.redDoor.index = 1;
+    this.ironDoor = new Framework.AnimationSprite({url:define.imagePath + 'd6.png', col:4 , row:1 , loop:true , speed:12}); 
+    this.ironDoor.scale = 2;
+    this.ironDoor.index = 1;
+    this.whiteDoor = new Framework.AnimationSprite({url:define.imagePath + 'd5.png', col:4 , row:1 , loop:true , speed:12}); 
+    this.whiteDoor.scale = 2;
+    this.whiteDoor.index = 1;
     this.yellowDoor.start({from:0, to: 4, loop: false, speed: 6});
     this.blueDoor.start({from:0, to: 4, loop: false, speed: 6});
     this.redDoor.start({from:0, to: 4, loop: false, speed: 6});
+    this.ironDoor.start({from:0, to: 4, loop: false, speed: 6});
+    this.whiteDoor.start({from:0, to: 4, loop: false, speed: 6});
     var PIXEL_CONST = 64;
 
     this.mapPosition = {x:0, y:0};
@@ -34,6 +42,12 @@ var Door = function(file,position) {  //畫面的object
         else if(this._tileType === 12){
             this.redDoor.draw(ctx);
         }
+        else if(this._tileType === 13){
+            this.ironDoor.draw(ctx);
+        }
+        else if(this._tileType === 14){
+            this.whiteDoor.draw(ctx);
+        }
     }
 
 };
@@ -48,6 +62,8 @@ Object.defineProperty(Door.prototype, 'position', {  //圖片位置 是該格的
         this.yellowDoor.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
         this.blueDoor.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
         this.redDoor.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
+        this.ironDoor.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
+        this.whiteDoor.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
     }
 }); 
 

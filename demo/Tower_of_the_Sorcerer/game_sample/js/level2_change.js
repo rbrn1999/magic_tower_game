@@ -13,21 +13,20 @@ var Level2_change = Framework.Class(Framework.Level , {
         for (var i = 0; i < mapList.spwanPositionList.length; i++) {
             this.playerPositionArray.push(mapList.spwanPositionList[i]);
         }
-
+        console.log("Load Map from Level2_change");
         this.map = new Map(this.mapArray, this.playerPositionArray);  //將關卡地圖 push進Map裡做畫面
         this.map.load();
     },
 
     initialize: function() {    //初始化地圖
-        
         this.map.init();
         this.map.setPlayerPosition(this.playerPositionArray[0][0]);     //角色spawn的位置
-        this.map.addMonster({x:16, y:4});   //怪物spawn的位置
-        this.map.addMonster({x:16, y:10});   //怪物spawn的位置
-        this.map.addMonster({x:22, y:4});   //怪物spawn的位置
+        //this.map.addMonster({x:16, y:4});   //怪物spawn的位置
+        //this.map.addMonster({x:16, y:10});   //怪物spawn的位置
+        //this.map.addMonster({x:22, y:4});   //怪物spawn的位置
     },
 
-    update: function() {     
+    update: function() {
         this.map.update();
     },
 

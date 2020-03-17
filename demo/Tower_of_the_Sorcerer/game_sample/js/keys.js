@@ -7,6 +7,8 @@ var Keys = function() {  //畫面的object
     this.blueKey.scale = 2;    //size
     this.redKey = new Framework.Sprite(define.imagePath + 'i3.png');
     this.redKey.scale = 2;    //size
+    this.ironKey = new Framework.Sprite(define.imagePath + 'i5.png');
+    this.ironKey.scale = 2;    //size
 
     this.mapPosition = {x:0, y:0};
     this.spritePosition = {}
@@ -28,6 +30,8 @@ var Keys = function() {  //畫面的object
             this.blueKey.draw(ctx);
         }else if(this._tileType === -3){
             this.redKey.draw(ctx);
+        }else if(this._tileType === -4){
+            this.ironKey.draw(ctx);
         }
     }
 
@@ -43,6 +47,7 @@ Object.defineProperty(Keys.prototype, 'position', {  //圖片位置 是該格的
         this.yellowKey.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
         this.blueKey.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
         this.redKey.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
+        this.ironKey.position = {x: this.mapPosition.x * 64, y: this.mapPosition.y * 64};
     }
 }); 
 

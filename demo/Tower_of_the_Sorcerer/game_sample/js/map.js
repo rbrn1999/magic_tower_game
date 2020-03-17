@@ -7,6 +7,9 @@ var Map = function(map, playerPosition) //碰撞框事件的object
     console.log(this.playerSpwanPositionArray);
     this.load = function(){
 
+        this._numDoorPickAxe = 0;
+        this._numIronKey = 0;
+        this.constants = new Constants();
         this.showLevelBroad = new ShowLevelBroad();
         this.showLevelBroad.position = {x:200,y:0}; //分數板位置
         this.score = new Score();
@@ -22,20 +25,24 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png',this,{down:{from:0}});  //定義floor2
         this.mapWall = new Framework.Sprite(define.imagePath + 'stone1.png');    //定義treeStone
         this.mapLightBlueStone = new Framework.Sprite(define.imagePath + 'stone.png');    //定義treeStone
+
         var lavaWall = new Framework.AnimationSprite({url: define.imagePath + "lava.png",col: 4, row: 1, loop: true,speed: 6});
+        var skyWall = new Framework.AnimationSprite({url: define.imagePath + "sky.png",col: 4, row: 1, loop: true,speed: 6});
         var yellowDoor = new Framework.AnimationSprite({url: define.imagePath + "d1.png",col: 4, row: 1, loop: true,speed: 6});
         var blueDoor = new Framework.AnimationSprite({url: define.imagePath + "d2.png",col: 4, row: 1, loop: true,speed: 6});
-        var redWall = new Framework.AnimationSprite({url: define.imagePath + "d3.png",col: 4, row: 1, loop: true,speed: 6});
+        var redDoor = new Framework.AnimationSprite({url: define.imagePath + "d3.png",col: 4, row: 1, loop: true,speed: 6});
+        var ironDoor = new Framework.AnimationSprite({url: define.imagePath + "d6.png",col: 4, row: 1, loop: true,speed: 6});
+        var whiteDoor = new Framework.AnimationSprite({url: define.imagePath + "d5.png",col: 4, row: 1, loop: true,speed: 6});
+        var newMonster = new Monster(define.imagePath + 'monster.png',this, {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});   //定義
+
         this.stageDown = new Framework.Sprite(define.imagePath + 'doordown.png');
         this.stageUp = new Framework.Sprite(define.imagePath + 'doorup.png');
-        var newMonster = new Monster(define.imagePath + 'monster.png',this, {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});   //定義
-        
+
         this.yellowKey  = new Framework.Sprite(define.imagePath + 'i1.png'); //定義道具甲
         this.blueKey  = new Framework.Sprite(define.imagePath + 'i2.png'); //定義道具乙
         this.redKey  = new Framework.Sprite(define.imagePath + 'i3.png'); //定義道具丙
-        this.increaseBombNum  = new Framework.Sprite(define.imagePath + 'increaseBombNum.png'); //定義道具甲
-        this.increaseBombPower  = new Framework.Sprite(define.imagePath + 'increaseBombPower.png'); //定義道具乙
-        this.stopMonster  = new Framework.Sprite(define.imagePath + 'stopMonster.png'); //定義道具丙
+        this.doorPickAxe  = new Framework.Sprite(define.imagePath + 'i27.png'); //定義道具丙
+        this.ironKey  = new Framework.Sprite(define.imagePath + 'i5.png'); //定義道具丙
         this.player1 = new BombMan(define.imagePath + 'player1.png', {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});  //定義 玩家
         this.player1.position = {x:1, y:1}; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
 
@@ -46,12 +53,12 @@ var Map = function(map, playerPosition) //碰撞框事件的object
 
     this.init = function()
     {
+        this.player1.StepMovedCallBack = [];    //delete
         this.player1.StepMovedCallBack.push(this.playerMovedHandler);
-        console.log("plater1 callback");
-        this.constants = new Constants();
+        //console.log("plater1 callback");
+        //console.log(this.player1.StepMovedCallBack);
         //this.mapArray = [];
         this.tileArray = [];
-        this.exploreArray = [];
 
         for(var i=0; i<this.mapArray.length; i++){  //道具
             var line = this.mapArray[i];
@@ -62,29 +69,29 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 var keys = new Keys();
                 var animationWall = new AnimationWall();
                 var door = new Door();
+                var doorPickAxe = new DoorPickAxe();
                 tile.tileType = 0;
                 /*if(line[j] === 2){
                     var box = new Box(this.constants.ItemEnum.NONE);
                     box.position = {x:j, y:i};
                     this.boxArray.push(stage);
                 }*/
-                if(line[j] === this.constants.ItemEnum.STONE_WALL){
-                    //console.log("init stoneWall");
+                if(line[j] === this.constants.ItemEnum.STONE_WALL || line[j] === this.constants.ItemEnum.BLUE_STONE){
                     stoneWall.position = {x:j, y:i};
                     stoneWall.tileType = line[j];
                     this.tileArray.push(stoneWall);
                 }
-                else if(line[j] === this.constants.ItemEnum.LAVA_WALL){
+                else if(line[j] === this.constants.ItemEnum.LAVA_WALL || line[j] === this.constants.ItemEnum.SKY_WALL){
                     animationWall.position = {x:j, y:i};
                     animationWall.tileType = line[j];
                     this.tileArray.push(animationWall);
                 }
-                else if(line[j] >= this.constants.ItemEnum.YELLOW_DOOR && line[j] <= this.constants.ItemEnum.RED_DOOR){
+                else if(line[j] >= this.constants.ItemEnum.YELLOW_DOOR && line[j] <= this.constants.ItemEnum.WHITE_DOOR){
                     door.position = {x:j, y:i};
                     door.tileType = line[j];
                     this.tileArray.push(door);
                 }
-                else if(line[j] === this.constants.ItemEnum.YELLOW_KEY || line[j] === this.constants.ItemEnum.BLUE_KEY || line[j] === this.constants.ItemEnum.RED_KEY){
+                else if(line[j] === this.constants.ItemEnum.YELLOW_KEY || line[j] === this.constants.ItemEnum.BLUE_KEY || line[j] === this.constants.ItemEnum.IRON_KEY){
                     keys.position = {x:j, y:i};
                     keys.tileType = line[j];
                     this.tileArray.push(keys);
@@ -94,6 +101,11 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                     stage.position = {x:j, y:i};
                     stage.tileType = line[j];
                     this.tileArray.push(stage);
+                }
+                else if(line[j] === this.constants.ItemEnum.DOOR_PICK_AXE){
+                    doorPickAxe.position = {x:j, y:i};
+                    doorPickAxe.tileType = line[j];
+                    this.tileArray.push(doorPickAxe);
                 }
                 else{
                     tile.position = {x:j,y:i};
@@ -106,6 +118,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
     
     this.setMapPosition = function(newMapPosition){ //切換地圖
         mapPosition = newMapPosition;
+        this.tileArray = null;  //delete
         console.log("Map Position" + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
         this.showLevelBroad.setMapLevel(mapPosition);
@@ -125,38 +138,47 @@ var Map = function(map, playerPosition) //碰撞框事件的object
     }
 
     this.playerMovedHandler = function(player){ //玩家移到道具後事件
-        var constants = new Constants();
         var item = m_map.mapArray[player.position.y][player.position.x];
-        if(item === constants.ItemEnum.STAGE_UP){//上樓
+        if(item === m_map.constants.ItemEnum.STAGE_UP){//上樓
             m_map.setMapPosition(++mapPosition);
         }
-        else if(item === constants.ItemEnum.STAGE_DOWN){//下樓
+        else if(item === m_map.constants.ItemEnum.STAGE_DOWN){//下樓
             m_map.setMapPosition(--mapPosition);
         }
-        else if(item === constants.ItemEnum.YELLOW_KEY){
+        else if(item === m_map.constants.ItemEnum.YELLOW_KEY){
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒換成0
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;   //圖片換成0
             m_map.score.addScore(200);  //加分
             m_map.yellowKeyItemInventory.addYellowKey(1);
-        }else if(item === constants.ItemEnum.BLUE_KEY){
+        }else if(item === m_map.constants.ItemEnum.BLUE_KEY){
             m_map.mapArray[player.position.y][player.position.x] = 0;
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
             m_map.score.addScore(200);
             m_map.blueKeyItemInventory.addBlueKey(1);
-        }else if(item === constants.ItemEnum.RED_KEY){
+        }else if(item === m_map.constants.ItemEnum.RED_KEY){
             m_map.stopMonster = true;
             m_map.mapArray[player.position.y][player.position.x] = 0;
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
             m_map.score.addScore(200);
             m_map.redKeyItemInventory.addRedKey(1);
+        }else if(item === m_map.constants.ItemEnum.IRON_KEY){
+            m_map.stopMonster = true;
+            m_map.mapArray[player.position.y][player.position.x] = 0;
+            m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
+            m_map._numIronKey= 1;
+            m_map.score.addScore(200);
+            console.log(m_map._numIronKey);
+        }
+        else if(item === m_map.constants.ItemEnum.DOOR_PICK_AXE){
+            m_map.stopMonster = true;
+            m_map.mapArray[player.position.y][player.position.x] = 0;
+            m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
+            m_map._numDoorPickAxe= 1;
+            m_map.score.addScore(200);
+           // console.log(m_map._numDoorPickAxe);
         }
     }
 
-    this.exploreEndHandler = function(explore){
-        var index = m_map.exploreArray.indexOf(explore);
-        m_map.exploreArray.splice(index,1);
-        m_map.draw(Framework.Game._context);
-    }
 
 	this.update = function()
 	{
@@ -262,6 +284,9 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 this.pressWalk = true;
                 this.keyPress = "Down";
             }
+            else{
+                this.checkIsOpenDoor(playerPosition.x,playerPosition.y+1);
+            }
         }
 
         if(e.key === 'Left') {
@@ -270,6 +295,9 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 this.playerWalkDirection = {x:-1,y:0};
                 this.pressWalk = true;
                 this.keyPress = "Left";
+            }
+            else{
+                this.checkIsOpenDoor(playerPosition.x-1,playerPosition.y);
             }
         }
 
@@ -280,6 +308,9 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 this.pressWalk = true;
                 this.keyPress = "Right";
             }
+            else{
+                this.checkIsOpenDoor(playerPosition.x+1,playerPosition.y);
+            }
         }
 
         if(e.key === 'Up') {
@@ -288,6 +319,9 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                 this.playerWalkDirection = {x:0,y:-1};
                 this.pressWalk = true;
                 this.keyPress = "Up";
+            }
+            else{
+                this.checkIsOpenDoor(playerPosition.x,playerPosition.y-1);
             }
         }
         if(e.key === "A") {
@@ -342,12 +376,61 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         if(y < 0 || y > this.mapArray.length){
             return false;
         }
-
         if(this.mapArray[y][x] > 0){
             return false;
         }
         else{
             return true;
+        }
+    }
+
+    this.checkIsOpenDoor = function(x,y){
+        if(this.mapArray[y][x] === this.constants.ItemEnum.YELLOW_DOOR){
+            if(this.yellowKeyItemInventory._yellowKey > 0){
+                this.mapArray[y][x] = 0;   //碰撞盒換成0
+                this.tileArray[y*26+x].tileType = 0;   //圖片換成0
+                this.yellowKeyItemInventory.addYellowKey(-1);
+                this.update();
+                this.draw(Framework.Game._context);
+            }
+        }
+        else if(this.mapArray[y][x] === this.constants.ItemEnum.BLUE_DOOR){
+            if(this.mapArray[y][x] === this.constants.ItemEnum.BLUE_DOOR){
+                if(this.blueKeyItemInventory._blueKey > 0){
+                    this.mapArray[y][x] = 0;   //碰撞盒換成0
+                    this.tileArray[y*26+x].tileType = 0;   //圖片換成0
+                    this.blueKeyItemInventory.addBlueKey(-1);
+                    this.update();
+                    this.draw(Framework.Game._context);
+                }
+            }
+        }
+        else if(this.mapArray[y][x] === this.constants.ItemEnum.RED_DOOR){
+            if(this.mapArray[y][x] === this.constants.ItemEnum.RED_DOOR){
+                if(this.redKeyItemInventory._redKey > 0){
+                    this.mapArray[y][x] = 0;   //碰撞盒換成0
+                    this.tileArray[y*26+x].tileType = 0;   //圖片換成0
+                    this.redKeyItemInventory.addRedKey(-1);
+                    this.update();
+                    this.draw(Framework.Game._context);
+                }
+            }
+        }
+        else if(this.mapArray[y][x] === this.constants.ItemEnum.IRON_DOOR){
+            if(this._numIronKey > 0){
+                this.mapArray[y][x] = 0;   //碰撞盒換成0
+                this.tileArray[y*26+x].tileType = 0;   //圖片換成0
+                this.update();
+                this.draw(Framework.Game._context);
+            }
+        }
+        else if(this.mapArray[y][x] === this.constants.ItemEnum.WHITE_DOOR){
+            if(this._numDoorPickAxe > 0){
+                this.mapArray[y][x] = 0;   //碰撞盒換成0
+                this.tileArray[y*26+x].tileType = 0;   //圖片換成0
+                this.update();
+                this.draw(Framework.Game._context);
+            }
         }
     }
 
