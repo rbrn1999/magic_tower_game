@@ -63,51 +63,45 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         for(var i=0; i<this.mapArray.length; i++){  //道具
             var line = this.mapArray[i];
             for(var j=0; j<line.length; j++){
-                var tile = new MapTile();
-                var stoneWall = new StoneWall();
-                var stage = new Stage();
-                var keys = new Keys();
-                var animationWall = new AnimationWall();
-                var door = new Door();
-                var doorPickAxe = new DoorPickAxe();
-                tile.tileType = 0;
-                /*if(line[j] === 2){
-                    var box = new Box(this.constants.ItemEnum.NONE);
-                    box.position = {x:j, y:i};
-                    this.boxArray.push(stage);
-                }*/
                 if(line[j] === this.constants.ItemEnum.STONE_WALL || line[j] === this.constants.ItemEnum.BLUE_STONE){
+                    var stoneWall = new StoneWall();
                     stoneWall.position = {x:j, y:i};
                     stoneWall.tileType = line[j];
                     this.tileArray.push(stoneWall);
                 }
                 else if(line[j] === this.constants.ItemEnum.LAVA_WALL || line[j] === this.constants.ItemEnum.SKY_WALL){
+                    var animationWall = new AnimationWall();
                     animationWall.position = {x:j, y:i};
                     animationWall.tileType = line[j];
                     this.tileArray.push(animationWall);
                 }
                 else if(line[j] >= this.constants.ItemEnum.YELLOW_DOOR && line[j] <= this.constants.ItemEnum.WHITE_DOOR){
+                    var door = new Door();
                     door.position = {x:j, y:i};
                     door.tileType = line[j];
                     this.tileArray.push(door);
                 }
                 else if(line[j] === this.constants.ItemEnum.YELLOW_KEY || line[j] === this.constants.ItemEnum.BLUE_KEY || line[j] === this.constants.ItemEnum.IRON_KEY){
+                    var keys = new Keys();
                     keys.position = {x:j, y:i};
                     keys.tileType = line[j];
                     this.tileArray.push(keys);
                 }
                 else if(line[j] === this.constants.ItemEnum.STAGE_UP || line[j] === this.constants.ItemEnum.STAGE_DOWN){
                     //console.log("init stage");
+                    var stage = new Stage();
                     stage.position = {x:j, y:i};
                     stage.tileType = line[j];
                     this.tileArray.push(stage);
                 }
                 else if(line[j] === this.constants.ItemEnum.DOOR_PICK_AXE){
+                    var doorPickAxe = new DoorPickAxe();
                     doorPickAxe.position = {x:j, y:i};
                     doorPickAxe.tileType = line[j];
                     this.tileArray.push(doorPickAxe);
                 }
                 else{
+                    var tile = new MapTile();
                     tile.position = {x:j,y:i};
                     tile.tileType = line[j];
                     this.tileArray.push(tile);
