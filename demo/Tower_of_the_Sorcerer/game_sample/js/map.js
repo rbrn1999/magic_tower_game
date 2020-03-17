@@ -312,11 +312,19 @@ var Map = function(map, playerPosition) //碰撞框事件的object
     }
 
     this.checkIsWalkAble = function(x,y){
-        if(x < 0 || x > this.mapArray[0].length){ return false; }
-        if(y < 0 || y > this.mapArray.length){ return false; }
+        if(x < 0 || x > this.mapArray[0].length){
+            return false;
+        }
+        if(y < 0 || y > this.mapArray.length){
+            return false;
+        }
 
-        if(this.mapArray[y][x] > 0){ return false; }
-        else{ return true; }
+        if(this.mapArray[y][x] > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     this.keyup = function(e, list){
