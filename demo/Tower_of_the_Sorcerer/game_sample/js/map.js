@@ -126,7 +126,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
             console.log("delete");
             for(var i=0; i<this.tileArray.length; i++)
             {
-                //console.log(this.tileArray[i]);
+                console.log(this.tileArray[i]);
                 this.tileArray[i].delete();
             }
             this.tileArray = null;  //delete
@@ -197,7 +197,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
             if(this.checkIsWalkAble(this.player1.position.x+this.playerWalkDirection.x,this.player1.position.y+this.playerWalkDirection.y))
             {
                 this.player1.walk(this.playerWalkDirection);
-                console.log("player position:" + this.player1.position.x + ", " +this.player1.position.y + ", tile: " + this.tileArray[this.player1.position.y*26+this.player1.position.x]);
+                console.log("player position:" + this.player1.position.x + ", " +this.player1.position.y /*+ "tile: " , this.tileArray[this.player1.position.y*26+this.player1.position.x]*/);
             }
         }
         this.player1.update();
