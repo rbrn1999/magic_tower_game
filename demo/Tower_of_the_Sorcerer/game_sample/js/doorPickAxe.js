@@ -23,6 +23,10 @@ var DoorPickAxe = function() {  //畫面的object
         }
     }
 
+    this.delete = function(){
+        this.mapFloor = null;
+        this.doorPickAxe = null;
+    }
 };
 
 Object.defineProperty(DoorPickAxe.prototype, 'position', {  //圖片位置 是該格的位置

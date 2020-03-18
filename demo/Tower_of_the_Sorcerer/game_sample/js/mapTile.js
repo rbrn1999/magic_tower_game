@@ -15,6 +15,9 @@ var MapTile = function() {  //畫面的object
         this.mapFloor.draw(ctx);
     }
 
+    this.delete = function(){
+        this.mapFloor = null;
+    }
 };
 
 Object.defineProperty(MapTile.prototype, 'position', {  //圖片位置 是該格的位置

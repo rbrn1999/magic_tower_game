@@ -50,6 +50,14 @@ var Door = function(file,position) {  //畫面的object
         }
     }
 
+    this.delete = function(){
+        this.mapFloor = null;
+        this.yellowDoor = null;
+        this.blueDoor = null;
+        this.redDoor = null;
+        this.ironDoor = null;
+        this.whiteDoor = null;
+    }
 };
 
 Object.defineProperty(Door.prototype, 'position', {  //圖片位置 是該格的位置

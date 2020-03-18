@@ -26,6 +26,10 @@ var Stage = function() {  //畫面的object
         }
     }
 
+    this.delete = function(){
+        this.mapFloor = null;
+        this.yellowDoor = null;
+    }
 };
 
 Object.defineProperty(Stage.prototype, 'position', {  //圖片位置 是該格的位置

@@ -29,6 +29,10 @@ var AnimationWall = function(file,position) {  //畫面的object
         }
     }
 
+    this.delete = function(){
+        this.lavaWall = null;
+        this.skyWall = null;
+    }
 };
 
 Object.defineProperty(AnimationWall.prototype, 'position', {  //圖片位置 是該格的位置

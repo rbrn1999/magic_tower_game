@@ -54,6 +54,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
     this.init = function()
     {
         this.player1.StepMovedCallBack = [];    //delete
+        this.deleteTileArray();
         this.player1.StepMovedCallBack.push(this.playerMovedHandler);
         //console.log("plater1 callback");
         //console.log(this.player1.StepMovedCallBack);
@@ -112,13 +113,24 @@ var Map = function(map, playerPosition) //碰撞框事件的object
     
     this.setMapPosition = function(newMapPosition){ //切換地圖
         mapPosition = newMapPosition;
-        this.tileArray = null;  //delete
         console.log("Map Position" + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
         this.showLevelBroad.setMapLevel(mapPosition);
         this.init();
         this.update();
         this.draw(Framework.Game._context);
+    }
+
+    this.deleteTileArray = function(){
+        if(this.tileArray != null){
+            console.log("delete");
+            for(var i=0; i<this.tileArray.length; i++)
+            {
+                //console.log(this.tileArray[i]);
+                this.tileArray[i].delete();
+            }
+            this.tileArray = null;  //delete
+        }
     }
 
     this.setPlayerPosition = function(playerPosition){  //改玩家位置
@@ -185,7 +197,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
             if(this.checkIsWalkAble(this.player1.position.x+this.playerWalkDirection.x,this.player1.position.y+this.playerWalkDirection.y))
             {
                 this.player1.walk(this.playerWalkDirection);
-                console.log("player current position" + this.player1.position.x + ", " +this.player1.position.y)
+                console.log("player position:" + this.player1.position.x + ", " +this.player1.position.y + ", tile: " + this.tileArray[this.player1.position.y*26+this.player1.position.x]);
             }
         }
         this.player1.update();

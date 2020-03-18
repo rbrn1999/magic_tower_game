@@ -35,6 +35,13 @@ var Keys = function() {  //畫面的object
         }
     }
 
+    this.delete = function(){
+        this.mapFloor = null;
+        this.yellowKey = null;
+        this.blueKey = null;
+        this.redKey = null;
+        this.ironKey = null;
+    }
 };
 
 Object.defineProperty(Keys.prototype, 'position', {  //圖片位置 是該格的位置
