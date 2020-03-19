@@ -147,9 +147,11 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         var item = m_map.mapArray[player.position.y][player.position.x];
         if(item === m_map.constants.ItemEnum.STAGE_UP){//上樓
             m_map.setMapPosition(++mapPosition);
+            m_map.setPlayerPosition(m_map.mapList["position"+mapPosition][1]);
         }
         else if(item === m_map.constants.ItemEnum.STAGE_DOWN){//下樓
             m_map.setMapPosition(--mapPosition);
+            m_map.setPlayerPosition(thm_map.mapList["position"+mapPosition][0]);
         }
         else if(item === m_map.constants.ItemEnum.YELLOW_KEY){
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒換成0
