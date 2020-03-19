@@ -56,8 +56,6 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         this.player1.StepMovedCallBack = [];    //delete
         this.deleteTileArray();
         this.player1.StepMovedCallBack.push(this.playerMovedHandler);
-        //console.log("plater1 callback");
-        //console.log(this.player1.StepMovedCallBack);
         //this.mapArray = [];
         this.tileArray = [];
 
@@ -113,7 +111,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
     
     this.setMapPosition = function(newMapPosition){ //切換地圖
         mapPosition = newMapPosition;
-        console.log("Map Position" + mapPosition);
+        console.log("Map Position: " + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
         this.showLevelBroad.setMapLevel(mapPosition);
         this.init();
@@ -123,10 +121,10 @@ var Map = function(map, playerPosition) //碰撞框事件的object
 
     this.deleteTileArray = function(){
         if(this.tileArray != null){
-            console.log("delete");
+            console.log("delete tile array");
             for(var i=0; i<this.tileArray.length; i++)
             {
-                console.log(this.tileArray[i]);
+                //console.log(this.tileArray[i]);
                 this.tileArray[i].delete();
             }
             this.tileArray = null;  //delete
@@ -147,11 +145,11 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         var item = m_map.mapArray[player.position.y][player.position.x];
         if(item === m_map.constants.ItemEnum.STAGE_UP){//上樓
             m_map.setMapPosition(++mapPosition);
-            m_map.setPlayerPosition(m_map.mapList["position"+mapPosition][1]);
+            m_map.setPlayerPosition(m_map.mapList["position"+mapPosition][0]);
         }
         else if(item === m_map.constants.ItemEnum.STAGE_DOWN){//下樓
             m_map.setMapPosition(--mapPosition);
-            m_map.setPlayerPosition(m_map.mapList["position"+mapPosition][0]);
+            m_map.setPlayerPosition(m_map.mapList["position"+mapPosition][1]);
         }
         else if(item === m_map.constants.ItemEnum.YELLOW_KEY){
             m_map.mapArray[player.position.y][player.position.x] = 0;   //碰撞盒換成0
