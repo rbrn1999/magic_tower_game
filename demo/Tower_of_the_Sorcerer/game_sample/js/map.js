@@ -1,5 +1,6 @@
 var Map = function(map, playerPosition) //碰撞框事件的object
 {
+    var m_map = this;
     var mapPosition = 0;
     this.mapList = new Terrain();
     this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
@@ -262,8 +263,6 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         this.blueKeyItemInventory.draw(ctx);
         this.redKeyItemInventory.draw(ctx);
 	}	
-
-    var m_map = this;
 
     this.getLeftMonsterNum = function()
     {
