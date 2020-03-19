@@ -22,10 +22,8 @@ var StoneWall = function() {  //畫面的object
     }
 
     this.delete = function(){
-        //console.log(this.mapWall);
         this.mapWall = null;
         this.mapLightBlueStone = null;
-        //console.log(this.mapWall);
     }
 
 };

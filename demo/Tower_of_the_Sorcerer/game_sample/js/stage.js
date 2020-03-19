@@ -19,7 +19,6 @@ var Stage = function() {  //畫面的object
     this.draw = function(ctx){  //畫道具的圖??
         this.mapFloor.draw(ctx);
         if(this._tileType === -97){
-            //console.log("draw updoor");
             this.doorUp.draw(ctx);
         }else if(this._tileType === -98){
             this.doorDown.draw(ctx);
