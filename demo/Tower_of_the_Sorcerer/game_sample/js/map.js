@@ -81,7 +81,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                     door.tileType = line[j];
                     this.tileArray.push(door);
                 }
-                else if(line[j] === this.constants.ItemEnum.YELLOW_KEY || line[j] === this.constants.ItemEnum.BLUE_KEY || line[j] === this.constants.ItemEnum.IRON_KEY){
+                else if(line[j] <= this.constants.ItemEnum.YELLOW_KEY && line[j] >= this.constants.ItemEnum.IRON_KEY){
                     var keys = new Keys();
                     keys.position = {x:j, y:i};
                     keys.tileType = line[j];
