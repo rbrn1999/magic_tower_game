@@ -22,6 +22,8 @@ var Constants = function() {
         RED_KEY : -3,
         IRON_KEY : -4,
         DOOR_PICK_AXE : -5,
+        RED_GEM : -10,
+        BLUE_GEM : -11,
         STAGE_UP : -97,
         STAGE_DOWN : -98,
         BLUE_STONE : -99

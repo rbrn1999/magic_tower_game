@@ -31,9 +31,15 @@ var PlayerState = function() {
         ctx.fillText("經驗: " + this._exp, 200, 500);  //文字
     }
 
-    this.addHp = function(hp){
+    this.increaseHp = function(hp){
         this._hp += hp;
     }
+
+    this.increasePower = function(power){
+        this._power += power;
+    }
+
+    
 
 };
 
