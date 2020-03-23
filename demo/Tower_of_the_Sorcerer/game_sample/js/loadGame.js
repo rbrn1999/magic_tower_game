@@ -66,6 +66,7 @@ var loadGameEnd;
             { src: 'game_sample/js/door.js', lookFor: 'Door' },
             { src: 'game_sample/js/animationWall.js', lookFor: 'AnimationWall' },
             { src: 'game_sample/js/slime.js', lookFor: 'Slime' },
+            { src: 'game_sample/js/skeleton.js', lookFor: 'Skeleton' },
             { src: 'game_sample/js/stoneWall.js', lookFor: 'StoneWall' },
             { src: 'game_sample/js/stage.js', lookFor: 'Stage' },
             { src: 'game_sample/js/keys.js', lookFor: 'Keys' },

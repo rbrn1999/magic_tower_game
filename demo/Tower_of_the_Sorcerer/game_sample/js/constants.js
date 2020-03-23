@@ -8,6 +8,10 @@ var Constants = function () {
     };
 
     this.ItemEnum = {
+        SKELETON_MAN: 34,
+        SKELETON_SOLDIER: 33,
+        BLACK_SLIME: 32,
+        RED_SLIME: 31,
         GREEN_SLIME: 30,
         WHITE_DOOR: 14,
         IRON_DOOR: 13,

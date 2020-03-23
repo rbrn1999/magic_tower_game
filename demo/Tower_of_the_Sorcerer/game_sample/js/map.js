@@ -46,14 +46,16 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         this.ironKey = new Framework.Sprite(define.imagePath + 'i5.png'); //定義道具丙
         this.redGem = new Framework.Sprite(define.imagePath + 'i16.png');
         this.blueGem = new Framework.Sprite(define.imagePath + 'i17.png');
-        this.player1 = new BombMan(define.imagePath + 'player1.png', { down: { from: 0, to: 2 }, left: { from: 3, to: 5 }, right: { from: 6, to: 8 }, up: { from: 9, to: 11 } });  //定義 玩家
-        this.player1.position = { x: 1, y: 1 }; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
-
-        var greenSlime = new Framework.AnimationSprite({ url: define.imagePath + "e1.png", col: 2, row: 1, loop: true, speed: 6 });
         this.redPotion = new Framework.Sprite(define.imagePath + 'i20.png');
         this.bluePotion = new Framework.Sprite(define.imagePath + 'i21.png');
         this.player1 = new BombMan(define.imagePath + 'player1.png', { down: { from: 0, to: 2 }, left: { from: 3, to: 5 }, right: { from: 6, to: 8 }, up: { from: 9, to: 11 } });  //定義 玩家
         this.player1.position = { x: 1, y: 1 }; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
+
+        var greenSlime = new Framework.AnimationSprite({ url: define.imagePath + "e1.png", col: 2, row: 1, loop: true, speed: 6 });
+        var redSlime = new Framework.AnimationSprite({ url: define.imagePath + "e2.png", col: 2, row: 1, loop: true, speed: 6 });
+        var blackSlime = new Framework.AnimationSprite({ url: define.imagePath + "e3.png", col: 2, row: 1, loop: true, speed: 6 });
+        var skeletonMan = new Framework.AnimationSprite({ url: define.imagePath + "e9.png", col: 2, row: 1, loop: true, speed: 6 });
+        var skeletonSoldier = new Framework.AnimationSprite({ url: define.imagePath + "e10.png", col: 2, row: 1, loop: true, speed: 6 });
 
         this.monster = [];  //有n個怪物 怪物array
         this.stopMonster = false;
@@ -113,7 +115,7 @@ var Map = function (map, playerPosition) //碰撞框事件的object
                     gems.tileType = line[j];
                     this.tileArray.push(gems);
                 }
-                else if (line[j] === this.constants.ItemEnum.GREEN_SLIME) {
+                else if (line[j] >= this.constants.ItemEnum.GREEN_SLIME && line[j] <= this.constants.ItemEnum.BLACK_SLIME) {
                     var slime = new Slime();
                     slime.position = { x: j, y: i };
                     slime.tileType = line[j];
@@ -124,6 +126,12 @@ var Map = function (map, playerPosition) //碰撞框事件的object
                     potions.position = { x: j, y: i };
                     potions.tileType = line[j];
                     this.tileArray.push(potions);
+                }
+                else if (line[j] >= this.constants.ItemEnum.SKELETON_SOLDIER && line[j] <= this.constants.ItemEnum.SKELETON_MAN) {
+                    var skeleton = new Skeleton();
+                    skeleton.position = { x: j, y: i };
+                    skeleton.tileType = line[j];
+                    this.tileArray.push(skeleton);
                 }
                 else {
                     var tile = new MapTile();
@@ -473,12 +481,12 @@ var Map = function (map, playerPosition) //碰撞框事件的object
             var tileType = this.mapArray[y][x];
             var monsterHP = this.tileArray[y * 26 + x].getHP(tileType);
             var monsterATK = this.tileArray[y * 26 + x].getATK(tileType);
+            var monsterDEF = this.tileArray[y * 26 + x].getDEF(tileType);
             var playerATK = this.playerState._power;
             var playerDEF = this.playerState._defense
-            var numberOfRound = Math.ceil(monsterHP / playerATK);
+            var numberOfRound = Math.ceil(monsterHP / (playerATK - monsterDEF));
             var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
-            console.log(numberOfRound);
-            console.log(minusHP);
+            console.log("Monster HP :" + monsterHP + " monsterATK: " + monsterATK + " monsterDEF: " + monsterDEF + " PlayerATKmonsterInRound: " + (playerATK - monsterDEF) + " monsterATKplayerInRound: " + (monsterATK - playerDEF) + " Round: " + numberOfRound + " minusHP: " + minusHP);
             if (this.playerState._hp > minusHP) {
                 this.playerState.increaseHp(-minusHP);
                 this.playerState.increaseExp(this.tileArray[y * 26 + x].getGainExp(tileType));
