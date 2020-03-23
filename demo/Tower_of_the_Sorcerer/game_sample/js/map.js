@@ -64,6 +64,7 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         var bluePriest = new Framework.AnimationSprite({ url: define.imagePath + "e17.png", col: 2, row: 1, loop: true, speed: 6 });
         var redPriest = new Framework.AnimationSprite({ url: define.imagePath + "e18.png", col: 2, row: 1, loop: true, speed: 6 });
         var yellowGuard = new Framework.AnimationSprite({ url: define.imagePath + "e21.png", col: 2, row: 1, loop: true, speed: 6 });
+        var blueGuard = new Framework.AnimationSprite({ url: define.imagePath + "e22.png", col: 2, row: 1, loop: true, speed: 6 });
 
         this.monster = [];  //有n個怪物 怪物array
         this.stopMonster = false;
@@ -159,7 +160,7 @@ var Map = function (map, playerPosition) //碰撞框事件的object
                     priest.tileType = line[j];
                     this.tileArray.push(priest);
                 }
-                else if (line[j] === this.constants.ItemEnum.YELLOW_GUARD) {
+                else if (line[j] >= this.constants.ItemEnum.YELLOW_GUARD && line[j] <= this.constants.ItemEnum.BLUE_GUARD) {
                     var guard = new Guard();
                     guard.position = { x: j, y: i };
                     guard.tileType = line[j];

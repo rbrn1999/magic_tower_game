@@ -6,7 +6,12 @@ var Guard = function (file, position) {  //畫面的object
     this.yellowGuard.scale = 2;
     this.yellowGuard.index = 1;
 
+    this.blueGuard = new Framework.AnimationSprite({ url: define.imagePath + 'e22.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.blueGuard.scale = 2;
+    this.blueGuard.index = 1;
+
     this.yellowGuard.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.blueGuard.start({ from: 0, to: 4, loop: false, speed: 6 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -19,6 +24,12 @@ var Guard = function (file, position) {  //畫面的object
     this._yellowGuardGainCoin = 6;
     this._yellowGuardGainExp = 0;
 
+    this._blueGuardHP = 50;
+    this._blueGuardATK = 90;
+    this._blueGuardDEF = 55;
+    this._blueGuardGainCoin = 25;
+    this._blueGuardGainExp = 0;
+
     this.update = function () {
 
     }
@@ -28,16 +39,23 @@ var Guard = function (file, position) {  //畫面的object
         if (this._tileType === 42) {
             this.yellowGuard.draw(ctx);
         }
+        else if (this._tileType === 43) {
+            this.blueGuard.draw(ctx);
+        }
     }
 
     this.delete = function () {
         this.mapFloor = null;
         this.yellowGuard = null;
+        this.blueGuard = null;
     }
 
     this.getHP = function (tileType) {
         if (tileType === 42) {
             return this._yellowGuardHP;
+        }
+        else if (tileType === 43) {
+            return this._blueGuardHP;
         }
     }
 
@@ -45,11 +63,17 @@ var Guard = function (file, position) {  //畫面的object
         if (tileType === 42) {
             return this._yellowGuardATK;
         }
+        else if (tileType === 43) {
+            return this._blueGuardATK;
+        }
     }
 
     this.getDEF = function (tileType) {
         if (tileType === 42) {
             return this._yellowGuardDEF;
+        }
+        else if (tileType === 43) {
+            return this._blueGuardDEF;
         }
     }
 
@@ -57,10 +81,16 @@ var Guard = function (file, position) {  //畫面的object
         if (tileType === 42) {
             return this._yellowGuardGainCoin;
         }
+        else if (tileType === 43) {
+            return this._blueGuardGainCoin;
+        }
     }
     this.getGainExp = function (tileType) {
         if (tileType === 42) {
             return this._yellowGuardGainExp;
+        }
+        else if (tileType === 43) {
+            return this._blueGuardGainExp;
         }
     }
 };
@@ -73,6 +103,7 @@ Object.defineProperty(Guard.prototype, 'position', {  //圖片位置 是該格�
         this.mapPosition = newValue;
         this.mapFloor.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.yellowGuard.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+        this.blueGuard.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     }
 });
 

@@ -8,6 +8,7 @@ var Constants = function () {
     };
 
     this.ItemEnum = {
+        BLUE_GUARD: 43,
         YELLOW_GUARD: 42,
         RED_PRIEST: 41,
         BLUE_PRIEST: 40,
