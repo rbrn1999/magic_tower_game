@@ -46,6 +46,8 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         this.ironKey  = new Framework.Sprite(define.imagePath + 'i5.png'); //定義道具丙
         this.redGem = new Framework.Sprite(define.imagePath + 'i16.png');
         this.blueGem = new Framework.Sprite(define.imagePath + 'i17.png');
+        this.redPotion = new Framework.Sprite(define.imagePath + 'i20.png');
+        this.bluePotion = new Framework.Sprite(define.imagePath + 'i21.png');
         this.player1 = new BombMan(define.imagePath + 'player1.png', {down: {from: 0, to: 2}, left: {from:3, to: 5}, right: {from: 6, to: 8}, up: {from: 9, to: 11}});  //定義 玩家
         this.player1.position = {x:1, y:1}; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
 
@@ -108,6 +110,12 @@ var Map = function(map, playerPosition) //碰撞框事件的object
                     gems.tileType = line[j];
                     this.tileArray.push(gems);
                 }
+                else if(line[j] === this.constants.ItemEnum.RED_POTION || line[j] === this.constants.ItemEnum.BLUE_POTION){
+                    var potions = new Potions();
+                    potions.position = {x:j, y:i};
+                    potions.tileType = line[j];
+                    this.tileArray.push(potions);
+                }
                 else{
                     var tile = new MapTile();
                     tile.position = {x:j,y:i};
@@ -150,7 +158,7 @@ var Map = function(map, playerPosition) //碰撞框事件的object
         this.monster.push(newMonster);
     }
 
-    this.playerMovedHandler = function(player){ //玩家移到道具後事件
+    this.playerMovedHandler = function(player){ //玩家移到道具後事件 Interact with item
         var item = m_map.mapArray[player.position.y][player.position.x];
         if(item === m_map.constants.ItemEnum.STAGE_UP){//上樓
             m_map.setMapPosition(++mapPosition);
@@ -194,6 +202,16 @@ var Map = function(map, playerPosition) //碰撞框事件的object
             m_map.playerState.increasePower(3);
         }
         else if(item === m_map.constants.ItemEnum.BLUE_GEM){
+            m_map.mapArray[player.position.y][player.position.x] = 0;
+            m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
+            m_map.playerState.increaseDef(3);
+        }
+        else if(item === m_map.constants.ItemEnum.RED_POTION){
+            m_map.mapArray[player.position.y][player.position.x] = 0;
+            m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
+            m_map.playerState.increaseHp(200);
+        }
+        else if(item === m_map.constants.ItemEnum.BLUE_POTION){
             m_map.mapArray[player.position.y][player.position.x] = 0;
             m_map.tileArray[player.position.y*26+player.position.x].tileType = 0;
             m_map.playerState.increaseHp(500);

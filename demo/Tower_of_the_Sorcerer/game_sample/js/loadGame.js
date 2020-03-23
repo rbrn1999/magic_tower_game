@@ -70,6 +70,7 @@ var loadGameEnd;
         { src: 'game_sample/js/stage.js', lookFor: 'Stage' },
         { src: 'game_sample/js/keys.js', lookFor: 'Keys' },
         { src: 'game_sample/js/gems.js', lookFor: 'Gems' },
+        { src: 'game_sample/js/potions.js', lookFor: 'Potions' },
         { src: 'game_sample/js/doorPickAxe.js', lookFor: 'DoorPickAxe' },
         { src: 'game_sample/js/increaseBombNum.js', lookFor: 'IncreaseBombNum' },
         { src: 'game_sample/js/terrain.js', lookFor: 'Terrain' },

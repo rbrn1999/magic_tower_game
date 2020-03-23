@@ -24,6 +24,8 @@ var Constants = function() {
         DOOR_PICK_AXE : -5,
         RED_GEM : -10,
         BLUE_GEM : -11,
+        RED_POTION : -12,
+        BLUE_POTION : -13,
         STAGE_UP : -97,
         STAGE_DOWN : -98,
         BLUE_STONE : -99

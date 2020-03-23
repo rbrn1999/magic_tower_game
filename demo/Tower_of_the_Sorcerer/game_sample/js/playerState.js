@@ -38,7 +38,9 @@ var PlayerState = function() {
     this.increasePower = function(power){
         this._power += power;
     }
-
+    this.increaseDef = function(def){
+        this._defense += def;
+    }
     
 
 };
