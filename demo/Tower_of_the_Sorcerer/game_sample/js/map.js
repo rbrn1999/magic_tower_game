@@ -56,6 +56,14 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         var blackSlime = new Framework.AnimationSprite({ url: define.imagePath + "e3.png", col: 2, row: 1, loop: true, speed: 6 });
         var skeletonMan = new Framework.AnimationSprite({ url: define.imagePath + "e9.png", col: 2, row: 1, loop: true, speed: 6 });
         var skeletonSoldier = new Framework.AnimationSprite({ url: define.imagePath + "e10.png", col: 2, row: 1, loop: true, speed: 6 });
+        var skeletonCaptain = new Framework.AnimationSprite({ url: define.imagePath + "e11.png", col: 2, row: 1, loop: true, speed: 6 });
+        var zombieMan = new Framework.AnimationSprite({ url: define.imagePath + "e13.png", col: 2, row: 1, loop: true, speed: 6 });
+        var zombieKnight = new Framework.AnimationSprite({ url: define.imagePath + "e14.png", col: 2, row: 1, loop: true, speed: 6 });
+        var smallBat = new Framework.AnimationSprite({ url: define.imagePath + "e5.png", col: 2, row: 1, loop: true, speed: 6 });
+        var bigBat = new Framework.AnimationSprite({ url: define.imagePath + "e6.png", col: 2, row: 1, loop: true, speed: 6 });
+        var bluePriest = new Framework.AnimationSprite({ url: define.imagePath + "e17.png", col: 2, row: 1, loop: true, speed: 6 });
+        var redPriest = new Framework.AnimationSprite({ url: define.imagePath + "e18.png", col: 2, row: 1, loop: true, speed: 6 });
+        var yellowGuard = new Framework.AnimationSprite({ url: define.imagePath + "e21.png", col: 2, row: 1, loop: true, speed: 6 });
 
         this.monster = [];  //有n個怪物 怪物array
         this.stopMonster = false;
@@ -127,11 +135,35 @@ var Map = function (map, playerPosition) //碰撞框事件的object
                     potions.tileType = line[j];
                     this.tileArray.push(potions);
                 }
-                else if (line[j] >= this.constants.ItemEnum.SKELETON_SOLDIER && line[j] <= this.constants.ItemEnum.SKELETON_MAN) {
+                else if (line[j] >= this.constants.ItemEnum.SKELETON_MAN && line[j] <= this.constants.ItemEnum.SKELETON_CAPTAIN) {
                     var skeleton = new Skeleton();
                     skeleton.position = { x: j, y: i };
                     skeleton.tileType = line[j];
                     this.tileArray.push(skeleton);
+                }
+                else if (line[j] >= this.constants.ItemEnum.ZOMBIE_MAN && line[j] <= this.constants.ItemEnum.ZOMBIE_KNIGHT) {
+                    var zombie = new Zombie();
+                    zombie.position = { x: j, y: i };
+                    zombie.tileType = line[j];
+                    this.tileArray.push(zombie);
+                }
+                else if (line[j] >= this.constants.ItemEnum.SMALL_BAT && line[j] <= this.constants.ItemEnum.BIG_BAT) {
+                    var bat = new Bat();
+                    bat.position = { x: j, y: i };
+                    bat.tileType = line[j];
+                    this.tileArray.push(bat);
+                }
+                else if (line[j] >= this.constants.ItemEnum.BLUE_PRIEST && line[j] <= this.constants.ItemEnum.RED_PRIEST) {
+                    var priest = new Priest();
+                    priest.position = { x: j, y: i };
+                    priest.tileType = line[j];
+                    this.tileArray.push(priest);
+                }
+                else if (line[j] === this.constants.ItemEnum.YELLOW_GUARD) {
+                    var guard = new Guard();
+                    guard.position = { x: j, y: i };
+                    guard.tileType = line[j];
+                    this.tileArray.push(guard);
                 }
                 else {
                     var tile = new MapTile();
@@ -399,6 +431,16 @@ var Map = function (map, playerPosition) //碰撞框事件的object
             this.update();
             this.draw(Framework.Game._context);
         }
+        if (e.key === "Q") {
+            this.playerState.increaseHp(1000);
+            this.update();
+            this.draw(Framework.Game._context);
+        }
+        if (e.key === "W") {
+            this.playerState.increasePower(50);
+            this.update();
+            this.draw(Framework.Game._context);
+        }
 
         if (e.key === 'Space') {
             console.log("Press Space");
@@ -488,13 +530,19 @@ var Map = function (map, playerPosition) //碰撞框事件的object
             var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
             console.log("Monster HP :" + monsterHP + " monsterATK: " + monsterATK + " monsterDEF: " + monsterDEF + " PlayerATKmonsterInRound: " + (playerATK - monsterDEF) + " monsterATKplayerInRound: " + (monsterATK - playerDEF) + " Round: " + numberOfRound + " minusHP: " + minusHP);
             if (this.playerState._hp > minusHP) {
-                this.playerState.increaseHp(-minusHP);
-                this.playerState.increaseExp(this.tileArray[y * 26 + x].getGainExp(tileType));
-                this.playerState.increaseCoin(this.tileArray[y * 26 + x].getGainCoin(tileType));
-                this.mapArray[y][x] = 0;   //碰撞盒換成0
-                this.tileArray[y * 26 + x].tileType = 0;   //圖片換成0
-                this.update();
-                this.draw(Framework.Game._context);
+                if ((playerATK - monsterDEF) > 0) {
+                    this.playerState.increaseHp(-minusHP);
+                    this.playerState.increaseExp(this.tileArray[y * 26 + x].getGainExp(tileType));
+                    this.playerState.increaseCoin(this.tileArray[y * 26 + x].getGainCoin(tileType));
+                    this.mapArray[y][x] = 0;   //碰撞盒換成0
+                    this.tileArray[y * 26 + x].tileType = 0;   //圖片換成0
+                    this.update();
+                    this.draw(Framework.Game._context);
+                }
+                else {
+                    console.log("You are too noob, you can't damage the monster!!!");
+                    return;
+                }
             }
             else {
                 console.log("You are too noob, you can't figth this monster!!!");

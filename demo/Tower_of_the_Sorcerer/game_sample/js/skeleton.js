@@ -10,8 +10,13 @@ var Skeleton = function (file, position) {  //畫面的object
     this.skeletonSoldier.scale = 2;
     this.skeletonSoldier.index = 1;
 
+    this.skeletonCaptain = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.skeletonCaptain.scale = 2;
+    this.skeletonCaptain.index = 1;
+
     this.skeletonMan.start({ from: 0, to: 4, loop: false, speed: 6 });
     this.skeletonSoldier.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.skeletonCaptain.start({ from: 0, to: 4, loop: false, speed: 6 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -30,6 +35,12 @@ var Skeleton = function (file, position) {  //畫面的object
     this._skeletonSoldierGainCoin = 4;
     this._skeletonSoldierGainExp = 0;
 
+    this._skeletonCaptainHP = 50;
+    this._skeletonCaptainATK = 32;
+    this._skeletonCaptainDEF = 7;
+    this._skeletonCaptainGainCoin = 15;
+    this._skeletonCaptainGainExp = 0;
+
 
     this.update = function () {
 
@@ -43,12 +54,16 @@ var Skeleton = function (file, position) {  //畫面的object
         else if (this._tileType === 34) {
             this.skeletonSoldier.draw(ctx);
         }
+        else if (this._tileType === 35) {
+            this.skeletonCaptain.draw(ctx);
+        }
     }
 
     this.delete = function () {
         this.mapFloor = null;
         this.skeletonMan = null;
         this.skeletonSoldier = null;
+        this.skeletonCaptain = null;
     }
 
     this.getHP = function (tileType) {
@@ -58,6 +73,9 @@ var Skeleton = function (file, position) {  //畫面的object
         else if (tileType === 34) {
             return this._skeletonSoldierHP;
         }
+        else if (tileType === 35) {
+            return this._skeletonCaptainHP;
+        }
     }
     this.getATK = function (tileType) {
         if (tileType === 33) {
@@ -65,6 +83,9 @@ var Skeleton = function (file, position) {  //畫面的object
         }
         else if (tileType === 34) {
             return this._skeletonSoldierATK;
+        }
+        else if (tileType === 35) {
+            return this._skeletonCaptainATK;
         }
     }
     this.getDEF = function (tileType) {
@@ -74,6 +95,9 @@ var Skeleton = function (file, position) {  //畫面的object
         else if (tileType === 34) {
             return this._skeletonSoldierDEF;
         }
+        else if (tileType === 35) {
+            return this._skeletonCaptainDEF;
+        }
     }
     this.getGainCoin = function (tileType) {
         if (tileType === 33) {
@@ -82,6 +106,9 @@ var Skeleton = function (file, position) {  //畫面的object
         else if (tileType === 34) {
             return this._skeletonSoldierGainCoin;
         }
+        else if (tileType === 35) {
+            return this._skeletonCaptainGainCoin;
+        }
     }
     this.getGainExp = function (tileType) {
         if (tileType === 33) {
@@ -89,6 +116,9 @@ var Skeleton = function (file, position) {  //畫面的object
         }
         else if (tileType === 34) {
             return this._skeletonSoldierGainExp;
+        }
+        else if (tileType === 35) {
+            return this._skeletonCaptainGainCoin;
         }
     }
 };
@@ -102,6 +132,7 @@ Object.defineProperty(Skeleton.prototype, 'position', {  //圖片位置 是該�
         this.mapFloor.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.skeletonMan.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.skeletonSoldier.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+        this.skeletonCaptain.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     }
 });
 

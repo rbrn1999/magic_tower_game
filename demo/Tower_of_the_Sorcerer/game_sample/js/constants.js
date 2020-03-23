@@ -8,8 +8,16 @@ var Constants = function () {
     };
 
     this.ItemEnum = {
-        SKELETON_MAN: 34,
-        SKELETON_SOLDIER: 33,
+        YELLOW_GUARD: 42,
+        RED_PRIEST: 41,
+        BLUE_PRIEST: 40,
+        BIG_BAT: 39,
+        SMALL_BAT: 38,
+        ZOMBIE_KNIGHT: 37,
+        ZOMBIE_MAN: 36,
+        SKELETON_CAPTAIN: 35,
+        SKELETON_SOLDIER: 34,
+        SKELETON_MAN: 33,
         BLACK_SLIME: 32,
         RED_SLIME: 31,
         GREEN_SLIME: 30,
