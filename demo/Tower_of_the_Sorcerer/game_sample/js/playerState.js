@@ -35,10 +35,6 @@ var PlayerState = function() {
         this._hp += hp;
     }
 
-    this.dropHp = function(hp){
-        this._hp -= hp;
-    }
-
 };
 
 Object.defineProperty(PlayerState.prototype, 'position', {
