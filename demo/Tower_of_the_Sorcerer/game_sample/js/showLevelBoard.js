@@ -1,4 +1,4 @@
-var ShowLevelBroad = function() {
+var ShowLevelBoard = function() {
 
     this._mapLevel = 0;
     this._position = {x:0,y:0};
@@ -27,7 +27,7 @@ var ShowLevelBroad = function() {
     }
 };
 
-Object.defineProperty(ShowLevelBroad.prototype, 'position', {
+Object.defineProperty(ShowLevelBoard.prototype, 'position', {
     get: function() {
         return this._position;
     },

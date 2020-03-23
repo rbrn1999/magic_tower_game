@@ -57,7 +57,7 @@ var loadGameEnd;
         { src: 'game_sample/js/constants.js', lookFor: 'Constants' },
         { src: 'game_sample/js/playerState.js', lookFor: 'PlayerState' },
         { src: 'game_sample/js/score.js', lookFor: 'Score' },
-        { src: 'game_sample/js/showLevelBroad.js', lookFor: 'ShowLevelBroad' },
+        { src: 'game_sample/js/showLevelBoard.js', lookFor: 'ShowLevelBoard' },
         { src: 'game_sample/js/yellowKeyItemInventory.js', lookFor: 'YellowKeyItemInventory' },
         { src: 'game_sample/js/blueKeyItemInventory.js', lookFor: 'BlueKeyItemInventory' },
         { src: 'game_sample/js/redKeyItemInventory.js', lookFor: 'RedKeyItemInventory' },
