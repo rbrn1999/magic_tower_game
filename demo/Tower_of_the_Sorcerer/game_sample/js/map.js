@@ -11,8 +11,8 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         this._numDoorPickAxe = 0;
         this._numIronKey = 0;
         this.constants = new Constants();
-        this.showLevelBroad = new ShowLevelBroad();
-        this.showLevelBroad.position = { x: 200, y: 0 }; //分數板位置
+        this.showLevelBoard = new ShowLevelBoard();
+        this.showLevelBoard.position = { x: 200, y: 0 }; //分數板位置
         this.score = new Score();
         this.score.position = { x: 200, y: 700 }; //分數板位置
         this.playerState = new PlayerState();
@@ -50,6 +50,10 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         this.player1.position = { x: 1, y: 1 }; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
 
         var greenSlime = new Framework.AnimationSprite({ url: define.imagePath + "e1.png", col: 2, row: 1, loop: true, speed: 6 });
+        this.redPotion = new Framework.Sprite(define.imagePath + 'i20.png');
+        this.bluePotion = new Framework.Sprite(define.imagePath + 'i21.png');
+        this.player1 = new BombMan(define.imagePath + 'player1.png', { down: { from: 0, to: 2 }, left: { from: 3, to: 5 }, right: { from: 6, to: 8 }, up: { from: 9, to: 11 } });  //定義 玩家
+        this.player1.position = { x: 1, y: 1 }; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
 
         this.monster = [];  //有n個怪物 怪物array
         this.stopMonster = false;
@@ -115,6 +119,12 @@ var Map = function (map, playerPosition) //碰撞框事件的object
                     slime.tileType = line[j];
                     this.tileArray.push(slime);
                 }
+                else if (line[j] === this.constants.ItemEnum.RED_POTION || line[j] === this.constants.ItemEnum.BLUE_POTION) {
+                    var potions = new Potions();
+                    potions.position = { x: j, y: i };
+                    potions.tileType = line[j];
+                    this.tileArray.push(potions);
+                }
                 else {
                     var tile = new MapTile();
                     tile.position = { x: j, y: i };
@@ -129,7 +139,7 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         mapPosition = newMapPosition;
         console.log("Map Position: " + mapPosition);
         this.mapArray = this.mapList.terrainList[mapPosition];    //設定顯示第幾張地圖
-        this.showLevelBroad.setMapLevel(mapPosition);
+        this.showLevelBoard.setMapLevel(mapPosition);
         this.init();
         this.update();
         this.draw(Framework.Game._context);
@@ -155,7 +165,7 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         this.monster.push(newMonster);
     }
 
-    this.playerMovedHandler = function (player) { //玩家移到道具後事件
+    this.playerMovedHandler = function (player) { //玩家移到道具後事件 Interact with item
         var item = m_map.mapArray[player.position.y][player.position.x];
         if (item === m_map.constants.ItemEnum.STAGE_UP) {//上樓
             m_map.setMapPosition(++mapPosition);
@@ -201,6 +211,16 @@ var Map = function (map, playerPosition) //碰撞框事件的object
         else if (item === m_map.constants.ItemEnum.BLUE_GEM) {
             m_map.mapArray[player.position.y][player.position.x] = 0;
             m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
+            m_map.playerState.increaseDef(3);
+        }
+        else if (item === m_map.constants.ItemEnum.RED_POTION) {
+            m_map.mapArray[player.position.y][player.position.x] = 0;
+            m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
+            m_map.playerState.increaseHp(200);
+        }
+        else if (item === m_map.constants.ItemEnum.BLUE_POTION) {
+            m_map.mapArray[player.position.y][player.position.x] = 0;
+            m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
             m_map.playerState.increaseHp(500);
         }
     }
@@ -234,7 +254,7 @@ var Map = function (map, playerPosition) //碰撞框事件的object
             }
         }
         this.score.update();
-        this.showLevelBroad.update();
+        this.showLevelBoard.update();
         this.playerState.update();
         this.yellowKeyItemInventory.update();
         this.blueKeyItemInventory.update();
@@ -266,7 +286,7 @@ var Map = function (map, playerPosition) //碰撞框事件的object
             this.monster[i].draw(ctx);
         }
         this.player1.draw(ctx);
-        this.showLevelBroad.draw(ctx);
+        this.showLevelBoard.draw(ctx);
         this.score.draw(ctx);
         this.playerState.draw(ctx);
         this.yellowKeyItemInventory.draw(ctx);

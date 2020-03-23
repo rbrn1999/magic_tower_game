@@ -45,6 +45,10 @@ var PlayerState = function () {
     this.increaseExp = function (exp) {
         this._exp += exp;
     }
+    this.increaseDef = function (def) {
+        this._defense += def;
+    }
+
 
 };
 
