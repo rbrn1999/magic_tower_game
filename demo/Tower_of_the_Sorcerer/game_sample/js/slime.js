@@ -31,7 +31,7 @@ var Slime = function (file, position) {  //畫面的object
 
     this._redSlimeHP = 22;
     this._redSlimeATK = 10;
-    this._greenSlimeDEF = 1;
+    this._redSlimeDEF = 1;
     this._redSlimeGainCoin = 1;
     this._redSlimeGainExp = 0;
 
