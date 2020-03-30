@@ -305,7 +305,7 @@ var Map = function(
           var item = new Items();
           items.position = { x: j, y: i };
           items.tileType = line[j];
-          this.tileArray.push();
+          this.tileArray.push(item);
         } else if (
           line[j] >= this.constants.ItemEnum.SKELETON_MAN &&
           line[j] <= this.constants.ItemEnum.SKELETON_CAPTAIN
