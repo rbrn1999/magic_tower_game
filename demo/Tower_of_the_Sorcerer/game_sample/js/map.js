@@ -15,7 +15,7 @@ var Map = function (
     this.showLevelBoard = new ShowLevelBoard();
     this.showLevelBoard.position = { x: 200, y: 0 }; //分數板位置
     this.consoleBoard = new ConsoleBoard();
-    this.consoleBoard.position = { x: 500, y: 0 }; //分數板位置
+    this.consoleBoard.position = { x: 510, y: 600 }; //分數板位置
     this.score = new Score();
     this.score.position = { x: 200, y: 700 }; //分數板位置
     this.playerState = new PlayerState();
@@ -406,63 +406,78 @@ var Map = function (
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0; //圖片換成0
       m_map.score.addScore(200); //加分
       m_map.yellowKeyItemInventory.addYellowKey(1);
+      m_map.consoleBoard.setMessage("Get:", "Yellow Key !");
     } else if (item === m_map.constants.ItemEnum.BLUE_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.score.addScore(200);
       m_map.blueKeyItemInventory.addBlueKey(1);
+      m_map.consoleBoard.setMessage("Get:", "Blue Key !");
     } else if (item === m_map.constants.ItemEnum.RED_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.score.addScore(200);
+      m_map.consoleBoard.setMessage("Get:", "Red Key !");
       m_map.redKeyItemInventory.addRedKey(1);
     } else if (item === m_map.constants.ItemEnum.IRON_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map._numIronKey = 1;
       m_map.score.addScore(200);
+      m_map.consoleBoard.setMessage("Get:", "Iron Key !");
       console.log(m_map._numIronKey);
     } else if (item === m_map.constants.ItemEnum.DOOR_PICK_AXE) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map._numDoorPickAxe = 1;
       m_map.score.addScore(200);
+      m_map.consoleBoard.setMessage("Get:", "Pick Axe !");
     } else if (item === m_map.constants.ItemEnum.RED_GEM) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increasePower(3);
+      m_map.consoleBoard.setMessage("Get:", "Red Gem !", "ATK +3");
     } else if (item === m_map.constants.ItemEnum.BLUE_GEM) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(3);
+      m_map.consoleBoard.setMessage("Get:", "Blue Gem !", "DEF +3");
     } else if (item === m_map.constants.ItemEnum.RED_POTION) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseHp(200);
+      m_map.consoleBoard.setMessage("Get:", "Red Potion !", "HP +200");
     } else if (item === m_map.constants.ItemEnum.BLUE_POTION) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseHp(500);
+      m_map.consoleBoard.setMessage("Get:", "Blue Gem !", "HP +500");
     } else if (item === m_map.constants.ItemEnum.SILVER_SWORD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increasePower(20);
+      m_map.consoleBoard.setMessage("Get:", "Silver Sword !", "ATK +20");
     } else if (item === m_map.constants.ItemEnum.IRON_SHIELD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(5);
+      m_map.consoleBoard.setMessage("Get:", "Iron Shield !", "DEF +5");
     } else if (item === m_map.constants.ItemEnum.SILVER_SHIELD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(10);
+      m_map.consoleBoard.setMessage("Get:", "Silver Shield !", "DEF +10");
     } else if (item === m_map.constants.ItemEnum.IRON_SWORD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increasePower(10);
+      m_map.consoleBoard.setMessage("Get:", "Iron Sword !", "ATK +10");
+
     } else if (item === m_map.constants.ItemEnum.HOLLY_WATER) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.doubleHp();
+      m_map.consoleBoard.setMessage("Get:", "Holly Water !", "HP DOUBLED");
     }
   };
 
@@ -495,11 +510,7 @@ var Map = function (
         i++ //偵測碰到怪物死亡
       ) {
         this.monster[i].update();
-        if (
-          this.monster[i].isDead == false &&
-          this.monster[i].position.x == this.player1.position.x &&
-          this.monster[i].position.y == this.player1.position.y
-        ) {
+        if (this.monster[i].isDead == false && this.monster[i].position.x == this.player1.position.x && this.monster[i].position.y == this.player1.position.y) {
           this.player1.die();
           break;
         }
@@ -514,24 +525,6 @@ var Map = function (
     this.consoleBoard.update();
   };
   this.draw = function (ctx) {
-    // for(var i=0; i<this.mapArray.length; i++){
-    // 	var line = this.mapArray[i];
-    // 	for(var j=0; j<line.length; j++){
-    // 		this.mapFloor.position = {x: j * 64, y: i * 64};
-    // 		this.mapFloor.draw(ctx);
-    //         if(line[j] === 1){
-    //             this.mapWall.position = {x: j * 64, y: i * 64};
-    //             this.mapWall.draw(ctx);
-    //         }else if(line[j] === -1){
-    //             this.increaseBombNum.position = {x: j * 64, y: i * 64};
-    //             this.increaseBombNum.draw(ctx);
-    //         }else if(line[j] === -2){
-    //             this.increaseBombPower.position = {x: j * 64, y: i * 64};
-    //             this.increaseBombPower.draw(ctx);
-    //         }
-    // 	}
-    // }
-
     for (var i = 0; i < this.tileArray.length; i++) {
       this.tileArray[i].draw(ctx);
     }
@@ -683,8 +676,9 @@ var Map = function (
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.yellowKeyItemInventory.addYellowKey(-1);
-        this.update();
-        this.draw(Framework.Game._context);
+        m_map.consoleBoard.setMessage("Door Unlocked!", "Yellow Key -1");
+      } else {
+        m_map.consoleBoard.setMessage("Require:", "Yellow Key x 1");
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_DOOR) {
       if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_DOOR) {
@@ -692,8 +686,9 @@ var Map = function (
           this.mapArray[y][x] = 0; //碰撞盒換成0
           this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
           this.blueKeyItemInventory.addBlueKey(-1);
-          this.update();
-          this.draw(Framework.Game._context);
+          m_map.consoleBoard.setMessage("Door Unlocked!", "Blue Key -1");
+        } else {
+          m_map.consoleBoard.setMessage("Require:", "Blue Key x 1");
         }
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.RED_DOOR) {
@@ -702,25 +697,30 @@ var Map = function (
           this.mapArray[y][x] = 0; //碰撞盒換成0
           this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
           this.redKeyItemInventory.addRedKey(-1);
-          this.update();
-          this.draw(Framework.Game._context);
+          m_map.consoleBoard.setMessage("Door Unlocked!", "Red Key -1");
+        } else {
+          m_map.consoleBoard.setMessage("Require:", "Red Key x 1");
         }
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.IRON_DOOR) {
       if (this._numIronKey > 0) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-        this.update();
-        this.draw(Framework.Game._context);
+        m_map.consoleBoard.setMessage("Door Unlocked!");
+      } else {
+        m_map.consoleBoard.setMessage("Require:", "Iron Key");
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.WHITE_DOOR) {
       if (this._numDoorPickAxe > 0) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-        this.update();
-        this.draw(Framework.Game._context);
+        m_map.consoleBoard.setMessage("Door Unlocked!");
+      } else {
+        m_map.consoleBoard.setMessage("Require:", "Pick Axe");
       }
     }
+    this.update();
+    this.draw(Framework.Game._context);
   };
 
   this.monsterFightSystem = function (x, y) {
@@ -760,17 +760,18 @@ var Map = function (
           );
           this.mapArray[y][x] = 0; //碰撞盒換成0
           this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+          m_map.consoleBoard.setMessage("Monster Defeated !");
           this.update();
           this.draw(Framework.Game._context);
         } else {
-          this.consoleBoard.setMessage("You are too noob", "you can't damage the", "monster!!!");
+          this.consoleBoard.setMessage("Your Hp is too low!", "You can't fight ", "this monster!!!");
           this.update();
           this.draw(Framework.Game._context);
           console.log("You are too noob, you can't damage the monster!!!");
           return;
         }
       } else {
-        this.consoleBoard.setMessage("You are too noob,", "you can't figth", "this monster!!!");
+        this.consoleBoard.setMessage("Your are too weak!", "You can't figth", "this monster!!!");
         this.update();
         this.draw(Framework.Game._context);
         console.log("You are too noob, you can't figth this monster!!!");
