@@ -1,4 +1,4 @@
-var Items = function() {
+var Items = function () {
   //畫面的object
   this.mapFloor = new Framework.Sprite(define.imagePath + "stone0.png");
   this.mapFloor.scale = 2; //size
@@ -13,9 +13,9 @@ var Items = function() {
   this.spritePosition = {};
   this._tileType = 0;
 
-  this.update = function() {};
+  this.update = function () { };
 
-  this.draw = function(ctx) {
+  this.draw = function (ctx) {
     //畫道具的圖??
 
     this.mapFloor.draw(ctx);
@@ -28,7 +28,7 @@ var Items = function() {
     }
   };
 
-  this.delete = function() {
+  this.delete = function () {
     this.mapFloor = null;
     this.silverSword = null;
     this.ironShield = null;
@@ -38,10 +38,10 @@ var Items = function() {
 
 Object.defineProperty(Potions.prototype, "position", {
   //圖片位置 是該格的位置
-  get: function() {
+  get: function () {
     return this.mapPosition;
   },
-  set: function(newValue) {
+  set: function (newValue) {
     this.mapPosition = newValue;
     this.mapFloor.position = {
       x: this.mapPosition.x * 64,
@@ -62,11 +62,11 @@ Object.defineProperty(Potions.prototype, "position", {
   }
 });
 
-Object.defineProperty(Potions.prototype, "tileType", {
-  get: function() {
+Object.defineProperty(Items.prototype, "tileType", {
+  get: function () {
     return this._tileType;
   },
-  set: function(newValue) {
+  set: function (newValue) {
     this._tileType = newValue;
   }
 });
