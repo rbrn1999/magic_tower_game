@@ -1,4 +1,4 @@
-var Map = function(
+var Map = function (
   map,
   playerPosition //碰撞框事件的object
 ) {
@@ -8,7 +8,7 @@ var Map = function(
   this.mapArray = this.mapList.terrainList[mapPosition]; //設定顯示第幾張地圖
   this.playerSpwanPositionArray = this.mapList.spwanPositionList[mapPosition]; //設定player在第幾張地圖的重生點位置
   console.log(this.playerSpwanPositionArray);
-  this.load = function() {
+  this.load = function () {
     this._numDoorPickAxe = 0;
     this._numIronKey = 0;
     this.constants = new Constants();
@@ -218,7 +218,7 @@ var Map = function(
     this.stopMonsterCounter = 0;
   };
 
-  this.init = function() {
+  this.init = function () {
     this.player1.StepMovedCallBack = []; //delete
     this.deleteTileArray();
     this.player1.StepMovedCallBack.push(this.playerMovedHandler);
@@ -299,14 +299,12 @@ var Map = function(
           potion.position = { x: j, y: i };
           potion.tileType = line[j];
           this.tileArray.push(potion);
-        } else if (
-          line[j] >= this.constants.ItemEnum.SILVER_SWORD &&
-          line[j] <= this.constants.ItemEnum.SILVER_SHIELD
-        ) {
-          var item = new Items();
+        }
+        else if (line[j] <= this.constants.ItemEnum.SILVER_SWORD && line[j] >= this.constants.ItemEnum.SILVER_SHIELD) {
+          var items = new Items();
           items.position = { x: j, y: i };
           items.tileType = line[j];
-          this.tileArray.push(item);
+          this.tileArray.push(items);
         } else if (
           line[j] >= this.constants.ItemEnum.SKELETON_MAN &&
           line[j] <= this.constants.ItemEnum.SKELETON_CAPTAIN
@@ -316,32 +314,28 @@ var Map = function(
           skeleton.tileType = line[j];
           this.tileArray.push(skeleton);
         } else if (
-          line[j] >= this.constants.ItemEnum.ZOMBIE_MAN &&
-          line[j] <= this.constants.ItemEnum.ZOMBIE_KNIGHT
+          line[j] >= this.constants.ItemEnum.ZOMBIE_MAN && line[j] <= this.constants.ItemEnum.ZOMBIE_KNIGHT
         ) {
           var zombie = new Zombie();
           zombie.position = { x: j, y: i };
           zombie.tileType = line[j];
           this.tileArray.push(zombie);
         } else if (
-          line[j] >= this.constants.ItemEnum.SMALL_BAT &&
-          line[j] <= this.constants.ItemEnum.BIG_BAT
+          line[j] >= this.constants.ItemEnum.SMALL_BAT && line[j] <= this.constants.ItemEnum.BIG_BAT
         ) {
           var bat = new Bat();
           bat.position = { x: j, y: i };
           bat.tileType = line[j];
           this.tileArray.push(bat);
         } else if (
-          line[j] >= this.constants.ItemEnum.BLUE_PRIEST &&
-          line[j] <= this.constants.ItemEnum.RED_PRIEST
+          line[j] >= this.constants.ItemEnum.BLUE_PRIEST && line[j] <= this.constants.ItemEnum.RED_PRIEST
         ) {
           var priest = new Priest();
           priest.position = { x: j, y: i };
           priest.tileType = line[j];
           this.tileArray.push(priest);
         } else if (
-          line[j] >= this.constants.ItemEnum.YELLOW_GUARD &&
-          line[j] <= this.constants.ItemEnum.BLUE_GUARD
+          line[j] >= this.constants.ItemEnum.YELLOW_GUARD && line[j] <= this.constants.ItemEnum.BLUE_GUARD
         ) {
           var guard = new Guard();
           guard.position = { x: j, y: i };
@@ -357,7 +351,7 @@ var Map = function(
     }
   };
 
-  this.setMapPosition = function(newMapPosition) {
+  this.setMapPosition = function (newMapPosition) {
     //切換地圖
     mapPosition = newMapPosition;
     console.log("Map Position: " + mapPosition);
@@ -368,7 +362,7 @@ var Map = function(
     this.draw(Framework.Game._context);
   };
 
-  this.deleteTileArray = function() {
+  this.deleteTileArray = function () {
     if (this.tileArray != null) {
       console.log("delete tile array");
       for (var i = 0; i < this.tileArray.length; i++) {
@@ -379,11 +373,11 @@ var Map = function(
     }
   };
 
-  this.setPlayerPosition = function(playerPosition) {
+  this.setPlayerPosition = function (playerPosition) {
     //改玩家位置
     this.player1.position = playerPosition;
   };
-  this.addMonster = function(monsterPosition) {
+  this.addMonster = function (monsterPosition) {
     var newMonster = new Monster(define.imagePath + "monster.png", this, {
       down: { from: 0, to: 2 },
       left: { from: 3, to: 5 },
@@ -394,7 +388,7 @@ var Map = function(
     this.monster.push(newMonster);
   };
 
-  this.playerMovedHandler = function(player) {
+  this.playerMovedHandler = function (player) {
     //玩家移到道具後事件 Interact with item
     var item = m_map.mapArray[player.position.y][player.position.x];
     if (item === m_map.constants.ItemEnum.STAGE_UP) {
@@ -466,7 +460,7 @@ var Map = function(
     }
   };
 
-  this.update = function() {
+  this.update = function () {
     /*for(var i=0; i<this.boxArray.length; i++)
         {
             this.boxArray[i].update();
@@ -512,7 +506,7 @@ var Map = function(
     this.blueKeyItemInventory.update();
     this.redKeyItemInventory.update();
   };
-  this.draw = function(ctx) {
+  this.draw = function (ctx) {
     // for(var i=0; i<this.mapArray.length; i++){
     // 	var line = this.mapArray[i];
     // 	for(var j=0; j<line.length; j++){
@@ -546,7 +540,7 @@ var Map = function(
     this.redKeyItemInventory.draw(ctx);
   };
 
-  this.getLeftMonsterNum = function() {
+  this.getLeftMonsterNum = function () {
     var count = 0;
     for (var i = 0; i < this.monster.length; i++) {
       if (this.monster[i].isDead === false) {
@@ -559,7 +553,7 @@ var Map = function(
   this.playerWalkDirection = { x: 0, y: 0 };
   this.pressWalk = false;
   this.keyPress = "";
-  this.keydown = function(e, list) {
+  this.keydown = function (e, list) {
     var playerPosition = this.player1.position;
     if (e.key === "Down") {
       if (this.checkIsWalkAble(playerPosition.x, playerPosition.y + 1)) {
@@ -653,13 +647,13 @@ var Map = function(
     }
   };
 
-  this.stopAllMonsterWalk = function() {
+  this.stopAllMonsterWalk = function () {
     for (var i = 0; i < this.monster.length; i++) {
       this.monster[i].stopWalk();
     }
   };
 
-  this.checkIsWalkAble = function(x, y) {
+  this.checkIsWalkAble = function (x, y) {
     if (x < 0 || x > this.mapArray[0].length) {
       return false;
     }
@@ -673,7 +667,7 @@ var Map = function(
     }
   };
 
-  this.checkIsOpenDoor = function(x, y) {
+  this.checkIsOpenDoor = function (x, y) {
     if (this.mapArray[y][x] === this.constants.ItemEnum.YELLOW_DOOR) {
       if (this.yellowKeyItemInventory._yellowKey > 0) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
@@ -719,7 +713,7 @@ var Map = function(
     }
   };
 
-  this.monsterFightSystem = function(x, y) {
+  this.monsterFightSystem = function (x, y) {
     if (this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME) {
       var tileType = this.mapArray[y][x];
       var monsterHP = this.tileArray[y * 26 + x].getHP(tileType);
@@ -731,19 +725,19 @@ var Map = function(
       var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
       console.log(
         "Monster HP :" +
-          monsterHP +
-          " monsterATK: " +
-          monsterATK +
-          " monsterDEF: " +
-          monsterDEF +
-          " PlayerATKmonsterInRound: " +
-          (playerATK - monsterDEF) +
-          " monsterATKplayerInRound: " +
-          (monsterATK - playerDEF) +
-          " Round: " +
-          numberOfRound +
-          " minusHP: " +
-          minusHP
+        monsterHP +
+        " monsterATK: " +
+        monsterATK +
+        " monsterDEF: " +
+        monsterDEF +
+        " PlayerATKmonsterInRound: " +
+        (playerATK - monsterDEF) +
+        " monsterATKplayerInRound: " +
+        (monsterATK - playerDEF) +
+        " Round: " +
+        numberOfRound +
+        " minusHP: " +
+        minusHP
       );
       if (this.playerState._hp > minusHP) {
         if (playerATK - monsterDEF > 0) {
@@ -768,7 +762,7 @@ var Map = function(
     }
   };
 
-  this.keyup = function(e, list) {
+  this.keyup = function (e, list) {
     if (
       e.key === "Down" ||
       e.key === "Up" ||
