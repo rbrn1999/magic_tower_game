@@ -105,6 +105,7 @@ var Map = function (
     this.silverSword = new Framework.Sprite(define.imagePath + "i30.png");
     this.ironShield = new Framework.Sprite(define.imagePath + "i31.png");
     this.silverShield = new Framework.Sprite(define.imagePath + "i32.png");
+    this.ironSword = new Framework.Sprite(define.imagePath + "i28.png");
     this.player1 = new BombMan(define.imagePath + "player1.png", {
       down: { from: 0, to: 2 },
       left: { from: 3, to: 5 },
@@ -299,7 +300,7 @@ var Map = function (
           potion.tileType = line[j];
           this.tileArray.push(potion);
         }
-        else if (line[j] <= this.constants.ItemEnum.SILVER_SWORD && line[j] >= this.constants.ItemEnum.SILVER_SHIELD) {
+        else if (line[j] <= this.constants.ItemEnum.SILVER_SWORD && line[j] >= this.constants.ItemEnum.IRON_SWORD) {
           var items = new Items();
           items.position = { x: j, y: i };
           items.tileType = line[j];
@@ -452,6 +453,10 @@ var Map = function (
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(10);
+    } else if (item === m_map.constants.ItemEnum.IRON_SWORD) {
+      m_map.mapArray[player.position.y][player.position.x] = 0;
+      m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
+      m_map.playerState.increasePower(10);
     }
   };
 

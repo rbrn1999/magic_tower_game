@@ -1,4 +1,4 @@
-var Constants = function() {
+var Constants = function () {
   this.DirectionEnum = {
     DOWN: 0,
     LEFT: 1,
@@ -42,6 +42,7 @@ var Constants = function() {
     SILVER_SWORD: -14,
     IRON_SHIELD: -15,
     SILVER_SHIELD: -16,
+    IRON_SWORD: -17,
     STAGE_UP: -97,
     STAGE_DOWN: -98,
     BLUE_STONE: -99

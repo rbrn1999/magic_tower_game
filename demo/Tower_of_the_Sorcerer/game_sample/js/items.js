@@ -8,6 +8,8 @@ var Items = function () {
   this.ironShield.scale = 2; //size
   this.silverShield = new Framework.Sprite(define.imagePath + "i32.png");
   this.silverShield.scale = 2; //size
+  this.ironSword = new Framework.Sprite(define.imagePath + "i28.png");
+  this.ironSword.scale = 2; //size
 
   this.mapPosition = { x: 0, y: 0 };
   this.spritePosition = {};
@@ -19,7 +21,6 @@ var Items = function () {
 
   this.draw = function (ctx) {
     //畫道具的圖??
-    console.log(this._tileType);
     this.mapFloor.draw(ctx);
     if (this._tileType === -14) {
       this.silverSword.draw(ctx);
@@ -28,6 +29,9 @@ var Items = function () {
     } else if (this._tileType === -16) {
       this.silverShield.draw(ctx);
     }
+    else if (this._tileType === -17) {
+      this.ironSword.draw(ctx);
+    }
   };
 
   this.delete = function () {
@@ -35,6 +39,7 @@ var Items = function () {
     this.silverSword = null;
     this.ironShield = null;
     this.silverShield = null;
+    this.ironShield = null;
   };
 };
 
@@ -49,6 +54,7 @@ Object.defineProperty(Items.prototype, "position", {
     this.silverSword.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     this.ironShield.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     this.silverShield.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+    this.ironSword.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
   }
 });
 
