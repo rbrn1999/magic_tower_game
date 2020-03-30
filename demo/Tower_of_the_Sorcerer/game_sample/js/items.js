@@ -10,6 +10,8 @@ var Items = function () {
   this.silverShield.scale = 2; //size
   this.ironSword = new Framework.Sprite(define.imagePath + "i28.png");
   this.ironSword.scale = 2; //size
+  this.hollyWater = new Framework.Sprite(define.imagePath + "i35.png");
+  this.hollyWater.scale = 2; //size
 
   this.mapPosition = { x: 0, y: 0 };
   this.spritePosition = {};
@@ -32,6 +34,9 @@ var Items = function () {
     else if (this._tileType === -17) {
       this.ironSword.draw(ctx);
     }
+    else if (this._tileType === -18) {
+      this.hollyWater.draw(ctx);
+    }
   };
 
   this.delete = function () {
@@ -40,6 +45,7 @@ var Items = function () {
     this.ironShield = null;
     this.silverShield = null;
     this.ironShield = null;
+    this.hollyWater = null;
   };
 };
 
@@ -55,6 +61,7 @@ Object.defineProperty(Items.prototype, "position", {
     this.ironShield.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     this.silverShield.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     this.ironSword.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+    this.hollyWater.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
   }
 });
 
