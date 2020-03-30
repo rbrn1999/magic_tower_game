@@ -105,6 +105,7 @@ var Map = function(
     this.silverSword = new Framework.Sprite(define.imagePath + "i30.png");
     this.ironShield = new Framework.Sprite(define.imagePath + "i31.png");
     this.silverShield = new Framework.Sprite(define.imagePath + "i32.png");
+    this.hollyWater = new Framework.Sprite(define.imagePath + "i35.png");
     this.player1 = new BombMan(define.imagePath + "player1.png", {
       down: { from: 0, to: 2 },
       left: { from: 3, to: 5 },
@@ -458,6 +459,10 @@ var Map = function(
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(10);
+    } else if (item === m_map.constants.HOLLY_WATER) {
+      m_map.mapArray[player.position.y][player.position.x] = 0;
+      m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
+      m_map.playerState.doubleHp();
     }
   };
 

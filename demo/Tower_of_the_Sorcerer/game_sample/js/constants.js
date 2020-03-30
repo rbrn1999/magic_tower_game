@@ -42,6 +42,7 @@ var Constants = function() {
     SILVER_SWORD: -14,
     IRON_SHIELD: -15,
     SILVER_SHIELD: -16,
+    HOLLY_WATER: -17,
     STAGE_UP: -97,
     STAGE_DOWN: -98,
     BLUE_STONE: -99

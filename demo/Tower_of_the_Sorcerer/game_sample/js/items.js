@@ -8,6 +8,8 @@ var Items = function() {
   this.ironShield.scale = 2; //size
   this.silverShield = new Framework.Sprite(define.imagePath + "i32.png");
   this.silverShield.scale = 2; //size
+  this.hollyWater = new Framework.Sprite(define.imagePath + "i35.png");
+  this.hollyWater.scale = 2; //size
 
   this.mapPosition = { x: 0, y: 0 };
   this.spritePosition = {};
@@ -25,6 +27,8 @@ var Items = function() {
       this.ironShield.draw(ctx);
     } else if (this._tileType === -16) {
       this.silverShield.draw(ctx);
+    } else if (this._tileType === -17) {
+      this.hollyWater.draw(ctx);
     }
   };
 
@@ -33,10 +37,11 @@ var Items = function() {
     this.silverSword = null;
     this.ironShield = null;
     this.silverShield = null;
+    this.hollyWater = null;
   };
 };
 
-Object.defineProperty(Items.prototype, "items", {
+Object.defineProperty(Items.prototype, "position", {
   //圖片位置 是該格的位置
   get: function() {
     return this.mapPosition;
@@ -56,6 +61,10 @@ Object.defineProperty(Items.prototype, "items", {
       y: this.mapPosition.y * 64
     };
     this.silverShield.position = {
+      x: this.mapPosition.x * 64,
+      y: this.mapPosition.y * 64
+    };
+    this.hollyWater.position = {
       x: this.mapPosition.x * 64,
       y: this.mapPosition.y * 64
     };
