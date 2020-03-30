@@ -36,7 +36,7 @@ var Items = function () {
   };
 };
 
-Object.defineProperty(Potions.prototype, "position", {
+Object.defineProperty(Items.prototype, "items", {
   //圖片位置 是該格的位置
   get: function () {
     return this.mapPosition;
