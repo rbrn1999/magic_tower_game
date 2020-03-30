@@ -300,7 +300,7 @@ var Map = function(
           this.tileArray.push(potion);
         } else if (
           line[j] >= this.constants.ItemEnum.SILVER_SWORD &&
-          line[j] >= this.constants.ItemEnum.SILVER_SHIELD
+          line[j] <= this.constants.ItemEnum.SILVER_SHIELD
         ) {
           var item = new Items();
           items.position = { x: j, y: i };
