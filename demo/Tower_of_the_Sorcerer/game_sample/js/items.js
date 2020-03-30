@@ -36,7 +36,7 @@ var Items = function() {
   };
 };
 
-Object.defineProperty(Potions.prototype, "position", {
+Object.defineProperty(Items.prototype, "items", {
   //圖片位置 是該格的位置
   get: function() {
     return this.mapPosition;
@@ -62,7 +62,7 @@ Object.defineProperty(Potions.prototype, "position", {
   }
 });
 
-Object.defineProperty(Potions.prototype, "tileType", {
+Object.defineProperty(Items.prototype, "tileType", {
   get: function() {
     return this._tileType;
   },
