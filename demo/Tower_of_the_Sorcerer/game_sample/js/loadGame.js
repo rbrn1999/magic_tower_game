@@ -1,25 +1,25 @@
 //立即執行函式, 並封裝所有變數避免衝突
 var loadGameEnd;
-(function() {
+(function () {
   //動態依序載入JS
   //ref: http://blog.darkthread.net/blogs/darkthreadtw/archive/2009/01/15/4061.aspx
-  var importJS = function(jsConf, src, lookFor) {
+  var importJS = function (jsConf, src, lookFor) {
     var headID = document.getElementsByTagName("head")[0];
     var newJs = document.createElement("script");
     newJs.type = "text/javascript";
     newJs.src = jsConf[0].src;
     headID.appendChild(newJs);
-    wait_for_script_load(jsConf, function() {
+    wait_for_script_load(jsConf, function () {
       jsConf.splice(0, 1);
       if (jsConf.length > 0) {
         importJS(jsConf, lookFor);
 
         if (typeof blanket != "undefined") {
           blanket.utils.cache[jsConf[0].src] = {};
-          blanket.utils.attachScript({ url: jsConf[0].src }, function(content) {
+          blanket.utils.attachScript({ url: jsConf[0].src }, function (content) {
             blanket.instrument(
               { inputFile: content, inputFileName: jsConf[0].src },
-              function(instrumented) {
+              function (instrumented) {
                 blanket.utils.cache[jsConf[0].src].loaded = true;
                 blanket.utils.blanketEval(instrumented);
                 blanket.requiringFile(jsConf[0].src, true);
@@ -33,8 +33,8 @@ var loadGameEnd;
     });
   };
 
-  var wait_for_script_load = function(jsConf, callback) {
-    var interval = setInterval(function() {
+  var wait_for_script_load = function (jsConf, callback) {
+    var interval = setInterval(function () {
       if (typeof jsConf[0].lookFor === "undefined") {
         jsConf[0].lookFor = "";
       }
@@ -59,6 +59,7 @@ var loadGameEnd;
     { src: "game_sample/js/playerState.js", lookFor: "PlayerState" },
     { src: "game_sample/js/score.js", lookFor: "Score" },
     { src: "game_sample/js/showLevelBoard.js", lookFor: "ShowLevelBoard" },
+    { src: "game_sample/js/consoleBoard.js", lookFor: "ConsoleBoard" },
     {
       src: "game_sample/js/yellowKeyItemInventory.js",
       lookFor: "YellowKeyItemInventory"

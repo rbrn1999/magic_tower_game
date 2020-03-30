@@ -14,6 +14,8 @@ var Map = function (
     this.constants = new Constants();
     this.showLevelBoard = new ShowLevelBoard();
     this.showLevelBoard.position = { x: 200, y: 0 }; //分數板位置
+    this.consoleBoard = new ConsoleBoard();
+    this.consoleBoard.position = { x: 500, y: 0 }; //分數板位置
     this.score = new Score();
     this.score.position = { x: 200, y: 700 }; //分數板位置
     this.playerState = new PlayerState();
@@ -365,7 +367,6 @@ var Map = function (
 
   this.deleteTileArray = function () {
     if (this.tileArray != null) {
-      console.log("delete tile array");
       for (var i = 0; i < this.tileArray.length; i++) {
         //console.log(this.tileArray[i]);
         this.tileArray[i].delete();
@@ -510,6 +511,7 @@ var Map = function (
     this.yellowKeyItemInventory.update();
     this.blueKeyItemInventory.update();
     this.redKeyItemInventory.update();
+    this.consoleBoard.update();
   };
   this.draw = function (ctx) {
     // for(var i=0; i<this.mapArray.length; i++){
@@ -543,6 +545,7 @@ var Map = function (
     this.yellowKeyItemInventory.draw(ctx);
     this.blueKeyItemInventory.draw(ctx);
     this.redKeyItemInventory.draw(ctx);
+    this.consoleBoard.draw(ctx);
   };
 
   this.getLeftMonsterNum = function () {
@@ -652,6 +655,8 @@ var Map = function (
     }
   };
 
+
+
   this.stopAllMonsterWalk = function () {
     for (var i = 0; i < this.monster.length; i++) {
       this.monster[i].stopWalk();
@@ -758,10 +763,16 @@ var Map = function (
           this.update();
           this.draw(Framework.Game._context);
         } else {
+          this.consoleBoard.setMessage("You are too noob", "you can't damage the", "monster!!!");
+          this.update();
+          this.draw(Framework.Game._context);
           console.log("You are too noob, you can't damage the monster!!!");
           return;
         }
       } else {
+        this.consoleBoard.setMessage("You are too noob,", "you can't figth", "this monster!!!");
+        this.update();
+        this.draw(Framework.Game._context);
         console.log("You are too noob, you can't figth this monster!!!");
       }
     }
