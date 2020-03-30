@@ -13,11 +13,13 @@ var Items = function () {
   this.spritePosition = {};
   this._tileType = 0;
 
-  this.update = function () { };
+  this.update = function () {
+
+  };
 
   this.draw = function (ctx) {
     //畫道具的圖??
-
+    console.log(this._tileType);
     this.mapFloor.draw(ctx);
     if (this._tileType === -14) {
       this.silverSword.draw(ctx);
@@ -36,29 +38,17 @@ var Items = function () {
   };
 };
 
-Object.defineProperty(Items.prototype, "items", {
+Object.defineProperty(Items.prototype, "position", {
   //圖片位置 是該格的位置
   get: function () {
     return this.mapPosition;
   },
   set: function (newValue) {
     this.mapPosition = newValue;
-    this.mapFloor.position = {
-      x: this.mapPosition.x * 64,
-      y: this.mapPosition.y * 64
-    };
-    this.silverSword.position = {
-      x: this.mapPosition.x * 64,
-      y: this.mapPosition.y * 64
-    };
-    this.ironShield.position = {
-      x: this.mapPosition.x * 64,
-      y: this.mapPosition.y * 64
-    };
-    this.silverShield.position = {
-      x: this.mapPosition.x * 64,
-      y: this.mapPosition.y * 64
-    };
+    this.mapFloor.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+    this.silverSword.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+    this.ironShield.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+    this.silverShield.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
   }
 });
 

@@ -298,14 +298,12 @@ var Map = function (
           potion.position = { x: j, y: i };
           potion.tileType = line[j];
           this.tileArray.push(potion);
-        } else if (
-          line[j] >= this.constants.ItemEnum.SILVER_SWORD &&
-          line[j] <= this.constants.ItemEnum.SILVER_SHIELD
-        ) {
+        }
+        else if (line[j] <= this.constants.ItemEnum.SILVER_SWORD && line[j] >= this.constants.ItemEnum.SILVER_SHIELD) {
           var items = new Items();
           items.position = { x: j, y: i };
           items.tileType = line[j];
-          this.tileArray.push(item);
+          this.tileArray.push(items);
         } else if (
           line[j] >= this.constants.ItemEnum.SKELETON_MAN &&
           line[j] <= this.constants.ItemEnum.SKELETON_CAPTAIN
@@ -315,32 +313,28 @@ var Map = function (
           skeleton.tileType = line[j];
           this.tileArray.push(skeleton);
         } else if (
-          line[j] >= this.constants.ItemEnum.ZOMBIE_MAN &&
-          line[j] <= this.constants.ItemEnum.ZOMBIE_KNIGHT
+          line[j] >= this.constants.ItemEnum.ZOMBIE_MAN && line[j] <= this.constants.ItemEnum.ZOMBIE_KNIGHT
         ) {
           var zombie = new Zombie();
           zombie.position = { x: j, y: i };
           zombie.tileType = line[j];
           this.tileArray.push(zombie);
         } else if (
-          line[j] >= this.constants.ItemEnum.SMALL_BAT &&
-          line[j] <= this.constants.ItemEnum.BIG_BAT
+          line[j] >= this.constants.ItemEnum.SMALL_BAT && line[j] <= this.constants.ItemEnum.BIG_BAT
         ) {
           var bat = new Bat();
           bat.position = { x: j, y: i };
           bat.tileType = line[j];
           this.tileArray.push(bat);
         } else if (
-          line[j] >= this.constants.ItemEnum.BLUE_PRIEST &&
-          line[j] <= this.constants.ItemEnum.RED_PRIEST
+          line[j] >= this.constants.ItemEnum.BLUE_PRIEST && line[j] <= this.constants.ItemEnum.RED_PRIEST
         ) {
           var priest = new Priest();
           priest.position = { x: j, y: i };
           priest.tileType = line[j];
           this.tileArray.push(priest);
         } else if (
-          line[j] >= this.constants.ItemEnum.YELLOW_GUARD &&
-          line[j] <= this.constants.ItemEnum.BLUE_GUARD
+          line[j] >= this.constants.ItemEnum.YELLOW_GUARD && line[j] <= this.constants.ItemEnum.BLUE_GUARD
         ) {
           var guard = new Guard();
           guard.position = { x: j, y: i };
