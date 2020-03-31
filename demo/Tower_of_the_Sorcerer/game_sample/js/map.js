@@ -445,8 +445,8 @@ var Map = function (
     } else if (item === m_map.constants.ItemEnum.RED_POTION) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.playerState.increaseHp(200);
-      m_map.consoleBoard.setMessage("Get:", "Red Potion !", "HP +200");
+      m_map.playerState.increaseHp(50);
+      m_map.consoleBoard.setMessage("Get:", "Red Potion !", "HP +50");
     } else if (item === m_map.constants.ItemEnum.BLUE_POTION) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
@@ -760,18 +760,18 @@ var Map = function (
           );
           this.mapArray[y][x] = 0; //碰撞盒換成0
           this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-          m_map.consoleBoard.setMessage("Monster Defeated !");
+          m_map.consoleBoard.setMessage("Monster", "Defeated !", "You lost " + minusHP + " Hp");
           this.update();
           this.draw(Framework.Game._context);
         } else {
-          this.consoleBoard.setMessage("Your Hp is too low!", "You can't fight ", "this monster!!!");
+          this.consoleBoard.setMessage("Your power is too low!", "You can't fight ", "this monster!!!");
           this.update();
           this.draw(Framework.Game._context);
           console.log("You are too noob, you can't damage the monster!!!");
           return;
         }
       } else {
-        this.consoleBoard.setMessage("Your are too weak!", "You can't figth", "this monster!!!");
+        this.consoleBoard.setMessage("You are too weak!", "You can't figth", "this monster!!!");
         this.update();
         this.draw(Framework.Game._context);
         console.log("You are too noob, you can't figth this monster!!!");
