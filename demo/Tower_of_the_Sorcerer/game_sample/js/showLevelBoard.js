@@ -19,7 +19,7 @@ var ShowLevelBoard = function() {
         ctx.fillStyle = 'yellow';   //字色?
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
-        ctx.fillText("第 " + this._mapLevel +" 層" , this._position.x, this._position.y);  //文字
+        ctx.fillText("Level:  " + this._mapLevel , this._position.x, this._position.y);  //文字
     }
 
     this.setMapLevel = function(newMapLevel){

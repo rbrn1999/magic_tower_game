@@ -18,11 +18,11 @@ var PlayerState = function() {
     ctx.fillStyle = "yellow"; //字色?
     ctx.textBaseline = "top";
     ctx.textAlign = "left";
-    ctx.fillText("血量: " + this._hp, this._position.x, this._position.y); //文字
-    ctx.fillText("攻擊: " + this._power, 200, 200); //文字
-    ctx.fillText("防禦: " + this._defense, 200, 300); //文字
-    ctx.fillText("金幣: " + this._coin, 200, 400); //文字
-    ctx.fillText("經驗: " + this._exp, 200, 500); //文字
+    ctx.fillText("HP  : " + this._hp, this._position.x, this._position.y); //文字
+    ctx.fillText("ATK : " + this._power, 200, 200); //文字
+    ctx.fillText("DEF : " + this._defense, 200, 300); //文字
+    ctx.fillText("COIN: " + this._coin, 200, 400); //文字
+    ctx.fillText("EXP : " + this._exp, 200, 500); //文字
   };
 
   this.increaseHp = function(hp) {
