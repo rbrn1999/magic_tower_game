@@ -16,8 +16,6 @@ var Map = function (
     this.showLevelBoard.position = { x: 200, y: 0 }; //分數板位置
     this.consoleBoard = new ConsoleBoard();
     this.consoleBoard.position = { x: 510, y: 600 }; //分數板位置
-    this.score = new Score();
-    this.score.position = { x: 200, y: 700 }; //分數板位置
     this.playerState = new PlayerState();
     this.playerState.position = { x: 200, y: 100 }; //分數板位置
     this.yellowKeyItemInventory = new YellowKeyItemInventory();
@@ -404,33 +402,28 @@ var Map = function (
     } else if (item === m_map.constants.ItemEnum.YELLOW_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0; //碰撞盒換成0
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0; //圖片換成0
-      m_map.score.addScore(200); //加分
       m_map.yellowKeyItemInventory.addYellowKey(1);
       m_map.consoleBoard.setMessage("Get:", "Yellow Key !");
     } else if (item === m_map.constants.ItemEnum.BLUE_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.score.addScore(200);
       m_map.blueKeyItemInventory.addBlueKey(1);
       m_map.consoleBoard.setMessage("Get:", "Blue Key !");
     } else if (item === m_map.constants.ItemEnum.RED_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.score.addScore(200);
       m_map.consoleBoard.setMessage("Get:", "Red Key !");
       m_map.redKeyItemInventory.addRedKey(1);
     } else if (item === m_map.constants.ItemEnum.IRON_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map._numIronKey = 1;
-      m_map.score.addScore(200);
       m_map.consoleBoard.setMessage("Get:", "Iron Key !");
       console.log(m_map._numIronKey);
     } else if (item === m_map.constants.ItemEnum.DOOR_PICK_AXE) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map._numDoorPickAxe = 1;
-      m_map.score.addScore(200);
       m_map.consoleBoard.setMessage("Get:", "Pick Axe !");
     } else if (item === m_map.constants.ItemEnum.RED_GEM) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
@@ -516,7 +509,6 @@ var Map = function (
         }
       }
     }
-    this.score.update();
     this.showLevelBoard.update();
     this.playerState.update();
     this.yellowKeyItemInventory.update();
@@ -533,7 +525,6 @@ var Map = function (
     }
     this.player1.draw(ctx);
     this.showLevelBoard.draw(ctx);
-    this.score.draw(ctx);
     this.playerState.draw(ctx);
     this.yellowKeyItemInventory.draw(ctx);
     this.blueKeyItemInventory.draw(ctx);

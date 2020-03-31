@@ -57,7 +57,6 @@ var loadGameEnd;
     { src: "game_sample/js/myMenu.js", lookFor: "MyMenu" },
     { src: "game_sample/js/constants.js", lookFor: "Constants" },
     { src: "game_sample/js/playerState.js", lookFor: "PlayerState" },
-    { src: "game_sample/js/score.js", lookFor: "Score" },
     { src: "game_sample/js/showLevelBoard.js", lookFor: "ShowLevelBoard" },
     { src: "game_sample/js/consoleBoard.js", lookFor: "ConsoleBoard" },
     {
