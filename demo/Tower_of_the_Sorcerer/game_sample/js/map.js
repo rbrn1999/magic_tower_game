@@ -213,6 +213,13 @@ var Map = function (
       loop: true,
       speed: 6
     });
+    var slimeMan = new Framework.AnimationSprite({
+      url: define.imagePath + "e16.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
 
     this.monster = []; //有n個怪物 怪物array
     this.stopMonster = false;
@@ -285,8 +292,9 @@ var Map = function (
           gems.tileType = line[j];
           this.tileArray.push(gems);
         } else if (
-          line[j] >= this.constants.ItemEnum.GREEN_SLIME &&
-          line[j] <= this.constants.ItemEnum.BLACK_SLIME
+          (line[j] >= this.constants.ItemEnum.GREEN_SLIME &&
+            line[j] <= this.constants.ItemEnum.BLACK_SLIME) ||
+          line[j] === this.constants.ItemEnum.SLIME_MAN
         ) {
           var slime = new Slime();
           slime.position = { x: j, y: i };
@@ -300,8 +308,10 @@ var Map = function (
           potion.position = { x: j, y: i };
           potion.tileType = line[j];
           this.tileArray.push(potion);
-        }
-        else if (line[j] <= this.constants.ItemEnum.SILVER_SWORD && line[j] >= this.constants.ItemEnum.HOLLY_WATER) {
+        } else if (
+          line[j] <= this.constants.ItemEnum.SILVER_SWORD &&
+          line[j] >= this.constants.ItemEnum.HOLLY_WATER
+        ) {
           var items = new Items();
           items.position = { x: j, y: i };
           items.tileType = line[j];
@@ -315,28 +325,32 @@ var Map = function (
           skeleton.tileType = line[j];
           this.tileArray.push(skeleton);
         } else if (
-          line[j] >= this.constants.ItemEnum.ZOMBIE_MAN && line[j] <= this.constants.ItemEnum.ZOMBIE_KNIGHT
+          line[j] >= this.constants.ItemEnum.ZOMBIE_MAN &&
+          line[j] <= this.constants.ItemEnum.ZOMBIE_KNIGHT
         ) {
           var zombie = new Zombie();
           zombie.position = { x: j, y: i };
           zombie.tileType = line[j];
           this.tileArray.push(zombie);
         } else if (
-          line[j] >= this.constants.ItemEnum.SMALL_BAT && line[j] <= this.constants.ItemEnum.BIG_BAT
+          line[j] >= this.constants.ItemEnum.SMALL_BAT &&
+          line[j] <= this.constants.ItemEnum.BIG_BAT
         ) {
           var bat = new Bat();
           bat.position = { x: j, y: i };
           bat.tileType = line[j];
           this.tileArray.push(bat);
         } else if (
-          line[j] >= this.constants.ItemEnum.BLUE_PRIEST && line[j] <= this.constants.ItemEnum.RED_PRIEST
+          line[j] >= this.constants.ItemEnum.BLUE_PRIEST &&
+          line[j] <= this.constants.ItemEnum.RED_PRIEST
         ) {
           var priest = new Priest();
           priest.position = { x: j, y: i };
           priest.tileType = line[j];
           this.tileArray.push(priest);
         } else if (
-          line[j] >= this.constants.ItemEnum.YELLOW_GUARD && line[j] <= this.constants.ItemEnum.BLUE_GUARD
+          line[j] >= this.constants.ItemEnum.YELLOW_GUARD &&
+          line[j] <= this.constants.ItemEnum.BLUE_GUARD
         ) {
           var guard = new Guard();
           guard.position = { x: j, y: i };
@@ -465,7 +479,6 @@ var Map = function (
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increasePower(10);
       m_map.consoleBoard.setMessage("Get:", "Iron Sword !", "ATK +10");
-
     } else if (item === m_map.constants.ItemEnum.HOLLY_WATER) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
@@ -503,7 +516,11 @@ var Map = function (
         i++ //偵測碰到怪物死亡
       ) {
         this.monster[i].update();
-        if (this.monster[i].isDead == false && this.monster[i].position.x == this.player1.position.x && this.monster[i].position.y == this.player1.position.y) {
+        if (
+          this.monster[i].isDead == false &&
+          this.monster[i].position.x == this.player1.position.x &&
+          this.monster[i].position.y == this.player1.position.y
+        ) {
           this.player1.die();
           break;
         }
@@ -639,8 +656,6 @@ var Map = function (
     }
   };
 
-
-
   this.stopAllMonsterWalk = function () {
     for (var i = 0; i < this.monster.length; i++) {
       this.monster[i].stopWalk();
@@ -751,18 +766,30 @@ var Map = function (
           );
           this.mapArray[y][x] = 0; //碰撞盒換成0
           this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-          m_map.consoleBoard.setMessage("Monster", "Defeated !", "You lost " + minusHP + " Hp");
+          m_map.consoleBoard.setMessage(
+            "Monster",
+            "Defeated !",
+            "You lost " + minusHP + " Hp"
+          );
           this.update();
           this.draw(Framework.Game._context);
         } else {
-          this.consoleBoard.setMessage("Your power is too low!", "You can't fight ", "this monster!!!");
+          this.consoleBoard.setMessage(
+            "Your power is too low!",
+            "You can't fight ",
+            "this monster!!!"
+          );
           this.update();
           this.draw(Framework.Game._context);
           console.log("You are too noob, you can't damage the monster!!!");
           return;
         }
       } else {
-        this.consoleBoard.setMessage("You are too weak!", "You can't figth", "this monster!!!");
+        this.consoleBoard.setMessage(
+          "You are too weak!",
+          "You can't figth",
+          "this monster!!!"
+        );
         this.update();
         this.draw(Framework.Game._context);
         console.log("You are too noob, you can't figth this monster!!!");

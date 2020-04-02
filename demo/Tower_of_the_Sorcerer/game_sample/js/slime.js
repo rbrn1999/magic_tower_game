@@ -14,9 +14,14 @@ var Slime = function (file, position) {  //畫面的object
     this.blackSlime.scale = 2;
     this.blackSlime.index = 1;
 
+    this.slimeMan = new Framework.AnimationSprite({ url: define.imagePath + 'e16.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.slimeMan.scale = 2;
+    this.slimeMan.index = 1;
+
     this.greenSlime.start({ from: 0, to: 4, loop: false, speed: 6 });
     this.redSlime.start({ from: 0, to: 4, loop: false, speed: 6 });
     this.blackSlime.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.slimeMan.start({ from: 0, to: 4, loop: false, speed: 6 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -41,6 +46,12 @@ var Slime = function (file, position) {  //畫面的object
     this._blackSlimeGainCoin = 4;
     this._blackSlimeGainExp = 0;
 
+    this._slimeManHP = 160;
+    this._slimeManATK = 70;
+    this._slimeManDEF = 1; 0
+    this._slimeManGainCoin = 15;
+    this._slimeManGainExp = 0;
+
     this.update = function () {
 
     }
@@ -56,6 +67,9 @@ var Slime = function (file, position) {  //畫面的object
         else if (this._tileType === 32) {
             this.blackSlime.draw(ctx);
         }
+        else if (this._tileType === 44) {
+            this.slimeMan.draw(ctx);
+        }
     }
 
     this.delete = function () {
@@ -63,6 +77,7 @@ var Slime = function (file, position) {  //畫面的object
         this.greenSlime = null;
         this.redSlime = null;
         this.blackSlime = null;
+        this.slimeMan = null;
     }
 
     this.getHP = function (tileType) {
@@ -74,6 +89,9 @@ var Slime = function (file, position) {  //畫面的object
         }
         else if (tileType === 32) {
             return this._blackSlimeHP;
+        }
+        else if (tileType === 44) {
+            return this._slimeManHP;
         }
     }
 
@@ -87,6 +105,9 @@ var Slime = function (file, position) {  //畫面的object
         else if (tileType === 32) {
             return this._blackSlimeATK;
         }
+        else if (tileType === 44) {
+            return this._slimeManATK;
+        }
     }
 
     this.getDEF = function (tileType) {
@@ -98,6 +119,9 @@ var Slime = function (file, position) {  //畫面的object
         }
         else if (tileType === 32) {
             return this._blackSlimeDEF;
+        }
+        else if (tileType === 44) {
+            return this._slimeManDEF;
         }
     }
 
@@ -111,6 +135,9 @@ var Slime = function (file, position) {  //畫面的object
         else if (tileType === 32) {
             return this._blackSlimeGainCoin;
         }
+        else if (tileType === 44) {
+            return this._slimeManGainCoin;
+        }
     }
     this.getGainExp = function (tileType) {
         if (tileType === 30) {
@@ -121,6 +148,9 @@ var Slime = function (file, position) {  //畫面的object
         }
         else if (tileType === 32) {
             return this._blackSlimeGainExp;
+        }
+        else if (tileType === 44) {
+            return this._slimeManGainExp;
         }
     }
 };
@@ -135,6 +165,7 @@ Object.defineProperty(Slime.prototype, 'position', {  //圖片位置 是該格�
         this.greenSlime.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.redSlime.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.blackSlime.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+        this.slimeMan.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     }
 });
 
