@@ -220,6 +220,20 @@ var Map = function (
       loop: true,
       speed: 6
     });
+    var rock = new Framework.AnimationSprite({
+      url: define.imagePath + "e15.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var vampire = new Framework.AnimationSprite({
+      url: define.imagePath + "e8.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
 
     this.monster = []; //有n個怪物 怪物array
     this.stopMonster = false;
@@ -356,7 +370,15 @@ var Map = function (
           guard.position = { x: j, y: i };
           guard.tileType = line[j];
           this.tileArray.push(guard);
-        } else {
+        }
+        else if (line[j] >= this.constants.ItemEnum.ROCK &&
+          line[j] <= this.constants.ItemEnum.VAMPIRE || line[j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+          var specialEnemys = new SpecialEnemys();
+          specialEnemys.position = { x: j, y: i };
+          specialEnemys.tileType = line[j];
+          this.tileArray.push(specialEnemys);
+        }
+        else {
           var tile = new MapTile();
           tile.position = { x: j, y: i };
           tile.tileType = line[j];
@@ -484,6 +506,14 @@ var Map = function (
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.doubleHp();
       m_map.consoleBoard.setMessage("Get:", "Holly Water !", "HP DOUBLED");
+    }
+
+    if (mapPosition === 20) {
+      if (player.position.y === 8 && player.position.x === 19) {
+        console.log("HI");
+        m_map.mapArray[player.position.y + 1][player.position.x] = m_map.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
+        m_map.init();
+      }
     }
   };
 
@@ -784,7 +814,17 @@ var Map = function (
           console.log("You are too noob, you can't damage the monster!!!");
           return;
         }
-      } else {
+      }
+      else if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+        this.consoleBoard.setMessage(
+          "You can't get out",
+          "untill all monster",
+          "are Defeated!!!"
+        );
+        this.update();
+        this.draw(Framework.Game._context);
+      }
+      else {
         this.consoleBoard.setMessage(
           "You are too weak!",
           "You can't figth",
@@ -793,6 +833,32 @@ var Map = function (
         this.update();
         this.draw(Framework.Game._context);
         console.log("You are too noob, you can't figth this monster!!!");
+      }
+      if (mapPosition === 20) {
+        var numOfBigBat = 0;
+        var numOfvampire = 0;
+        console.log(this.mapArray[y].length + ", " + this.mapArray.length);
+        for (var i = 0; i < this.mapArray.length; i++) {
+          for (var j = 0; j < this.mapArray[y].length; j++) {
+            if (this.mapArray[i][j] === this.constants.ItemEnum.VAMPIRE) {
+              return;
+            }
+            else if (this.mapArray[i][j] === this.constants.ItemEnum.BIG_BAT) {
+              numOfBigBat += 1;
+            }
+            if (this.mapArray[i][j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+              console.log(i + " " + j);
+            }
+          }
+        }
+        if (numOfvampire === 0 && numOfBigBat === 0) {
+          this.mapArray[3][19] = 0; //碰撞盒換成0
+          this.tileArray[3 * 26 + 19].tileType = 0; //圖片換成0
+          this.mapArray[9][19] = 0; //碰撞盒換成0
+          this.tileArray[9 * 26 + 19].tileType = 0; //圖片換成0
+          this.update();
+          this.draw(Framework.Game._context);
+        }
       }
     }
   };

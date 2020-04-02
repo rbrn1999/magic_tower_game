@@ -82,6 +82,7 @@ var loadGameEnd;
     { src: "game_sample/js/bat.js", lookFor: "Bat" },
     { src: "game_sample/js/priest.js", lookFor: "Priest" },
     { src: "game_sample/js/guard.js", lookFor: "Guard" },
+    { src: "game_sample/js/specialEnemys.js", lookFor: "SpecialEnemys" },
     { src: "game_sample/js/stoneWall.js", lookFor: "StoneWall" },
     { src: "game_sample/js/stage.js", lookFor: "Stage" },
     { src: "game_sample/js/keys.js", lookFor: "Keys" },

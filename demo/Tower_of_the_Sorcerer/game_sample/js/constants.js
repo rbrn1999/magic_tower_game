@@ -7,6 +7,9 @@ var Constants = function () {
   };
 
   this.ItemEnum = {
+    VAMPIRE_WHITE_DOOR: 99,
+    VAMPIRE: 46,
+    ROCK: 45,
     SLIME_MAN: 44,
     BLUE_GUARD: 43,
     YELLOW_GUARD: 42,
