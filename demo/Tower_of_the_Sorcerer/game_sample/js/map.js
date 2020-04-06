@@ -372,7 +372,7 @@ var Map = function (
           this.tileArray.push(guard);
         }
         else if (line[j] >= this.constants.ItemEnum.ROCK &&
-          line[j] <= this.constants.ItemEnum.VAMPIRE || line[j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+          line[j] <= this.constants.ItemEnum.VAMPIRE_NPC || line[j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
           var specialEnemys = new SpecialEnemys();
           specialEnemys.position = { x: j, y: i };
           specialEnemys.tileType = line[j];
@@ -655,6 +655,9 @@ var Map = function (
         console.log("You can not go upper, there is sky!!");
       }
     }
+    if (e.key === "U") {
+      this._numIronKey += 1;
+    }
     if (e.key === "I") {
       this.yellowKeyItemInventory.addYellowKey(1);
       this.update();
@@ -742,9 +745,10 @@ var Map = function (
       if (this._numIronKey > 0) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        this._numIronKey -= 1;
         m_map.consoleBoard.setMessage("Door Unlocked!");
       } else {
-        m_map.consoleBoard.setMessage("Require:", "Iron Key");
+        m_map.consoleBoard.setMessage("Require:", "Iron Key x 1");
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.WHITE_DOOR) {
       if (this._numDoorPickAxe > 0) {
@@ -760,6 +764,10 @@ var Map = function (
   };
 
   this.monsterFightSystem = function (x, y) {
+    if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_NPC) {
+      this.player1.win();
+      return;
+    }
     if (this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME) {
       var tileType = this.mapArray[y][x];
       var monsterHP = this.tileArray[y * 26 + x].getHP(tileType);

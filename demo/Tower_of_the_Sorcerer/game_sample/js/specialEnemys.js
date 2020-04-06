@@ -47,6 +47,9 @@ var SpecialEnemys = function (file, position) {  //畫面的object
         else if (this._tileType === 46) {
             this.vampire.draw(ctx);
         }
+        else if (this._tileType === 47) {
+            this.vampire.draw(ctx);
+        }
         else if (this._tileType === 99) {
             this.whiteDoor.draw(ctx);
         }

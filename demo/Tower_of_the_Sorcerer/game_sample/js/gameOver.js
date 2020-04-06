@@ -1,23 +1,23 @@
-var GameOver = Framework.Class(Framework.Level , {
-            //初始化loadingProgress需要用到的圖片
-    initializeProgressResource: function() {
+var GameOver = Framework.Class(Framework.Level, {
+    //初始化loadingProgress需要用到的圖片
+    initializeProgressResource: function () {
         this.loading = new Framework.Sprite(define.imagePath + 'loading.jpg');
-        this.loading.position = {x: Framework.Game.getCanvasWidth() / 2 , y: Framework.Game.getCanvasHeight() / 2};
+        this.loading.position = { x: Framework.Game.getCanvasWidth() / 2, y: Framework.Game.getCanvasHeight() / 2 };
 
         //為了或得到this.loading這個Sprite的絕對位置, 故需要先計算一次(在Game Loop執行時, 則會自動計算, 但因為loadingProgress只支援draw故需要自行計算)                  
     },
 
     //在initialize時會觸發的事件
-    loadingProgress: function(ctx, requestInfo) {
+    loadingProgress: function (ctx, requestInfo) {
         //console.log(Framework.ResourceManager.getFinishedRequestPercent())
-        
+
     },
 
-    load: function() {
+    load: function () {
         this.menu = new Framework.Sprite(define.imagePath + 'GameOver.png');
     },
 
-    initialize: function() {
+    initialize: function () {
 
 
         this.counter = 0;
@@ -31,24 +31,24 @@ var GameOver = Framework.Class(Framework.Level , {
         this.menu.scale = 2;
         this.rootScene.attach(this.menu);
 
-        this.rectPosition = { 
+        this.rectPosition = {
             x: Framework.Game.getCanvasWidth() / 2 - 130,
             y: Framework.Game.getCanvasHeight() / 2
         };
     },
 
-    update:function(){     
+    update: function () {
         //this.rootScene.update();一定要在第一行
-        this.rootScene.update(); 
+        this.rootScene.update();
 
 
-        if(this.counter > this.gameOverCount){
+        if (this.counter > this.gameOverCount) {
             //Framework.Game.goToLevel('menu');
         }
         this.counter++;
     },
 
-    draw: function(parentCtx) { 
+    draw: function (parentCtx) {
         //this.rootScene.draw();一定要在第一行
         this.rootScene.draw(parentCtx);
         this.menu.draw(parentCtx);
@@ -56,17 +56,23 @@ var GameOver = Framework.Class(Framework.Level , {
         //可支援畫各種單純的圖形和字
     },
 
-    mouseup: function(e) {
+    mouseup: function (e) {
     },
 
-    mousedown: function(e) {
+    mousedown: function (e) {
+        Framework.Game.goToNextLevel();
     },
 
-    mousemove: function(e) {        
-        
+    click: function (e) {
+        Framework.Game.goToNextLevel();
+
     },
 
-    mouseup: function(e) {
+    mousemove: function (e) {
+
+    },
+
+    mouseup: function (e) {
         this.isTouchArrow = false;
     },
 
@@ -79,7 +85,7 @@ var GameOver = Framework.Class(Framework.Level , {
     touchend: function (e) {
         this.mouseup();
     },
-    
+
     touchmove: function (e) {
         this.mousemove(e[0]);
     }
