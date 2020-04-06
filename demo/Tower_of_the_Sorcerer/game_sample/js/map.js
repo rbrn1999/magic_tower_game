@@ -15,7 +15,9 @@ var Map = function (
     this.showLevelBoard = new ShowLevelBoard();
     this.showLevelBoard.position = { x: 200, y: 0 }; //分數板位置
     this.consoleBoard = new ConsoleBoard();
-    this.consoleBoard.position = { x: 510, y: 600 }; //分數板位置
+    this.consoleBoard.position = { x: 510, y: 600 };
+    this.npcMessageBoard = new NPCMessageBoard();
+    this.npcMessageBoard.position = { x: 600, y: 200 };
     this.playerState = new PlayerState();
     this.playerState.position = { x: 200, y: 100 }; //分數板位置
     this.yellowKeyItemInventory = new YellowKeyItemInventory();
@@ -448,7 +450,6 @@ var Map = function (
   this.deleteTileArray = function () {
     if (this.tileArray != null) {
       for (var i = 0; i < this.tileArray.length; i++) {
-        //console.log(this.tileArray[i]);
         this.tileArray[i].delete();
       }
       this.tileArray = null; //delete
@@ -556,7 +557,6 @@ var Map = function (
 
     if (mapPosition === 20) {
       if (player.position.y === 8 && player.position.x === 19) {
-        console.log("HI");
         m_map.mapArray[player.position.y + 1][player.position.x] = m_map.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
         m_map.init();
       }
@@ -609,6 +609,8 @@ var Map = function (
     this.redKeyItemInventory.update();
     this.ironKeyItemInventory.update();
     this.consoleBoard.update();
+    this.npcMessageBoard.update();
+    this.draw(Framework.Game._context);
   };
   this.draw = function (ctx) {
     for (var i = 0; i < this.tileArray.length; i++) {
@@ -625,6 +627,7 @@ var Map = function (
     this.redKeyItemInventory.draw(ctx);
     this.ironKeyItemInventory.draw(ctx);
     this.consoleBoard.draw(ctx);
+    this.npcMessageBoard.draw(ctx);
   };
 
   this.getLeftMonsterNum = function () {
@@ -640,6 +643,7 @@ var Map = function (
   this.playerWalkDirection = { x: 0, y: 0 };
   this.pressWalk = false;
   this.keyPress = "";
+  this.confirmBox = undefined;
   this.keydown = function (e, list) {
     var playerPosition = this.player1.position;
     if (e.key === "Down") {
@@ -734,9 +738,22 @@ var Map = function (
       this.update();
       this.draw(Framework.Game._context);
     }
+    if (e.key === "Y") {
+      if (this.npcMessageBoard.display) {
+        this.confirmBox = true;
+        this.npcMessageBoard.display = false;
+      }
+    }
 
+    if (e.key === "N") {
+      if (this.npcMessageBoard.display) {
+        this.confirmBox = false;
+        this.npcMessageBoard.display = false;
+      }
+    }
     if (e.key === "Space") {
-      console.log("Press Space");
+      console.log("Pressed Space");
+      this.npcMessageBoard.display = false;
     }
   };
 
@@ -825,14 +842,14 @@ var Map = function (
       if (mapPosition === 2) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        this.npcMessageBoard.setMessage("Thanks for your help! I love you !!", "Here is all the money I have,", "please take 500 coins!");
         this.playerState.increaseCoin(500);
-        //So thanks for your helping! I love you !! Here is all the money in my pocket, please take this 500 coins!
       }
       else if (mapPosition === 12) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.redKeyItemInventory.addRedKey(1);
-        console.log("There have nobody want to spend 800 coins to change a red key since the 30 levels was downed. So I have to leave too. Here is my last red key, take it");
+        this.npcMessageBoard.setMessage("No one is willing to spend 800 coins", "for a red key. And I've to leave too.", "Here's my last red key, take it");
       }
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.WOMAN_NPC) {
@@ -840,63 +857,96 @@ var Map = function (
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.playerState._hp *= 1.03;
-        //So thanks for your helping! I can help you to increase your power and defence for 3%!
+        this.npcMessageBoard.setMessage("Thanks for your help!", "I can increase 3% of your", "power and defense!")
       }
       if (mapPosition === 6) {
-        if (this.playerState._coin >= 50) {
-          this.playerState.increaseCoin(-50);
-          this.blueKeyItemInventory.addBlueKey(1);
+        this.npcMessageBoard.setMessage(
+          "Do you want to spend 50 coins",
+          "to exchange for a blue key?",
+          "",
+          true
+        );
+        console.log("checking confirm input");
+        if (m_map.playerState._coin >= 50 && m_map.confirmBox) {
+          m_map.playerState.increaseCoin(-50);
+          m_map.blueKeyItemInventory.addBlueKey(1);
+          recursion = false;
+        } else if (m_map.confirmBox) {
+          m_map.npcMessageBoard.setMessage(
+            "You don't have enough money,",
+            "poor guy!"
+          );
+          recursion = false;
+        } else if (map.confirmBox === undefined) {
+          console.log("confirm box undefined");
         }
-        else {
-          console.log("You don't have enough money, poor guy!");
-        }
-        console.log("Do you want to spend 50 coins to change 1 blue key?");
-      }
-      else if (mapPosition === 7) {
-        if (this.playerState._coin >= 50) {
+        m_map.confirmBox = undefined;
+      } else if (mapPosition === 7) {
+        this.npcMessageBoard.setMessage(
+          "Do you want to spend 50 coins",
+          "to exchange for 5 yellow key?",
+          "",
+          true
+        );
+        if (this.playerState._coin >= 50 && this.confirmBox) {
           this.playerState.increaseCoin(-50);
           this.yellowKeyItemInventory.addYellowKey(5);
+        } else if (this.confirmBox) {
+          this.npcMessageBoard.setMessage(
+            "You don't have enough money,",
+            "poor guy!"
+          );
         }
-        else {
-          console.log("You don't have enough money, poor guy!");
-        }
-        console.log("Do you want to spend 50 coins to change 5 yellow key?");
-      }
-      else if (mapPosition === 12) {
-        if (this.playerState._coin >= 800) {
+        this.confirmBox = undefined;
+      } else if (mapPosition === 12) {
+        this.npcMessageBoard.setMessage(
+          "Do you want to spend 800 coins",
+          "to exchange for an iron key?",
+          "",
+          true
+        );
+        if (this.playerState._coin >= 800 && this.confirmBox) {
           this.playerState.increaseCoin(-800);
-          this.ironKeyItemInventory.addIronKey(1);
+          this.yellowKeyItemInventory.addIronKey(1);
+        } else if (this.confirmBox) {
+          this.npcMessageBoard.setMessage(
+            "You don't have enough money,",
+            "poor guy!"
+          );
         }
-        else {
-          console.log("You don't have enough money, poor guy!");
-        }
-        console.log("Do you want to spend 800 coins to change 1 iron key?");
-      }
-      else if (mapPosition === 14) {
-        if (this.playerState._coin >= 200) {
+        this.confirmBox = undefined;
+      } else if (mapPosition === 14) {
+        this.npcMessageBoard.setMessage(
+          "Do you want to spend 200 coins",
+          "to exchange for a blue key?",
+          "",
+          true
+        );
+        if (this.playerState._coin >= 200 && this.confirmBox) {
           this.playerState.increaseCoin(-200);
           this.blueKeyItemInventory.addBlueKey(1);
+        } else if (this.confirmBox) {
+          this.npcMessageBoard.setMessage(
+            "You don't have enough money,",
+            "poor guy!"
+          );
         }
-        else {
-          console.log("You don't have enough money, poor guy!");
-        }
-        console.log("Do you want to spend 200 coins to change 1 blue key?");
+        this.confirmBox = undefined;
       }
-
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.THIEF_NPC) {
       if (mapPosition === 2) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.mapList.terrainList[13][7][19] = 0;
-        console.log("So thanks for your helping! I can help you to unlock the door in level 13.");
+        this.npcMessageBoard.setMessage("Thanks for your help!", "I can unlock the door in level 13 for you.");
       }
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.OLD_MAN_NPC) {
       if (mapPosition === 2) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-        console.log("So thanks for your helping! I love you !! But I can give you nothing.");
+        this.npcMessageBoard.setMessage("Thanks for your help! I love you !!", "But I have nothing to give.");
       }
     }
     else if (this.mapArray[y][x] >= this.constants.ItemEnum.BLUE_SHOP__0 && this.mapArray[y][x] <= this.constants.ItemEnum.BLUE_SHOP__2) {
@@ -904,7 +954,7 @@ var Map = function (
       //need to show 4 button.
       //+100 HP for Xcoin.
       //+2 atk for Xcoin.
-      //+4 defence for Xcoin.
+      //+4 defense for Xcoin.
       //exit.
       //The cost of each item should be a valuable, the cost will change depence on the buying times.
     }
@@ -961,13 +1011,13 @@ var Map = function (
           this.draw(Framework.Game._context);
         } else {
           this.consoleBoard.setMessage(
-            "Your power is too low!",
-            "You can't fight ",
+            "You are too weak!",
+            "You can't damage ",
             "this monster!!!"
           );
           this.update();
           this.draw(Framework.Game._context);
-          console.log("You are too noob, you can't damage the monster!!!");
+          console.log("You are too weak, you can't damage the monster!!!");
           return;
         }
       }
@@ -988,7 +1038,7 @@ var Map = function (
         );
         this.update();
         this.draw(Framework.Game._context);
-        console.log("You are too noob, you can't figth this monster!!!");
+        console.log("You are too weak, you can't figth this monster!!!");
       }
       if (mapPosition === 20) {
         var numOfBigBat = 0;

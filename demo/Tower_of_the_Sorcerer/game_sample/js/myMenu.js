@@ -73,7 +73,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
     },
 
     mousemove: function (e) {
-        console.log(e.x + ", " + e.y);
+       
     },
 
     mouseup: function (e) {

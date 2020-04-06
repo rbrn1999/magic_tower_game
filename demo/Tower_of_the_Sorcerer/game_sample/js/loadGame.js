@@ -59,14 +59,9 @@ var loadGameEnd;
     { src: "game_sample/js/playerState.js", lookFor: "PlayerState" },
     { src: "game_sample/js/showLevelBoard.js", lookFor: "ShowLevelBoard" },
     { src: "game_sample/js/consoleBoard.js", lookFor: "ConsoleBoard" },
-    {
-      src: "game_sample/js/yellowKeyItemInventory.js",
-      lookFor: "YellowKeyItemInventory"
-    },
-    {
-      src: "game_sample/js/blueKeyItemInventory.js",
-      lookFor: "BlueKeyItemInventory"
-    },
+    { src: "game_sample/js/npcMessageBoard.js", lookFor: "NPCMessageBoard" },
+    { src: "game_sample/js/yellowKeyItemInventory.js", lookFor: "YellowKeyItemInventory"},
+    { src: "game_sample/js/blueKeyItemInventory.js", lookFor: "BlueKeyItemInventory" },
     { src: "game_sample/js/redKeyItemInventory.js", lookFor: "RedKeyItemInventory" },
     { src: "game_sample/js/ironKeyItemInventory.js", lookFor: "IronKeyItemInventory" },
     { src: "game_sample/js/bombMan.js", lookFor: "BombMan" },

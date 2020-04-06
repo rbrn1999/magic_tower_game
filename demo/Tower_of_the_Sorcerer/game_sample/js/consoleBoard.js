@@ -1,8 +1,8 @@
 var ConsoleBoard = function () {
 
-    this._message1 = "";
-    this._message2 = "";
-    this._message3 = "";
+    this._line_1 = "";
+    this._line_2 = "";
+    this._line_3 = "";
     this._position = { x: 0, y: 0 };
     this.fadeOutCounter = 0;
     this.eventFlag = false;
@@ -16,7 +16,7 @@ var ConsoleBoard = function () {
 
     this.draw = function (ctx) {
         //console.log("Fade Out: " + this.fadeOutCounter);
-        if (this.fadeOutCounter < 120 && this.eventFlag) {
+        if (this.fadeOutCounter < 60 && this.eventFlag) {
             ctx.globalAlpha = 0.9;
             ctx.fillStyle = '#212F3D'; //背景色
             ctx.fillRect(this._position.x - 10, this._position.y, 290, 150);    //框的大小
@@ -25,25 +25,25 @@ var ConsoleBoard = function () {
             ctx.fillStyle = 'orange';   //字色
             ctx.textBaseline = 'top';
             ctx.textAlign = 'left';
-            ctx.fillText(this._message1, this._position.x, this._position.y + 20);  //文字
-            ctx.fillText(this._message2, this._position.x, this._position.y + 60);  //文字
-            ctx.fillText(this._message3, this._position.x, this._position.y + 100);  //文字
+            ctx.fillText(this._line_1, this._position.x, this._position.y + 20);  //文字
+            ctx.fillText(this._line_2, this._position.x, this._position.y + 60);  //文字
+            ctx.fillText(this._line_3, this._position.x, this._position.y + 100);  //文字
         } else {
             ctx.globalAlpha = 0;
             ctx.fillRect(this._position.x - 10, this._position.y, 290, 150);
             ctx.fillText("", this._position.x, this._position.y + 20);
             ctx.globalAlpha = 1; //Render might be fucked up if you don't set it back
-            this.adeOutCounter = 0;
+            this.fadeOutCounter = 0;
             this.eventFlag = false;
         }
     }
 
-    this.setMessage = function (newMessage1 = "", newMessage2 = "", newMessage3 = "") {
+    this.setMessage = function (newLine_1 = "", newLine_2 = "", newLine_3 = "") {
         this.fadeOutCounter = 0;
         this.eventFlag = true;
-        this._message1 = newMessage1;
-        this._message2 = newMessage2;
-        this._message3 = newMessage3;
+        this._line_1 = newLine_1;
+        this._line_2 = newLine_2;
+        this._line_3 = newLine_3;
     }
 };
 
