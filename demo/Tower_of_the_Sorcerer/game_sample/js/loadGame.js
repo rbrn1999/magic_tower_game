@@ -67,10 +67,8 @@ var loadGameEnd;
       src: "game_sample/js/blueKeyItemInventory.js",
       lookFor: "BlueKeyItemInventory"
     },
-    {
-      src: "game_sample/js/redKeyItemInventory.js",
-      lookFor: "RedKeyItemInventory"
-    },
+    { src: "game_sample/js/redKeyItemInventory.js", lookFor: "RedKeyItemInventory" },
+    { src: "game_sample/js/ironKeyItemInventory.js", lookFor: "IronKeyItemInventory" },
     { src: "game_sample/js/bombMan.js", lookFor: "BombMan" },
     { src: "game_sample/js/monster.js", lookFor: "Monster" },
     { src: "game_sample/js/box.js", lookFor: "Box" },

@@ -10,7 +10,6 @@ var Map = function (
   console.log(this.playerSpwanPositionArray);
   this.load = function () {
     this._numDoorPickAxe = 0;
-    this._numIronKey = 0;
     this.constants = new Constants();
     this.showLevelBoard = new ShowLevelBoard();
     this.showLevelBoard.position = { x: 200, y: 0 }; //分數板位置
@@ -24,6 +23,8 @@ var Map = function (
     this.blueKeyItemInventory.position = { x: 300, y: 600 }; //分數板位置
     this.redKeyItemInventory = new RedKeyItemInventory();
     this.redKeyItemInventory.position = { x: 400, y: 600 }; //分數板位置
+    this.ironKeyItemInventory = new IronKeyItemInventory();
+    this.ironKeyItemInventory.position = { x: 300, y: 700 }; //分數板位置
     this.mapFloor = new Framework.Sprite(
       define.imagePath + "stone0.png",
       this,
@@ -453,7 +454,7 @@ var Map = function (
     } else if (item === m_map.constants.ItemEnum.IRON_KEY) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map._numIronKey = 1;
+      m_map.ironKeyItemInventory.addIronKey(1);
       m_map.consoleBoard.setMessage("Get:", "Iron Key !");
       console.log(m_map._numIronKey);
     } else if (item === m_map.constants.ItemEnum.DOOR_PICK_AXE) {
@@ -561,6 +562,7 @@ var Map = function (
     this.yellowKeyItemInventory.update();
     this.blueKeyItemInventory.update();
     this.redKeyItemInventory.update();
+    this.ironKeyItemInventory.update();
     this.consoleBoard.update();
   };
   this.draw = function (ctx) {
@@ -576,6 +578,7 @@ var Map = function (
     this.yellowKeyItemInventory.draw(ctx);
     this.blueKeyItemInventory.draw(ctx);
     this.redKeyItemInventory.draw(ctx);
+    this.ironKeyItemInventory.draw(ctx);
     this.consoleBoard.draw(ctx);
   };
 
@@ -656,7 +659,9 @@ var Map = function (
       }
     }
     if (e.key === "U") {
-      this._numIronKey += 1;
+      this.ironKeyItemInventory.addIronKey(1);
+      this.update();
+      this.draw(Framework.Game._context);
     }
     if (e.key === "I") {
       this.yellowKeyItemInventory.addYellowKey(1);
@@ -742,11 +747,11 @@ var Map = function (
         }
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.IRON_DOOR) {
-      if (this._numIronKey > 0) {
+      if (this.ironKeyItemInventory._ironKey > 0) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-        this._numIronKey -= 1;
-        m_map.consoleBoard.setMessage("Door Unlocked!");
+        this.ironKeyItemInventory.addIronKey(-1);
+        m_map.consoleBoard.setMessage("Door Unlocked!", "Iron Key -1");
       } else {
         m_map.consoleBoard.setMessage("Require:", "Iron Key x 1");
       }
