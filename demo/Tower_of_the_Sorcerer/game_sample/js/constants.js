@@ -8,7 +8,14 @@ var Constants = function () {
 
   this.ItemEnum = {
     VAMPIRE_WHITE_DOOR: 99,
-    VAMPIRE_NPC: 47,
+    OLD_MAN_NPC: 98,
+    THIEF_NPC: 97,
+    WOMAN_NPC: 96,
+    MAN_NPC: 95,
+    PRINCESS_NPC: 94,
+    BLUE_SHOP__2: 93,
+    BLUE_SHOP__1: 92,
+    BLUE_SHOP__0: 91,
     VAMPIRE: 46,
     ROCK: 45,
     SLIME_MAN: 44,

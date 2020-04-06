@@ -16,7 +16,7 @@ var ConsoleBoard = function () {
 
     this.draw = function (ctx) {
         //console.log("Fade Out: " + this.fadeOutCounter);
-        if(this.fadeOutCounter<120 && this.eventFlag){
+        if (this.fadeOutCounter < 120 && this.eventFlag) {
             ctx.globalAlpha = 0.9;
             ctx.fillStyle = '#212F3D'; //背景色
             ctx.fillRect(this._position.x - 10, this._position.y, 290, 150);    //框的大小

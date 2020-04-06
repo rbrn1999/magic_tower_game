@@ -109,6 +109,9 @@ var Map = function (
     this.silverShield = new Framework.Sprite(define.imagePath + "i32.png");
     this.ironSword = new Framework.Sprite(define.imagePath + "i28.png");
     this.hollyWater = new Framework.Sprite(define.imagePath + "i35.png");
+    this.blueShop0 = new Framework.Sprite(define.imagePath + "s25.png");
+    this.blueShop1 = new Framework.Sprite(define.imagePath + "NPC01-02_3_1.png");
+    this.blueShop2 = new Framework.Sprite(define.imagePath + "s26.png");
     this.player1 = new BombMan(define.imagePath + "player1.png", {
       down: { from: 0, to: 2 },
       left: { from: 3, to: 5 },
@@ -231,6 +234,41 @@ var Map = function (
     });
     var vampire = new Framework.AnimationSprite({
       url: define.imagePath + "e8.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var man = new Framework.AnimationSprite({
+      url: define.imagePath + "e19.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var woman = new Framework.AnimationSprite({
+      url: define.imagePath + "e20.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var thief = new Framework.AnimationSprite({
+      url: define.imagePath + "e24.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var oldMan = new Framework.AnimationSprite({
+      url: define.imagePath + "e25.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var princess = new Framework.AnimationSprite({
+      url: define.imagePath + "e25.png",
       col: 2,
       row: 1,
       loop: true,
@@ -374,11 +412,17 @@ var Map = function (
           this.tileArray.push(guard);
         }
         else if (line[j] >= this.constants.ItemEnum.ROCK &&
-          line[j] <= this.constants.ItemEnum.VAMPIRE_NPC || line[j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+          line[j] <= this.constants.ItemEnum.VAMPIRE || line[j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
           var specialEnemys = new SpecialEnemys();
           specialEnemys.position = { x: j, y: i };
           specialEnemys.tileType = line[j];
           this.tileArray.push(specialEnemys);
+        }
+        else if (line[j] >= this.constants.ItemEnum.BLUE_SHOP__0 && line[j] <= this.constants.ItemEnum.OLD_MAN_NPC) {
+          var npc = new NPC();
+          npc.position = { x: j, y: i };
+          npc.tileType = line[j];
+          this.tileArray.push(npc);
         }
         else {
           var tile = new MapTile();
@@ -605,8 +649,7 @@ var Map = function (
         this.pressWalk = true;
         this.keyPress = "Down";
       } else {
-        this.checkIsOpenDoor(playerPosition.x, playerPosition.y + 1);
-        this.monsterFightSystem(playerPosition.x, playerPosition.y + 1);
+        this.arrowClickEvent(playerPosition.x, playerPosition.y + 1);
       }
     }
 
@@ -617,8 +660,7 @@ var Map = function (
         this.pressWalk = true;
         this.keyPress = "Left";
       } else {
-        this.checkIsOpenDoor(playerPosition.x - 1, playerPosition.y);
-        this.monsterFightSystem(playerPosition.x - 1, playerPosition.y);
+        this.arrowClickEvent(playerPosition.x - 1, playerPosition.y);
       }
     }
 
@@ -629,8 +671,7 @@ var Map = function (
         this.pressWalk = true;
         this.keyPress = "Right";
       } else {
-        this.checkIsOpenDoor(playerPosition.x + 1, playerPosition.y);
-        this.monsterFightSystem(playerPosition.x + 1, playerPosition.y);
+        this.arrowClickEvent(playerPosition.x + 1, playerPosition.y);
       }
     }
 
@@ -641,8 +682,7 @@ var Map = function (
         this.pressWalk = true;
         this.keyPress = "Up";
       } else {
-        this.checkIsOpenDoor(playerPosition.x, playerPosition.y - 1);
-        this.monsterFightSystem(playerPosition.x, playerPosition.y - 1);
+        this.arrowClickEvent(playerPosition.x, playerPosition.y - 1);
       }
     }
     if (e.key === "A") {
@@ -689,10 +729,21 @@ var Map = function (
       this.update();
       this.draw(Framework.Game._context);
     }
+    if (e.key === "C") {
+      this.playerState.increaseCoin(50);
+      this.update();
+      this.draw(Framework.Game._context);
+    }
 
     if (e.key === "Space") {
       console.log("Press Space");
     }
+  };
+
+  this.arrowClickEvent = function (x, y) {
+    this.checkIsOpenDoor(x, y);
+    this.monsterFightSystem(x, y);
+    this.npcChatSystem(x, y);
   };
 
   this.stopAllMonsterWalk = function () {
@@ -762,19 +813,110 @@ var Map = function (
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         m_map.consoleBoard.setMessage("Door Unlocked!");
       } else {
-        m_map.consoleBoard.setMessage("Require:", "Pick Axe");
+        m_map.consoleBoard.setMessage("You can't open", "this door");
       }
     }
     this.update();
     this.draw(Framework.Game._context);
   };
 
-  this.monsterFightSystem = function (x, y) {
-    if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_NPC) {
-      this.player1.win();
-      return;
+  this.npcChatSystem = function (x, y) {
+    if (this.mapArray[y][x] === this.constants.ItemEnum.MAN_NPC) {
+      if (mapPosition === 2) {
+        this.mapArray[y][x] = 0; //碰撞盒換成0
+        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        this.playerState.increaseCoin(500);
+        //So thanks for your helping! I love you !! Here is all the money in my pocket, please take this 500 coins!
+      }
+      else if (mapPosition === 12) {
+        this.mapArray[y][x] = 0; //碰撞盒換成0
+        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        this.redKeyItemInventory.addRedKey(1);
+        console.log("There have nobody want to spend 800 coins to change a red key since the 30 levels was downed. So I have to leave too. Here is my last red key, take it");
+      }
     }
-    if (this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME) {
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.WOMAN_NPC) {
+      if (mapPosition === 2) {
+        this.mapArray[y][x] = 0; //碰撞盒換成0
+        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        this.playerState._hp *= 1.03;
+        //So thanks for your helping! I can help you to increase your power and defence for 3%!
+      }
+      if (mapPosition === 6) {
+        if (this.playerState._coin >= 50) {
+          this.playerState.increaseCoin(-50);
+          this.blueKeyItemInventory.addBlueKey(1);
+        }
+        else {
+          console.log("You don't have enough money, poor guy!");
+        }
+        console.log("Do you want to spend 50 coins to change 1 blue key?");
+      }
+      else if (mapPosition === 7) {
+        if (this.playerState._coin >= 50) {
+          this.playerState.increaseCoin(-50);
+          this.yellowKeyItemInventory.addYellowKey(5);
+        }
+        else {
+          console.log("You don't have enough money, poor guy!");
+        }
+        console.log("Do you want to spend 50 coins to change 5 yellow key?");
+      }
+      else if (mapPosition === 12) {
+        if (this.playerState._coin >= 800) {
+          this.playerState.increaseCoin(-800);
+          this.ironKeyItemInventory.addIronKey(1);
+        }
+        else {
+          console.log("You don't have enough money, poor guy!");
+        }
+        console.log("Do you want to spend 800 coins to change 1 iron key?");
+      }
+      else if (mapPosition === 14) {
+        if (this.playerState._coin >= 200) {
+          this.playerState.increaseCoin(-200);
+          this.blueKeyItemInventory.addBlueKey(1);
+        }
+        else {
+          console.log("You don't have enough money, poor guy!");
+        }
+        console.log("Do you want to spend 200 coins to change 1 blue key?");
+      }
+
+    }
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.THIEF_NPC) {
+      if (mapPosition === 2) {
+        this.mapArray[y][x] = 0; //碰撞盒換成0
+        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        this.mapList.terrainList[13][7][19] = 0;
+        console.log("So thanks for your helping! I can help you to unlock the door in level 13.");
+      }
+    }
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.OLD_MAN_NPC) {
+      if (mapPosition === 2) {
+        this.mapArray[y][x] = 0; //碰撞盒換成0
+        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        console.log("So thanks for your helping! I love you !! But I can give you nothing.");
+      }
+    }
+    else if (this.mapArray[y][x] >= this.constants.ItemEnum.BLUE_SHOP__0 && this.mapArray[y][x] <= this.constants.ItemEnum.BLUE_SHOP__2) {
+      console.log("Shop");
+      //need to show 4 button.
+      //+100 HP for Xcoin.
+      //+2 atk for Xcoin.
+      //+4 defence for Xcoin.
+      //exit.
+      //The cost of each item should be a valuable, the cost will change depence on the buying times.
+    }
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.PRINCESS_NPC) {
+      this.player1.win();
+    }
+    this.update();
+    this.draw(Framework.Game._context);
+  };
+
+  this.monsterFightSystem = function (x, y) {
+    if (this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME && this.mapArray[y][x] <= 50) {
       var tileType = this.mapArray[y][x];
       var monsterHP = this.tileArray[y * 26 + x].getHP(tileType);
       var monsterATK = this.tileArray[y * 26 + x].getATK(tileType);
