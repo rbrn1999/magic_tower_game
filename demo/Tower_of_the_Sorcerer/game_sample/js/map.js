@@ -7,6 +7,7 @@ var Map = function (
   this.mapList = new Terrain();
   this.mapArray = this.mapList.terrainList[mapPosition]; //設定顯示第幾張地圖
   this.playerSpwanPositionArray = this.mapList.spwanPositionList[mapPosition]; //設定player在第幾張地圖的重生點位置
+  this.npcArray = this.mapList.npcList[mapPosition]; //設定npc的內容
   console.log(this.playerSpwanPositionArray);
   this.load = function () {
     this._numDoorPickAxe = 0;
