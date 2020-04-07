@@ -8,6 +8,7 @@ var Map = function (
   this.mapArray = this.mapList.terrainList[mapPosition]; //設定顯示第幾張地圖
   this.playerSpwanPositionArray = this.mapList.spwanPositionList[mapPosition]; //設定player在第幾張地圖的重生點位置
   this.npcArray = this.mapList.npcList[mapPosition]; //設定npc的內容
+  var tempPlayerPosition = { x: 0, y: 0 };
   console.log(this.playerSpwanPositionArray);
   this.load = function () {
     this._numDoorPickAxe = 0;
@@ -654,6 +655,8 @@ var Map = function (
         this.keyPress = "Down";
       } else {
         this.arrowClickEvent(playerPosition.x, playerPosition.y + 1);
+        tempPlayerPosition.x = playerPosition.x;
+        tempPlayerPosition.y = playerPosition.y + 1;
       }
     }
 
@@ -665,6 +668,8 @@ var Map = function (
         this.keyPress = "Left";
       } else {
         this.arrowClickEvent(playerPosition.x - 1, playerPosition.y);
+        tempPlayerPosition.x = playerPosition.x - 1;
+        tempPlayerPosition.y = playerPosition.y;
       }
     }
 
@@ -676,6 +681,8 @@ var Map = function (
         this.keyPress = "Right";
       } else {
         this.arrowClickEvent(playerPosition.x + 1, playerPosition.y);
+        tempPlayerPosition.x = playerPosition.x + 1;
+        tempPlayerPosition.y = playerPosition.y;
       }
     }
 
@@ -687,6 +694,8 @@ var Map = function (
         this.keyPress = "Up";
       } else {
         this.arrowClickEvent(playerPosition.x, playerPosition.y - 1);
+        tempPlayerPosition.x = playerPosition.x;
+        tempPlayerPosition.y = playerPosition.y - 1;
       }
     }
     if (e.key === "A") {
@@ -742,6 +751,7 @@ var Map = function (
       if (this.npcMessageBoard.display) {
         this.confirmBox = true;
         this.npcMessageBoard.display = false;
+        this.npcChatSystem(tempPlayerPosition.x, tempPlayerPosition.y);
       }
     }
 

@@ -6,9 +6,9 @@ var NPCMessageBoard = function () {
   this._display = false;
   this._position = { x: 0, y: 0 };
 
-  this.load = function () {};
+  this.load = function () { };
 
-  this.update = function () {};
+  this.update = function () { };
 
   this.draw = function (ctx) {
     if (this.display) {
@@ -39,7 +39,7 @@ var NPCMessageBoard = function () {
     if (confirm) {
       this._line_4 = "[Y]    [N]";
     } else {
-        this._line_4 = "[space to dismiss]"
+      this._line_4 = "[space to dismiss]"
     }
     this.display = true;
   };
