@@ -13,6 +13,13 @@ var Map = function (
   var _level10MonsterCounter = 0;
   var _winGameFlag = false;
   console.log(this.playerSpwanPositionArray);
+  this.audio = new Framework.Audio({
+    kick: { mp3: define.musicPath + "kick2.mp3" },
+  });
+  // this.audio.play({
+  //   name: "kick",
+  //   loop: false
+  // });
   this.load = function () {
     this._numDoorPickAxe = 0;
     this.constants = new Constants();
