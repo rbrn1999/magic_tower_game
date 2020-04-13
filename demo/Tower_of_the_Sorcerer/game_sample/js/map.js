@@ -11,7 +11,15 @@ var Map = function (
   var tempPlayerPosition = { x: 0, y: 0 };
   var _level10Boss = false;
   var _level10MonsterCounter = 0;
+  var _winGameFlag = false;
   console.log(this.playerSpwanPositionArray);
+  this.audio = new Framework.Audio({
+    kick: { mp3: define.musicPath + "kick2.mp3" },
+  });
+  // this.audio.play({
+  //   name: "kick",
+  //   loop: false
+  // });
   this.load = function () {
     this._numDoorPickAxe = 0;
     this.constants = new Constants();
@@ -245,35 +253,35 @@ var Map = function (
       speed: 6
     });
     var man = new Framework.AnimationSprite({
-      url: define.imagePath + "e19.png",
+      url: define.imagePath + "n1.png",
       col: 2,
       row: 1,
       loop: true,
       speed: 6
     });
     var woman = new Framework.AnimationSprite({
-      url: define.imagePath + "e20.png",
+      url: define.imagePath + "n2.png",
       col: 2,
       row: 1,
       loop: true,
       speed: 6
     });
     var thief = new Framework.AnimationSprite({
-      url: define.imagePath + "e24.png",
+      url: define.imagePath + "n3.png",
       col: 2,
       row: 1,
       loop: true,
       speed: 6
     });
     var oldMan = new Framework.AnimationSprite({
-      url: define.imagePath + "e25.png",
+      url: define.imagePath + "n1.png",
       col: 2,
       row: 1,
       loop: true,
       speed: 6
     });
     var princess = new Framework.AnimationSprite({
-      url: define.imagePath + "e25.png",
+      url: define.imagePath + "n6.png",
       col: 2,
       row: 1,
       loop: true,
@@ -564,7 +572,7 @@ var Map = function (
         m_map.init();
       }
     }
-    else if (mapPosition === 10) {
+    else if (mapPosition === 17) {
       console.log(player.position.y + ", " + player.position.x);
     }
   };
@@ -792,6 +800,9 @@ var Map = function (
     if (e.key === "Space") {
       console.log("Pressed Space");
       this.npcMessageBoard.display = false;
+      if (_winGameFlag === true) {
+        this.player1.win();
+      }
     }
   };
 
@@ -1026,6 +1037,8 @@ var Map = function (
       this.mapArray[4][18] = this.constants.ItemEnum.SKELETON_MAN;
       this.mapArray[4][20] = this.constants.ItemEnum.SKELETON_MAN;
       this.mapArray[5][20] = this.constants.ItemEnum.SKELETON_MAN;
+      this.mapArray[6][18] = this.constants.ItemEnum.SKELETON_MAN;
+      this.mapArray[6][20] = this.constants.ItemEnum.SKELETON_MAN;
       this.mapArray[6][19] = this.constants.ItemEnum.SKELETON_SOLDIER;
       this.mapArray[7][19] = this.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
       this.mapArray[1][19] = this.constants.ItemEnum.SKELETON_CAPTAIN;
@@ -1033,7 +1046,8 @@ var Map = function (
       m_map.init();
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.PRINCESS_NPC) {
-      this.player1.win();
+      this.npcMessageBoard.setMessage("OMG! Darling! You come to get me", "out of here~ I love you!", "Let's get married!");
+      _winGameFlag = true;
     }
     this.update();
     this.draw(Framework.Game._context);
@@ -1086,11 +1100,11 @@ var Map = function (
           if (mapPosition === 10 && _level10Boss === true) {
             _level10MonsterCounter += 1;
             console.log(_level10MonsterCounter);
-            if (_level10MonsterCounter === 6) {
+            if (_level10MonsterCounter === 8) {
               this.mapArray[3][19] = 0;
               this.init();
             }
-            if (_level10MonsterCounter === 7) {
+            if (_level10MonsterCounter === 9) {
               this.mapArray[4][17] = 0;
               this.mapArray[4][21] = 0;
               this.mapArray[7][19] = 0;
@@ -1124,7 +1138,6 @@ var Map = function (
       if (mapPosition === 20) {
         var numOfBigBat = 0;
         var numOfvampire = 0;
-        console.log(this.mapArray[y].length + ", " + this.mapArray.length);
         for (var i = 0; i < this.mapArray.length; i++) {
           for (var j = 0; j < this.mapArray[y].length; j++) {
             if (this.mapArray[i][j] === this.constants.ItemEnum.VAMPIRE) {
@@ -1143,6 +1156,56 @@ var Map = function (
           this.tileArray[3 * 26 + 19].tileType = 0; //圖片換成0
           this.mapArray[9][19] = 0; //碰撞盒換成0
           this.tileArray[9 * 26 + 19].tileType = 0; //圖片換成0
+          this.update();
+          this.draw(Framework.Game._context);
+        }
+      }
+      if (mapPosition === 8 && this.mapArray[4][23] != 0) {
+        var numOfYellowGuard = 0;
+        for (var i = 0; i < this.mapArray.length; i++) {
+          for (var j = 0; j < this.mapArray[y].length; j++) {
+            if (this.mapArray[i][j] === this.constants.ItemEnum.YELLOW_GUARD) {
+              numOfYellowGuard += 1;
+            }
+          }
+        }
+        if (numOfYellowGuard === 0) {
+          this.mapArray[4][23] = 0; //碰撞盒換成0
+          this.tileArray[4 * 26 + 23].tileType = 0; //圖片換成0
+          this.update();
+          this.draw(Framework.Game._context);
+        }
+      }
+      if (mapPosition === 11 && this.mapArray[4][15] != 0) {
+        if (this.mapArray[5][14] === 0 && this.mapArray[5][16] === 0) {
+          this.mapArray[4][15] = 0; //碰撞盒換成0
+          this.tileArray[4 * 26 + 15].tileType = 0; //圖片換成0
+          this.update();
+          this.draw(Framework.Game._context);
+        }
+      }
+      if (mapPosition === 17) {
+        if (this.mapArray[8][14] === 0 && this.mapArray[8][16] === 0 && this.mapArray[7][15] != 0) {
+          this.mapArray[7][15] = 0; //碰撞盒換成0
+          this.tileArray[7 * 26 + 15].tileType = 0; //圖片換成0
+          this.update();
+          this.draw(Framework.Game._context);
+        }
+        else if (this.mapArray[5][14] === 0 && this.mapArray[5][16] === 0 && this.mapArray[4][15] != 0) {
+          this.mapArray[4][15] = 0; //碰撞盒換成0
+          this.tileArray[4 * 26 + 15].tileType = 0; //圖片換成0
+          this.update();
+          this.draw(Framework.Game._context);
+        }
+        else if (this.mapArray[8][22] === 0 && this.mapArray[8][24] === 0 && this.mapArray[7][23] != 0) {
+          this.mapArray[7][23] = 0; //碰撞盒換成0
+          this.tileArray[7 * 26 + 23].tileType = 0; //圖片換成0
+          this.update();
+          this.draw(Framework.Game._context);
+        }
+        else if (this.mapArray[5][22] === 0 && this.mapArray[5][24] === 0 && this.mapArray[4][23] != 0) {
+          this.mapArray[4][23] = 0; //碰撞盒換成0
+          this.tileArray[4 * 26 + 23].tileType = 0; //圖片換成0
           this.update();
           this.draw(Framework.Game._context);
         }
