@@ -529,13 +529,13 @@ var Map = function (
     } else if (item === m_map.constants.ItemEnum.BLUE_POTION) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.playerState._hp *= 1.03;
-      m_map.consoleBoard.setMessage("Get:", "Blue Gem !", "HP +500");
+      m_map.playerState.increaseHp(200);
+      m_map.consoleBoard.setMessage("Get:", "Blue Gem !", "HP +200");
     } else if (item === m_map.constants.ItemEnum.SILVER_SWORD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.playerState.increasePower(20);
-      m_map.consoleBoard.setMessage("Get:", "Silver Sword !", "ATK +20");
+      m_map.playerState.increasePower(10);
+      m_map.consoleBoard.setMessage("Get:", "Silver Sword !", "ATK +10");
     } else if (item === m_map.constants.ItemEnum.IRON_SHIELD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
@@ -549,8 +549,8 @@ var Map = function (
     } else if (item === m_map.constants.ItemEnum.IRON_SWORD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.playerState.increasePower(10);
-      m_map.consoleBoard.setMessage("Get:", "Iron Sword !", "ATK +10");
+      m_map.playerState.increasePower(5);
+      m_map.consoleBoard.setMessage("Get:", "Iron Sword !", "ATK +5");
     } else if (item === m_map.constants.ItemEnum.HOLLY_WATER) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
