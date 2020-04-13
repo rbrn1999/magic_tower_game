@@ -47,6 +47,8 @@ var NPC = function (file, position) {  //畫面的object
     this.spritePosition = {}
     this._tileType = 0;
 
+    this.store = new Store();
+    
     this.update = function () {
 
     }

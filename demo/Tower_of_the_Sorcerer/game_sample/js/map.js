@@ -650,11 +650,13 @@ var Map = function (
   this.pressWalk = false;
   this.keyPress = "";
   this.confirmBox = undefined;
+  this.confirmItem_1 = false;
+  this.confirmItem_2 = false;
+  this.confirmItem_3 = false;
   this.keydown = function (e, list) {
     var playerPosition = this.player1.position;
     if (e.key === "Down") {
       if (this.checkIsWalkAble(playerPosition.x, playerPosition.y + 1)) {
-        //this.player1.walk({x:0,y:1});
         this.playerWalkDirection = { x: 0, y: 1 };
         this.pressWalk = true;
         this.keyPress = "Down";
@@ -667,7 +669,6 @@ var Map = function (
 
     if (e.key === "Left") {
       if (this.checkIsWalkAble(playerPosition.x - 1, playerPosition.y)) {
-        //this.player1.walk({x:-1,y:0});
         this.playerWalkDirection = { x: -1, y: 0 };
         this.pressWalk = true;
         this.keyPress = "Left";
@@ -680,7 +681,6 @@ var Map = function (
 
     if (e.key === "Right") {
       if (this.checkIsWalkAble(playerPosition.x + 1, playerPosition.y)) {
-        //this.player1.walk({x:1,y:0});
         this.playerWalkDirection = { x: 1, y: 0 };
         this.pressWalk = true;
         this.keyPress = "Right";
@@ -693,7 +693,6 @@ var Map = function (
 
     if (e.key === "Up") {
       if (this.checkIsWalkAble(playerPosition.x, playerPosition.y - 1)) {
-        //this.player1.walk({x:0,y:-1});
         this.playerWalkDirection = { x: 0, y: -1 };
         this.pressWalk = true;
         this.keyPress = "Up";
@@ -764,6 +763,30 @@ var Map = function (
       if (this.npcMessageBoard.display) {
         this.confirmBox = false;
         this.npcMessageBoard.display = false;
+      }
+    }
+    if (e.key === "1") {
+      if (this.npcMessageBoard.display) {
+        this.confirmBox = true;
+        this.confirmItem_1 = true;
+        this.npcMessageBoard.display = false;
+        this.npcChatSystem(tempPlayerPosition.x, tempPlayerPosition.y);
+      }
+    }
+    if (e.key === "2") {
+      if (this.npcMessageBoard.display) {
+        this.confirmBox = true;
+        this.confirmItem_2 = true;
+        this.npcMessageBoard.display = false;
+        this.npcChatSystem(tempPlayerPosition.x, tempPlayerPosition.y);
+      }
+    }
+    if (e.key === "3") {
+      if (this.npcMessageBoard.display) {
+        this.confirmBox = true;
+        this.confirmItem_3 = true;
+        this.npcMessageBoard.display = false;
+        this.npcChatSystem(tempPlayerPosition.x, tempPlayerPosition.y);
       }
     }
     if (e.key === "Space") {
@@ -892,13 +915,11 @@ var Map = function (
         if (m_map.playerState._coin >= 50 && m_map.confirmBox) {
           m_map.playerState.increaseCoin(-50);
           m_map.blueKeyItemInventory.addBlueKey(1);
-          recursion = false;
         } else if (m_map.confirmBox) {
           m_map.npcMessageBoard.setMessage(
             "You don't have enough money,",
             "poor guy!"
           );
-          recursion = false;
         } else if (map.confirmBox === undefined) {
           console.log("confirm box undefined");
         }
@@ -971,13 +992,31 @@ var Map = function (
         this.npcMessageBoard.setMessage("Thanks for your help! I love you !!", "But I have nothing to give.");
       }
     }
-    else if (this.mapArray[y][x] >= this.constants.ItemEnum.BLUE_SHOP__0 && this.mapArray[y][x] <= this.constants.ItemEnum.BLUE_SHOP__2) {
-      console.log("Shop");
-      //need to show 4 button.
-      //+100 HP for Xcoin.
-      //+2 atk for Xcoin.
-      //+4 defense for Xcoin.
-      //exit.
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_SHOP__1 ) {
+      let price = this.tileArray[y * 26 + x].store.getPrice();
+      if (this.playerState._coin < price) {
+        this.npcMessageBoard.setMessage("You need " + price + " coins to enter");
+      } else if(this.confirmBox != true){
+        this.npcMessageBoard.setMessage("[1] increase 100 HP: $" + price, "[2] increase 2 ATK points: $" + price, "[3] increase 4 DEF points: $" + price);
+      } else {
+        if (this.confirmItem_1) {
+          this.playerState.increaseHp(100);
+          this.consoleBoard.setMessage("HP +100");
+        } else if (this.confirmItem_2) {
+          this.playerState.increasePower(2);
+          this.consoleBoard.setMessage("ATK +2");
+        } else if (this.confirmItem_3) {
+          this.playerState.increaseDef(4);
+          this.consoleBoard.setMessage("DEF +4");
+        }
+        this.playerState.increaseCoin(-price);
+        this.tileArray[y * 26 + x].store.priceIncrease++;
+        this.confirmItem_1 = false;
+        this.confirmItem_2 = false;
+        this.confirmItem_3 = false;
+        this.confirmBox = undefined;
+      }
+
       //The cost of each item should be a valuable, the cost will change depence on the buying times.
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC) {
