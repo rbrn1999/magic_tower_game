@@ -1,5 +1,9 @@
 var Store = function () {
-    this.basePrice = 10;
     this.priceIncrease = 0;
-    this.getPrice = () => this.basePrice + this.priceIncrease * 10;
+    this.currentPrice = 10;
+    this.itemBought = function(){
+        this.priceIncrease++;
+        this.currentPrice = this.getPrice();
+    }
+    this.getPrice = () => this.currentPrice + this.priceIncrease * 10;
 }

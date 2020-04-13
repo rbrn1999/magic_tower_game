@@ -1021,7 +1021,7 @@ var Map = function (
           this.consoleBoard.setMessage("DEF +4");
         }
         this.playerState.increaseCoin(-price);
-        this.tileArray[y * 26 + x].store.priceIncrease++;
+        this.tileArray[y * 26 + x].store.itemBought();
         this.confirmItem_1 = false;
         this.confirmItem_2 = false;
         this.confirmItem_3 = false;
