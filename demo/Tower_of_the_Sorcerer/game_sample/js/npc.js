@@ -31,11 +31,16 @@ var NPC = function (file, position) {  //畫面的object
     this.blueShop2 = new Framework.Sprite(define.imagePath + 's26.png');
     this.blueShop2.scale = 2;    //size
 
+    this.skeletonCaptainNpc = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.skeletonCaptainNpc.scale = 2;
+    this.skeletonCaptainNpc.index = 1;
+
     this.man.start({ from: 0, to: 4, loop: false, speed: 6 });
     this.woman.start({ from: 0, to: 4, loop: false, speed: 6 });
     this.thief.start({ from: 0, to: 4, loop: false, speed: 6 });
     this.oldMan.start({ from: 0, to: 4, loop: false, speed: 6 });
     this.princess.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.skeletonCaptainNpc.start({ from: 0, to: 4, loop: false, speed: 6 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -48,7 +53,10 @@ var NPC = function (file, position) {  //畫面的object
 
     this.draw = function (ctx) {  //畫道具的圖??
         this.mapFloor.draw(ctx);
-        if (this._tileType === 91) {
+        if (this._tileType === 90) {
+            this.skeletonCaptainNpc.draw(ctx);
+        }
+        else if (this._tileType === 91) {
             this.blueShop0.draw(ctx);
         }
         else if (this._tileType === 92) {
@@ -84,6 +92,7 @@ var NPC = function (file, position) {  //畫面的object
         this.blueShop0 = null;
         this.blueShop1 = null;
         this.blueShop2 = null;
+        this.skeletonCaptainNpc = null;
     }
 };
 
@@ -102,6 +111,8 @@ Object.defineProperty(NPC.prototype, 'position', {  //圖片位置 是該格的�
         this.blueShop0.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.blueShop1.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.blueShop2.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+        this.skeletonCaptainNpc.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+
     }
 });
 

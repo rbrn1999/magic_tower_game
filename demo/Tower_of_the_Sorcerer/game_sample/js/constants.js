@@ -16,6 +16,7 @@ var Constants = function () {
     BLUE_SHOP__2: 93,
     BLUE_SHOP__1: 92,
     BLUE_SHOP__0: 91,
+    SKELETON_CAPTAIN_NPC: 90,
     VAMPIRE: 46,
     ROCK: 45,
     SLIME_MAN: 44,

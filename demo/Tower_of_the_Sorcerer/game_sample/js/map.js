@@ -9,6 +9,8 @@ var Map = function (
   this.playerSpwanPositionArray = this.mapList.spwanPositionList[mapPosition]; //設定player在第幾張地圖的重生點位置
   this.npcArray = this.mapList.npcList[mapPosition]; //設定npc的內容
   var tempPlayerPosition = { x: 0, y: 0 };
+  var _level10Boss = false;
+  var _level10MonsterCounter = 0;
   console.log(this.playerSpwanPositionArray);
   this.load = function () {
     this._numDoorPickAxe = 0;
@@ -421,7 +423,7 @@ var Map = function (
           specialEnemys.tileType = line[j];
           this.tileArray.push(specialEnemys);
         }
-        else if (line[j] >= this.constants.ItemEnum.BLUE_SHOP__0 && line[j] <= this.constants.ItemEnum.OLD_MAN_NPC) {
+        else if (line[j] >= this.constants.ItemEnum.SKELETON_CAPTAIN_NPC && line[j] <= this.constants.ItemEnum.OLD_MAN_NPC) {
           var npc = new NPC();
           npc.position = { x: j, y: i };
           npc.tileType = line[j];
@@ -527,7 +529,7 @@ var Map = function (
     } else if (item === m_map.constants.ItemEnum.BLUE_POTION) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.playerState.increaseHp(500);
+      m_map.playerState._hp *= 1.03;
       m_map.consoleBoard.setMessage("Get:", "Blue Gem !", "HP +500");
     } else if (item === m_map.constants.ItemEnum.SILVER_SWORD) {
       m_map.mapArray[player.position.y][player.position.x] = 0;
@@ -561,6 +563,9 @@ var Map = function (
         m_map.mapArray[player.position.y + 1][player.position.x] = m_map.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
         m_map.init();
       }
+    }
+    else if (mapPosition === 10) {
+      console.log(player.position.y + ", " + player.position.x);
     }
   };
 
@@ -843,6 +848,13 @@ var Map = function (
         m_map.consoleBoard.setMessage("You can't open", "this door");
       }
     }
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+      this.consoleBoard.setMessage(
+        "You can't get out",
+        "untill all monster",
+        "are Defeated!!!"
+      );
+    }
     this.update();
     this.draw(Framework.Game._context);
   };
@@ -968,6 +980,19 @@ var Map = function (
       //exit.
       //The cost of each item should be a valuable, the cost will change depence on the buying times.
     }
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC) {
+      this.npcMessageBoard.setMessage("HA HA HA You are trapped", "You can only battle with me after", "defeat all my soldiers!!");
+      this.mapArray[y][x] = this.constants.ItemEnum.SKELETON_SOLDIER; //碰撞盒換成0
+      this.mapArray[5][18] = this.constants.ItemEnum.SKELETON_MAN;
+      this.mapArray[4][18] = this.constants.ItemEnum.SKELETON_MAN;
+      this.mapArray[4][20] = this.constants.ItemEnum.SKELETON_MAN;
+      this.mapArray[5][20] = this.constants.ItemEnum.SKELETON_MAN;
+      this.mapArray[6][19] = this.constants.ItemEnum.SKELETON_SOLDIER;
+      this.mapArray[7][19] = this.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
+      this.mapArray[1][19] = this.constants.ItemEnum.SKELETON_CAPTAIN;
+      _level10Boss = true;
+      m_map.init();
+    }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.PRINCESS_NPC) {
       this.player1.win();
     }
@@ -1019,6 +1044,22 @@ var Map = function (
           );
           this.update();
           this.draw(Framework.Game._context);
+          if (mapPosition === 10 && _level10Boss === true) {
+            _level10MonsterCounter += 1;
+            console.log(_level10MonsterCounter);
+            if (_level10MonsterCounter === 6) {
+              this.mapArray[3][19] = 0;
+              this.init();
+            }
+            if (_level10MonsterCounter === 7) {
+              this.mapArray[4][17] = 0;
+              this.mapArray[4][21] = 0;
+              this.mapArray[7][19] = 0;
+              this.mapArray[11][19] = this.constants.ItemEnum.STAGE_UP;
+              this.init();
+              _level10Boss = false;
+            }
+          }
         } else {
           this.consoleBoard.setMessage(
             "You are too weak!",
@@ -1030,15 +1071,6 @@ var Map = function (
           console.log("You are too weak, you can't damage the monster!!!");
           return;
         }
-      }
-      else if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
-        this.consoleBoard.setMessage(
-          "You can't get out",
-          "untill all monster",
-          "are Defeated!!!"
-        );
-        this.update();
-        this.draw(Framework.Game._context);
       }
       else {
         this.consoleBoard.setMessage(
