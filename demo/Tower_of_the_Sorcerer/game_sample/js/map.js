@@ -11,6 +11,7 @@ var Map = function (
   var tempPlayerPosition = { x: 0, y: 0 };
   var _level10Boss = false;
   var _level10MonsterCounter = 0;
+  var _winGameFlag = false;
   console.log(this.playerSpwanPositionArray);
   this.load = function () {
     this._numDoorPickAxe = 0;
@@ -769,6 +770,9 @@ var Map = function (
     if (e.key === "Space") {
       console.log("Pressed Space");
       this.npcMessageBoard.display = false;
+      if (_winGameFlag === true) {
+        this.player1.win();
+      }
     }
   };
 
@@ -996,7 +1000,8 @@ var Map = function (
       m_map.init();
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.PRINCESS_NPC) {
-      this.player1.win();
+      this.npcMessageBoard.setMessage("OMG! Darling! You come to get me", "out of here~ I love you!", "Let's get married!");
+      _winGameFlag = true;
     }
     this.update();
     this.draw(Framework.Game._context);
