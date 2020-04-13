@@ -60,11 +60,11 @@ var GameOver = Framework.Class(Framework.Level, {
     },
 
     mousedown: function (e) {
-        Framework.Game.goToNextLevel();
+        Framework.Game.goToLevel("menu");
     },
 
     click: function (e) {
-        Framework.Game.goToNextLevel();
+        Framework.Game.goToLevel("menu");
 
     },
 
