@@ -13,8 +13,9 @@
         </div>
         <video autoplay muted id="myVideo" src="ending.mp4" type="video/mp4"
             style="position: relative; min-width: 100%; min-height: 100%;width: auto; height: auto; z-index: -100;background-size: cover;">
+        </video>
     </div>
-    </video>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.core.min.js"></script>
     <script type="text/javascript">
         $(document).click(function (e) {
             window.location.href = "game_sample.html";
@@ -26,6 +27,18 @@
 
         function myHandler(e) {
             window.location.href = "game_sample.html";
+        }
+        var sound = new Howl({
+            src: ['ending.mp3'],
+            html5: true,
+            autoplay: true,
+            loop: false, // 無限循環
+            volume: 0.3, // 音量ntById( "state" ).innerText = "結束";
+        });
+        document.getElementById('myVideo').addEventListener('canplay', canPlay, false);
+        function canPlay() {
+            console.log("3");
+            sound.play();
         }
     </script>
 </body>
