@@ -13,12 +13,9 @@ var Map = function (
   var _level10MonsterCounter = 0;
   var _winGameFlag = false;
   var _loseGameFlag = false;
-<<<<<<< HEAD
   var _fairyChatCounter = 0;
   var _isFairyChat = false;
-=======
   var _squidDead = false;
->>>>>>> 50e0a1a10b11cc8260b11b7b59ea2f77c0e914b0
   console.log(this.playerSpwanPositionArray);
   this.audio = new Framework.Audio({
     bgm: { mp3: define.musicPath + "bgm.mp3" },
@@ -518,7 +515,7 @@ var Map = function (
           npc.tileType = line[j];
           this.tileArray.push(npc);
         }
-        else if(line[j] >= this.constants.ItemEnum.SQUID_1 && line[j] <= this.constants.ItemEnum.SQUID_9){
+        else if (line[j] >= this.constants.ItemEnum.SQUID_1 && line[j] <= this.constants.ItemEnum.SQUID_9) {
           var squid = new Squid();
           squid.position = { x: j, y: i };
           squid.tileType = line[j];
@@ -678,7 +675,7 @@ var Map = function (
       }
     }
     else if (mapPosition === 17) {
-      
+
     }
   };
 
@@ -1252,12 +1249,12 @@ var Map = function (
           if (counteredSquid) {
             console.log("SQUID DEFEATED");
             console.log("SQUID DEAD");
-           for (let i = 5; i < 8; i++){
-             for (let j = 18; j < 21; j++){
+            for (let i = 5; i < 8; i++) {
+              for (let j = 18; j < 21; j++) {
                 this.mapArray[i][j] = 0;
-               this.tileArray[i * 26 + j].tileType = 0
-             }
-           }
+                this.tileArray[i * 26 + j].tileType = 0
+              }
+            }
           }
           this.update();
           this.draw(Framework.Game._context);
