@@ -18,10 +18,10 @@ var Slime = function (file, position) {  //畫面的object
     this.slimeMan.scale = 2;
     this.slimeMan.index = 1;
 
-    this.greenSlime.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.redSlime.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.blackSlime.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.slimeMan.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.greenSlime.start({ from: 0, to: 4, loop: true, speed: 6 });
+    this.redSlime.start({ from: 0, to: 4, loop: true, speed: 6 });
+    this.blackSlime.start({ from: 0, to: 4, loop: true, speed: 6 });
+    this.slimeMan.start({ from: 0, to: 4, loop: true, speed: 6 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -53,7 +53,6 @@ var Slime = function (file, position) {  //畫面的object
     this._slimeManGainExp = 0;
 
     this.update = function () {
-
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

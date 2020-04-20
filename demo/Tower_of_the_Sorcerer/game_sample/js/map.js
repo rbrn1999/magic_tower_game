@@ -13,6 +13,8 @@ var Map = function (
   var _level10MonsterCounter = 0;
   var _winGameFlag = false;
   var _loseGameFlag = false;
+  var _fairyChatCounter = 0;
+  var _isFairyChat = false;
   console.log(this.playerSpwanPositionArray);
   this.audio = new Framework.Audio({
     bgm: { mp3: define.musicPath + "bgm.mp3" },
@@ -163,7 +165,7 @@ var Map = function (
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 1
     });
     var skeletonSoldier = new Framework.AnimationSprite({
       url: define.imagePath + "e10.png",
@@ -286,6 +288,14 @@ var Map = function (
     });
     var princess = new Framework.AnimationSprite({
       url: define.imagePath + "n6.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+
+    var princess = new Framework.AnimationSprite({
+      url: define.imagePath + "e30.png",
       col: 2,
       row: 1,
       loop: true,
@@ -435,7 +445,7 @@ var Map = function (
           specialEnemys.tileType = line[j];
           this.tileArray.push(specialEnemys);
         }
-        else if (line[j] >= this.constants.ItemEnum.SKELETON_CAPTAIN_NPC && line[j] <= this.constants.ItemEnum.OLD_MAN_NPC) {
+        else if (line[j] >= this.constants.ItemEnum.FAIRY_NPC && line[j] <= this.constants.ItemEnum.OLD_MAN_NPC) {
           var npc = new NPC();
           npc.position = { x: j, y: i };
           npc.tileType = line[j];
@@ -546,14 +556,14 @@ var Map = function (
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.playerState.increaseHp(50);
-      m_map.consoleBoard.setMessage("Get:", "Red Potion !", "HP +50");
+      m_map.playerState.increaseHp(0);
+      m_map.consoleBoard.setMessage("This potion is", "deteriorated!");
     } else if (item === m_map.constants.ItemEnum.BLUE_POTION) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
-      m_map.playerState.increaseHp(200);
-      m_map.consoleBoard.setMessage("Get:", "Blue Gem !", "HP +200");
+      m_map.playerState.increaseHp(0);
+      m_map.consoleBoard.setMessage("This potion is", "deteriorated!");
     } else if (item === m_map.constants.ItemEnum.SILVER_SWORD) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
@@ -600,10 +610,9 @@ var Map = function (
   };
 
   this.update = function () {
-    /*for(var i=0; i<this.boxArray.length; i++)
-        {
-            this.boxArray[i].update();
-        }*/
+    // for (var i = 0; i < this.tileArray.length; i++) {
+    //   this.tileArray[i].update();
+    // }
     if (this.pressWalk === true && this.player1.isWalking === false) {
       if (
         this.checkIsWalkAble(
@@ -822,6 +831,9 @@ var Map = function (
     if (e.key === "Space") {
       console.log("Pressed Space");
       this.npcMessageBoard.display = false;
+      if (_isFairyChat === true) {
+        this.npcChatSystem(tempPlayerPosition.x, tempPlayerPosition.y);
+      }
       if (_winGameFlag === true) {
         this.player1.win();
       }
@@ -1062,7 +1074,6 @@ var Map = function (
         this.confirmItem_3 = false;
         this.confirmBox = undefined;
       }
-
       //The cost of each item should be a valuable, the cost will change depence on the buying times.
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC) {
@@ -1083,6 +1094,33 @@ var Map = function (
     else if (this.mapArray[y][x] === this.constants.ItemEnum.PRINCESS_NPC) {
       this.npcMessageBoard.setMessage("OMG! Darling! You come to get me", "out of here~ I love you!", "Let's get married!");
       _winGameFlag = true;
+    }
+    else if (this.mapArray[y][x] === this.constants.ItemEnum.FAIRY_NPC) {
+      console.log(_fairyChatCounter);
+      switch (_fairyChatCounter) {
+        case 0:
+          _isFairyChat = true;
+          this.npcMessageBoard.setMessage("Welcome to Tower of the Sorcerer", "21 levels verson!");
+          break;
+        case 1:
+          this.npcMessageBoard.setMessage("This tower is too old now,", "so upper than 21 levels were", "downed.");
+          break;
+        case 2:
+          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "were weaked, but all the potion", "were become no effective.");
+          break;
+        case 3:
+          this.npcMessageBoard.setMessage("By the way I think it's just a", "cake for you.");
+          break;
+        case 4:
+          _isFairyChat = false;
+          this.npcMessageBoard.setMessage("Let's crack on to find you princess!", "Good Luck!");
+          this.mapArray[y][x] = 0; //碰撞盒換成0
+          this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+          break;
+        default:
+        // code block
+      }
+      _fairyChatCounter += 1;
     }
     this.update();
     this.draw(Framework.Game._context);

@@ -29,8 +29,8 @@ var SpecialEnemys = function (file, position) {  //畫面的object
     this._rockGainCoin = 14;
     this._rockGainExp = 0;
 
-    this._vampireHP = 2222;
-    this._vampireATK = 99;
+    this._vampireHP = 222;
+    this._vampireATK = 1957;
     this._vampireDEF = 33;
     this._vampireGainCoin = 24;
     this._vampireGainExp = 0;

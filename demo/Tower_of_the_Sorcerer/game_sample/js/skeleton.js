@@ -2,21 +2,21 @@ var Skeleton = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.skeletonMan = new Framework.AnimationSprite({ url: define.imagePath + 'e9.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.skeletonMan = new Framework.AnimationSprite({ url: define.imagePath + 'e9.png', col: 2, row: 1, loop: true, speed: 1 });
     this.skeletonMan.scale = 2;
     this.skeletonMan.index = 1;
 
-    this.skeletonSoldier = new Framework.AnimationSprite({ url: define.imagePath + 'e10.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.skeletonSoldier = new Framework.AnimationSprite({ url: define.imagePath + 'e10.png', col: 2, row: 1, loop: true, speed: 1 });
     this.skeletonSoldier.scale = 2;
     this.skeletonSoldier.index = 1;
 
-    this.skeletonCaptain = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.skeletonCaptain = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 1 });
     this.skeletonCaptain.scale = 2;
     this.skeletonCaptain.index = 1;
 
-    this.skeletonMan.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.skeletonSoldier.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.skeletonCaptain.start({ from: 0, to: 4, loop: false, speed: 6 });
+    // this.skeletonMan.start({ from: 0, to: 1, loop: true, speed: 6 });
+    // this.skeletonSoldier.start({ from: 0, to: 4, loop: true, speed: 6 });
+    // this.skeletonCaptain.start({ from: 0, to: 4, loop: true, speed: 6 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -43,7 +43,6 @@ var Skeleton = function (file, position) {  //畫面的object
 
 
     this.update = function () {
-
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
