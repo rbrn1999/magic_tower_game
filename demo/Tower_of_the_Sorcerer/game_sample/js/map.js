@@ -13,8 +13,12 @@ var Map = function (
   var _level10MonsterCounter = 0;
   var _winGameFlag = false;
   var _loseGameFlag = false;
+<<<<<<< HEAD
   var _fairyChatCounter = 0;
   var _isFairyChat = false;
+=======
+  var _squidDead = false;
+>>>>>>> 50e0a1a10b11cc8260b11b7b59ea2f77c0e914b0
   console.log(this.playerSpwanPositionArray);
   this.audio = new Framework.Audio({
     bgm: { mp3: define.musicPath + "bgm.mp3" },
@@ -244,6 +248,69 @@ var Map = function (
       loop: true,
       speed: 6
     });
+    var squid_1 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.1.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_2 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.2.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_3 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.3.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_4 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.4.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_5 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.5.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_6 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.6.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_7 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.7.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_8 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.8.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
+    var squid_9 = new Framework.AnimationSprite({
+      url: define.imagePath + "n7.9.png",
+      col: 2,
+      row: 1,
+      loop: true,
+      speed: 6
+    });
     var rock = new Framework.AnimationSprite({
       url: define.imagePath + "e15.png",
       col: 2,
@@ -451,6 +518,12 @@ var Map = function (
           npc.tileType = line[j];
           this.tileArray.push(npc);
         }
+        else if(line[j] >= this.constants.ItemEnum.SQUID_1 && line[j] <= this.constants.ItemEnum.SQUID_9){
+          var squid = new Squid();
+          squid.position = { x: j, y: i };
+          squid.tileType = line[j];
+          this.tileArray.push(squid);
+        }
         else {
           var tile = new MapTile();
           tile.position = { x: j, y: i };
@@ -605,7 +678,7 @@ var Map = function (
       }
     }
     else if (mapPosition === 17) {
-      console.log(player.position.y + ", " + player.position.x);
+      
     }
   };
 
@@ -1125,13 +1198,20 @@ var Map = function (
     this.update();
     this.draw(Framework.Game._context);
   };
-
   this.monsterFightSystem = function (x, y) {
-    if (this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME && this.mapArray[y][x] <= 50) {
+    let monster = this.tileArray[x + 26 * y];
+    let counteredSquid = false;
+    console.log(this.player1.position.y + ", " + this.player1.position.x);
+    if (typeof (monster.squid_1) !== "undefined") {
+      console.log("COUNTER SQUID " + (x + 26 * y));
+      monster = this.tileArray[201];
+      counteredSquid = true;
+    }
+    if (this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME && this.mapArray[y][x] <= 55) {
       var tileType = this.mapArray[y][x];
-      var monsterHP = this.tileArray[y * 26 + x].getHP(tileType);
-      var monsterATK = this.tileArray[y * 26 + x].getATK(tileType);
-      var monsterDEF = this.tileArray[y * 26 + x].getDEF(tileType);
+      var monsterHP = monster.getHP(tileType);
+      var monsterATK = monster.getATK(tileType);
+      var monsterDEF = monster.getDEF(tileType);
       var playerATK = this.playerState._power;
       var playerDEF = this.playerState._defense;
       var numberOfRound = Math.ceil(monsterHP / (playerATK - monsterDEF));
@@ -1169,6 +1249,16 @@ var Map = function (
             "Defeated !",
             "You lost " + minusHP + " Hp"
           );
+          if (counteredSquid) {
+            console.log("SQUID DEFEATED");
+            console.log("SQUID DEAD");
+           for (let i = 5; i < 8; i++){
+             for (let j = 18; j < 21; j++){
+                this.mapArray[i][j] = 0;
+               this.tileArray[i * 26 + j].tileType = 0
+             }
+           }
+          }
           this.update();
           this.draw(Framework.Game._context);
           if (mapPosition === 10 && _levelBoss === true) {
@@ -1239,6 +1329,7 @@ var Map = function (
             }
           }
         }
+
         if (numOfvampire === 0 && numOfBigBat === 0) {
           this.audio.play({ name: "door", loop: false });
           this.audio.play({ name: "door", loop: false });
