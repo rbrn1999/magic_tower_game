@@ -17,9 +17,7 @@ var Constants = function () {
     BLUE_SHOP__1: 92,
     BLUE_SHOP__0: 91,
     SKELETON_CAPTAIN_NPC: 90,
-<<<<<<< HEAD
     FAIRY_NPC: 89,
-=======
     SQUID_9: 55,
     SQUID_8: 54,
     SQUID_7: 53,
@@ -29,7 +27,6 @@ var Constants = function () {
     SQUID_3: 49,
     SQUID_2: 48,
     SQUID_1: 47,
->>>>>>> 50e0a1a10b11cc8260b11b7b59ea2f77c0e914b0
     VAMPIRE: 46,
     ROCK: 45,
     SLIME_MAN: 44,
