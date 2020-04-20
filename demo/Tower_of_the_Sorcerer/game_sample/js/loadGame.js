@@ -60,7 +60,7 @@ var loadGameEnd;
     { src: "game_sample/js/showLevelBoard.js", lookFor: "ShowLevelBoard" },
     { src: "game_sample/js/consoleBoard.js", lookFor: "ConsoleBoard" },
     { src: "game_sample/js/npcMessageBoard.js", lookFor: "NPCMessageBoard" },
-    { src: "game_sample/js/yellowKeyItemInventory.js", lookFor: "YellowKeyItemInventory"},
+    { src: "game_sample/js/yellowKeyItemInventory.js", lookFor: "YellowKeyItemInventory" },
     { src: "game_sample/js/blueKeyItemInventory.js", lookFor: "BlueKeyItemInventory" },
     { src: "game_sample/js/redKeyItemInventory.js", lookFor: "RedKeyItemInventory" },
     { src: "game_sample/js/ironKeyItemInventory.js", lookFor: "IronKeyItemInventory" },
@@ -91,6 +91,7 @@ var loadGameEnd;
     { src: "game_sample/js/map.js", lookFor: "Map" },
     { src: "game_sample/js/level2_change.js", lookFor: "Level2_change" },
     { src: "game_sample/js/gameOver.js", lookFor: "GameOver" },
+    { src: "game_sample/js/winGame.js", lookFor: "WinGame" },
     { src: "game_sample/js/mainGame.js" }
   ];
   importJS(listScript);

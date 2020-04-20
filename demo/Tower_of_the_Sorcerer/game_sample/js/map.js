@@ -826,7 +826,7 @@ var Map = function (
         this.player1.win();
       }
       else if (_loseGameFlag === true) {
-        window.location.href = "ending.html";
+        this.player1.die();
       }
     }
   };

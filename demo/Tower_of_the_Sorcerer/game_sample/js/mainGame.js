@@ -9,5 +9,6 @@ Framework.Game.addNewLevel({ menu: new MyMenu() });
 //Framework.Game.addNewLevel({level1: new Level2()});
 Framework.Game.addNewLevel({ level1: new Level2_change() });
 Framework.Game.addNewLevel({ gameOver: new GameOver() });
+Framework.Game.addNewLevel({ winGame: new WinGame() });
 Framework.Game.start();
 

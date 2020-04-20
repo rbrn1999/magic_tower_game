@@ -57,12 +57,12 @@ var BombMan = function (file, options) {//一個玩家的object
 
     this.die = function () {
         console.log('player die');
-        Framework.Game.goToNextLevel();
+        window.location.href = "ending.html";
     }
 
     this.win = function () {
         console.log('win the game');
-        Framework.Game.goToNextLevel();
+        Framework.Game.goToLevel("winGame");
     }
 
     this.walkEnd = function () { }
