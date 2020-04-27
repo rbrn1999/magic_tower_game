@@ -1173,10 +1173,10 @@ var Map = function (
           this.npcMessageBoard.setMessage("Welcome to Tower of the Sorcerer", "21-level verson!");
           break;
         case 1:
-          this.npcMessageBoard.setMessage("This tower is too old now,", "so levels over 21 are", "doomed.");
+          this.npcMessageBoard.setMessage("This tower is too old now,", "so levels over 21 are doomed.");
           break;
         case 2:
-          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "were weakened, but all the potions", "has become ineffective.");
+          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "are weakened, but all the potions", "have become ineffective.");
           break;
         case 3:
           this.npcMessageBoard.setMessage("By the way I think it's just a piece", "of cake for you.");
