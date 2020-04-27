@@ -15,7 +15,7 @@
             style="position: relative; min-width: 100%; min-height: 100%;width: auto; height: auto; z-index: -100;background-size: cover;">
         </video>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.core.min.js"></script>
     <script type="text/javascript">
         $(document).click(function (e) {
             window.location.href = "game_sample.html";
@@ -23,17 +23,31 @@
         $(document).keydown(function (e) {
             window.location.href = "game_sample.html";
         })
-        document.getElementById('myVideo').addEventListener('ended', myHandler, false);
+        //document.getElementById('myVideo').addEventListener('ended', myHandler, false);
 
         function myHandler(e) {
             window.location.href = "game_sample.html";
         }
+        Howler.mobileAutoEnable = true;
         var sound = new Howl({
             src: ['ending.mp3'],
             html5: true,
-            autoplay: true,
+            autoplay: false,
             loop: false, // 無限循環
             volume: 0.3, // 音量ntById( "state" ).innerText = "結束";
+            onplay: function () {
+                console.log('audio playing!');
+            },
+            onunlock: function () {
+                console.log('audio play unlocked!');
+            },
+            onplayerror: function () {
+                console.log('audio play denied!');
+                sound.once('unlock', function () {
+                    console.log('Play! [touchend]');
+
+                });
+            },
         });
         document.getElementById('myVideo').addEventListener('canplay', canPlay, false);
         function canPlay() {
@@ -41,6 +55,9 @@
             sound.play();
         }
         sound.play();
+        sound.on('end', function () {
+            console.log('Finished!');
+        });
     </script>
 </body>
 
