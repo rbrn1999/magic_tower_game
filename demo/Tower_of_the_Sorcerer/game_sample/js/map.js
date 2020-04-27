@@ -1002,8 +1002,8 @@ var Map = function (
     else if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
       this.consoleBoard.setMessage(
         "You can't get out",
-        "untill all monster",
-        "are Defeated!!!"
+        "untill all monsters",
+        "are defeated!!!"
       );
     }
     this.update();
@@ -1055,7 +1055,7 @@ var Map = function (
       } else if (mapPosition === 7) {
         this.npcMessageBoard.setMessage(
           "Do you want to spend 50 coins",
-          "to exchange for 5 yellow key?",
+          "to exchange for 5 yellow keys?",
           "",
           true
         );
@@ -1147,7 +1147,7 @@ var Map = function (
       //The cost of each item should be a valuable, the cost will change depence on the buying times.
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC) {
-      this.npcMessageBoard.setMessage("HA HA HA You are trapped", "You can only battle with me after", "defeat all my soldiers!!");
+      this.npcMessageBoard.setMessage("HA HA HA You are trapped", "You can only battle with me after", "defeating all my soldiers!!");
       this.mapArray[y][x] = this.constants.ItemEnum.SKELETON_SOLDIER; //碰撞盒換成0
       this.mapArray[5][18] = this.constants.ItemEnum.SKELETON_MAN;
       this.mapArray[4][18] = this.constants.ItemEnum.SKELETON_MAN;
