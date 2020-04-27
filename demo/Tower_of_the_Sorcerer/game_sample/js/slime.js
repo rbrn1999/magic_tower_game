@@ -4,20 +4,15 @@ var Slime = function (file, position) {  //畫面的object
 
     this.greenSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e1.png', col: 2, row: 1, loop: true, speed: 1 });
     this.greenSlime.scale = 2;
-    // this.greenSlime.index = 1; // Probably useless code
-    // this.greenSlime.initialize(); //Probably useless code
 
     this.redSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e2.png', col: 2, row: 1, loop: true, speed: 1 });
     this.redSlime.scale = 2;
-    this.redSlime.index = 1;
 
     this.blackSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e3.png', col: 2, row: 1, loop: true, speed: 1 });
     this.blackSlime.scale = 2;
-    this.blackSlime.index = 1;
 
     this.slimeMan = new Framework.AnimationSprite({ url: define.imagePath + 'e16.png', col: 2, row: 1, loop: true, speed: 1 });
     this.slimeMan.scale = 2;
-    this.slimeMan.index = 1;
 
     this.greenSlime.start({ from: 0, to: 1, loop: true});
     this.redSlime.start({ from: 0, to: 1, loop: true});
