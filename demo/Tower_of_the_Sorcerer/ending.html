@@ -21,7 +21,7 @@
             window.location.href = "game_sample.html";
         })
         $(document).keydown(function (e) {
-            window.location.href = "game_sample.html";
+            sound.play();
         })
         //document.getElementById('myVideo').addEventListener('ended', myHandler, false);
 
@@ -48,15 +48,6 @@
 
                 });
             },
-        });
-        document.getElementById('myVideo').addEventListener('canplay', canPlay, false);
-        function canPlay() {
-            console.log("3");
-            sound.play();
-        }
-        sound.play();
-        sound.on('end', function () {
-            console.log('Finished!');
         });
     </script>
 </body>

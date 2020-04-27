@@ -56,6 +56,10 @@ var Map = function (
       define.imagePath + "stone.png"
     ); //定義treeStone
 
+    this.mapLightPinkStone = new Framework.Sprite(
+      define.imagePath + "stone2.png"
+    );
+
     var lavaWall = new Framework.AnimationSprite({
       url: define.imagePath + "lava.png",
       col: 4,
@@ -384,7 +388,8 @@ var Map = function (
       for (var j = 0; j < line.length; j++) {
         if (
           line[j] === this.constants.ItemEnum.STONE_WALL ||
-          line[j] === this.constants.ItemEnum.BLUE_STONE
+          line[j] === this.constants.ItemEnum.BLUE_STONE ||
+          line[j] === this.constants.ItemEnum.PINK_STONE
         ) {
           var stoneWall = new StoneWall();
           stoneWall.position = { x: j, y: i };
@@ -717,6 +722,9 @@ var Map = function (
         }
       }
     }
+    for (let i = 0; i < this.tileArray.length; i++) {
+      this.tileArray[i].update();
+    }
     this.showLevelBoard.update();
     this.playerState.update();
     this.yellowKeyItemInventory.update();
@@ -1002,8 +1010,8 @@ var Map = function (
     else if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
       this.consoleBoard.setMessage(
         "You can't get out",
-        "untill all monster",
-        "are Defeated!!!"
+        "untill all monsters",
+        "are defeated!!!"
       );
     }
     this.update();
@@ -1055,7 +1063,7 @@ var Map = function (
       } else if (mapPosition === 7) {
         this.npcMessageBoard.setMessage(
           "Do you want to spend 50 coins",
-          "to exchange for 5 yellow key?",
+          "to exchange for 5 yellow keys?",
           "",
           true
         );
@@ -1147,7 +1155,7 @@ var Map = function (
       //The cost of each item should be a valuable, the cost will change depence on the buying times.
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC) {
-      this.npcMessageBoard.setMessage("HA HA HA You are trapped", "You can only battle with me after", "defeat all my soldiers!!");
+      this.npcMessageBoard.setMessage("HA HA HA You are trapped", "You can only battle with me after", "defeating all my soldiers!!");
       this.mapArray[y][x] = this.constants.ItemEnum.SKELETON_SOLDIER; //碰撞盒換成0
       this.mapArray[5][18] = this.constants.ItemEnum.SKELETON_MAN;
       this.mapArray[4][18] = this.constants.ItemEnum.SKELETON_MAN;
@@ -1170,16 +1178,16 @@ var Map = function (
       switch (_fairyChatCounter) {
         case 0:
           _isFairyChat = true;
-          this.npcMessageBoard.setMessage("Welcome to Tower of the Sorcerer", "21 levels verson!");
+          this.npcMessageBoard.setMessage("Welcome to Tower of the Sorcerer", "21-level verson!");
           break;
         case 1:
-          this.npcMessageBoard.setMessage("This tower is too old now,", "so upper than 21 levels were", "downed.");
+          this.npcMessageBoard.setMessage("This tower is too old now,", "so levels over 21 are doomed.");
           break;
         case 2:
-          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "were weaked, but all the potion", "were become no effective.");
+          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "are weakened, but all the potions", "have become ineffective.");
           break;
         case 3:
-          this.npcMessageBoard.setMessage("By the way I think it's just a", "cake for you.");
+          this.npcMessageBoard.setMessage("By the way I think it's just a piece", "of cake for you.");
           break;
         case 4:
           _isFairyChat = false;

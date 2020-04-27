@@ -55,6 +55,7 @@ var loadGameEnd;
   var listScript = [
     { src: "game_sample/js/define.js", lookFor: "define" },
     { src: "game_sample/js/myMenu.js", lookFor: "MyMenu" },
+    { src: "game_sample/js/genderMenu.js", lookFor: "GenderMenu" },
     { src: "game_sample/js/constants.js", lookFor: "Constants" },
     { src: "game_sample/js/playerState.js", lookFor: "PlayerState" },
     { src: "game_sample/js/showLevelBoard.js", lookFor: "ShowLevelBoard" },
@@ -90,7 +91,8 @@ var loadGameEnd;
     { src: "game_sample/js/terrain.js", lookFor: "Terrain" },
     { src: "game_sample/js/mapTile.js", lookFor: "MapTile" },
     { src: "game_sample/js/map.js", lookFor: "Map" },
-    { src: "game_sample/js/level2_change.js", lookFor: "Level2_change" },
+    { src: "game_sample/js/maleLevel.js", lookFor: "MaleLevel" },
+    { src: "game_sample/js/femaleLevel.js", lookFor: "FemaleLevel" },
     { src: "game_sample/js/gameOver.js", lookFor: "GameOver" },
     { src: "game_sample/js/winGame.js", lookFor: "WinGame" },
     { src: "game_sample/js/mainGame.js" }

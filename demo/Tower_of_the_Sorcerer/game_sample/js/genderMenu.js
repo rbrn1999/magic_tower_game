@@ -1,4 +1,4 @@
-var MyMenu = Framework.exClass(Framework.GameMainMenu, {
+var GenderMenu = Framework.exClass(Framework.GameMainMenu, {
     //初始化loadingProgress需要用到的圖片
     initializeProgressResource: function () {
         this.loading = new Framework.Sprite(define.imagePath + 'loading.jpg');
@@ -10,11 +10,6 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
     //在initialize時會觸發的事件
     loadingProgress: function (ctx, requestInfo) {
         //console.log(Framework.ResourceManager.getFinishedRequestPercent())
-        this.loading.draw(ctx);
-        ctx.font = '90px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'white';
-        ctx.fillText(Math.round(requestInfo.percent) + '%', ctx.canvas.width / 2, ctx.canvas.height / 2 + 300);
     },
 
     load: function () {
@@ -59,10 +54,9 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
         parentCtx.fillStyle = 'white';
         parentCtx.textBaseline = 'top';
         parentCtx.textAlign = 'center';
-        parentCtx.fillText('Tower of The Sorcerer', this.rectPosition.x + 160, this.rectPosition.y - 350, 500);
-        parentCtx.fillText('魔塔', this.rectPosition.x + 160, this.rectPosition.y - 200, 500);
-        parentCtx.fillText('Click To Start', this.rectPosition.x - 100, this.rectPosition.y + 250, 260);
-        parentCtx.fillText('Exit', this.rectPosition.x + 390, this.rectPosition.y + 250, 260);
+        parentCtx.fillText('Please choose your gender', this.rectPosition.x + 160, this.rectPosition.y - 350, 500);
+        parentCtx.fillText('Male', this.rectPosition.x - 100, this.rectPosition.y + 250, 260);
+        parentCtx.fillText('Female', this.rectPosition.x + 390, this.rectPosition.y + 250, 260);
     },
 
     mouseup: function (e) {
@@ -71,11 +65,11 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
     mousedown: function (e) {
         //console.log為Browser提供的function, 可以在debugger的console內看到被印出的訊息
         if (e.x >= 418 && e.x <= 720 && e.y >= 688 && e.y <= 791) {
-            Framework.Game.goToNextLevel();
+            Framework.Game.goToLevel("maleLevel");
             console.log("is start button");
         }
         else if (e.x >= 920 && e.x <= 1217 && e.y >= 691 && e.y <= 788) {
-            window.close();
+            Framework.Game.goToLevel("femaleLevel");
             console.log("is exit button");
         }
         else {
