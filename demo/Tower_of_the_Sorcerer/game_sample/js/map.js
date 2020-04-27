@@ -717,6 +717,9 @@ var Map = function (
         }
       }
     }
+    for (let i = 0; i < this.tileArray.length; i++) {
+      this.tileArray[i].update();
+    }
     this.showLevelBoard.update();
     this.playerState.update();
     this.yellowKeyItemInventory.update();
