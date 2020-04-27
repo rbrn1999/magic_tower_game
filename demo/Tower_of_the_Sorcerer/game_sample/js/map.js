@@ -1170,16 +1170,16 @@ var Map = function (
       switch (_fairyChatCounter) {
         case 0:
           _isFairyChat = true;
-          this.npcMessageBoard.setMessage("Welcome to Tower of the Sorcerer", "21 levels verson!");
+          this.npcMessageBoard.setMessage("Welcome to Tower of the Sorcerer", "21-level verson!");
           break;
         case 1:
-          this.npcMessageBoard.setMessage("This tower is too old now,", "so upper than 21 levels were", "downed.");
+          this.npcMessageBoard.setMessage("This tower is too old now,", "so levels over 21 are", "doomed.");
           break;
         case 2:
-          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "were weaked, but all the potion", "were become no effective.");
+          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "were weakened, but all the potions", "has become ineffective.");
           break;
         case 3:
-          this.npcMessageBoard.setMessage("By the way I think it's just a", "cake for you.");
+          this.npcMessageBoard.setMessage("By the way I think it's just a piece", "of cake for you.");
           break;
         case 4:
           _isFairyChat = false;
