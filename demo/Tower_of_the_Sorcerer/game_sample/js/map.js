@@ -26,7 +26,7 @@ var Map = function (
     floor: { mp3: define.musicPath + "floor.mp3" },
     tryOpen: { mp3: define.musicPath + "tryOpen.mp3" },
   });
-  // this.audio.play({ name: "bgm", loop: true });
+  this.audio.play({ name: "bgm", loop: true });
   this.load = function () {
     this._numDoorPickAxe = 0;
     this.constants = new Constants();
