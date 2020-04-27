@@ -71,7 +71,8 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
     mousedown: function (e) {
         //console.log為Browser提供的function, 可以在debugger的console內看到被印出的訊息
         if (e.x >= 418 && e.x <= 720 && e.y >= 688 && e.y <= 791) {
-            Framework.Game.goToNextLevel();
+            //Framework.Game.goToNextLevel();
+            Framework.Game.goToLevel("maleLevel");
             console.log("is start button");
         }
         else if (e.x >= 920 && e.x <= 1217 && e.y >= 691 && e.y <= 788) {
@@ -79,6 +80,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
             console.log("is exit button");
         }
         else {
+            Framework.Game.goToLevel("maleLevel");
             console.log("is not button");
         }
 
