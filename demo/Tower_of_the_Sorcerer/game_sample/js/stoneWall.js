@@ -5,6 +5,9 @@ var StoneWall = function () {  //畫面的object
     this.mapLightBlueStone = new Framework.Sprite(define.imagePath + 'stone.png');
     this.mapLightBlueStone.scale = 2; //size
 
+    this.mapLightPinkStone = new Framework.Sprite(define.imagePath + 'stone2.png');
+    this.mapLightPinkStone.scale = 2; //size
+
     this.mapPosition = { x: 0, y: 0 };
     this.spritePosition = {}
     this._tileType = 0;
@@ -19,11 +22,15 @@ var StoneWall = function () {  //畫面的object
         } else if (this._tileType === -99) {
             this.mapLightBlueStone.draw(ctx);
         }
+        else if (this._tileType === -96) {
+            this.mapLightPinkStone.draw(ctx);
+        }
     }
 
     this.delete = function () {
         this.mapWall = null;
         this.mapLightBlueStone = null;
+        this.mapLightPinkStone = null;
     }
 
 };
@@ -36,6 +43,7 @@ Object.defineProperty(StoneWall.prototype, 'position', {  //圖片位置 是該�
         this.mapPosition = newValue;
         this.mapWall.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
         this.mapLightBlueStone.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
+        this.mapLightPinkStone.position = { x: this.mapPosition.x * 64, y: this.mapPosition.y * 64 };
     }
 });
 

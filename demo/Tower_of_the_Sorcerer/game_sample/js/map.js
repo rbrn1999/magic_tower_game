@@ -56,6 +56,10 @@ var Map = function (
       define.imagePath + "stone.png"
     ); //定義treeStone
 
+    this.mapLightPinkStone = new Framework.Sprite(
+      define.imagePath + "stone2.png"
+    );
+
     var lavaWall = new Framework.AnimationSprite({
       url: define.imagePath + "lava.png",
       col: 4,
@@ -384,7 +388,8 @@ var Map = function (
       for (var j = 0; j < line.length; j++) {
         if (
           line[j] === this.constants.ItemEnum.STONE_WALL ||
-          line[j] === this.constants.ItemEnum.BLUE_STONE
+          line[j] === this.constants.ItemEnum.BLUE_STONE ||
+          line[j] === this.constants.ItemEnum.PINK_STONE
         ) {
           var stoneWall = new StoneWall();
           stoneWall.position = { x: j, y: i };
