@@ -4,7 +4,7 @@ var Map = function (
 ) {
   var m_map = this;
   var mapPosition = 0;
-  this.mapList = new Terrain();
+  this.mapList = map
   this.mapArray = this.mapList.terrainList[mapPosition]; //設定顯示第幾張地圖
   this.playerSpwanPositionArray = this.mapList.spwanPositionList[mapPosition]; //設定player在第幾張地圖的重生點位置
   this.npcArray = this.mapList.npcList[mapPosition]; //設定npc的內容
@@ -387,9 +387,7 @@ var Map = function (
       var line = this.mapArray[i];
       for (var j = 0; j < line.length; j++) {
         if (
-          line[j] === this.constants.ItemEnum.STONE_WALL ||
-          line[j] === this.constants.ItemEnum.BLUE_STONE ||
-          line[j] === this.constants.ItemEnum.PINK_STONE
+          line[j] === this.constants.ItemEnum.STONE_WALL || line[j] === this.constants.ItemEnum.BLUE_STONE || line[j] === this.constants.ItemEnum.PINK_STONE
         ) {
           var stoneWall = new StoneWall();
           stoneWall.position = { x: j, y: i };

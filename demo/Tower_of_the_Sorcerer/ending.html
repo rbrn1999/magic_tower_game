@@ -21,7 +21,19 @@
             window.location.href = "game_sample.html";
         })
         $(document).keydown(function (e) {
-            sound.play();
+            //sound.play();
+            if ($('#myVideo').prop('muted')) {
+                document.querySelector("#myVideo").volume = 0.2;
+                $('#myVideo').prop('muted', false);
+                console.log("hi");
+            }
+        })
+        $(document).mousemove(function (e) {
+            if ($('#myVideo').prop('muted')) {
+                document.querySelector("#myVideo").volume = 0.2;
+                $('#myVideo').prop('muted', false);
+                console.log("hi");
+            }
         })
         //document.getElementById('myVideo').addEventListener('ended', myHandler, false);
 

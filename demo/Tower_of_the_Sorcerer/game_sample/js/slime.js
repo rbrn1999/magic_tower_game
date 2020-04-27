@@ -14,10 +14,10 @@ var Slime = function (file, position) {  //畫面的object
     this.slimeMan = new Framework.AnimationSprite({ url: define.imagePath + 'e16.png', col: 2, row: 1, loop: true, speed: 1 });
     this.slimeMan.scale = 2;
 
-    this.greenSlime.start({ from: 0, to: 1, loop: true});
-    this.redSlime.start({ from: 0, to: 1, loop: true});
-    this.blackSlime.start({ from: 0, to: 1, loop: true});
-    this.slimeMan.start({ from: 0, to: 1, loop: true});
+    this.greenSlime.start({ from: 0, to: 1, loop: true });
+    this.redSlime.start({ from: 0, to: 1, loop: true });
+    this.blackSlime.start({ from: 0, to: 1, loop: true });
+    this.slimeMan.start({ from: 0, to: 1, loop: true });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -49,10 +49,10 @@ var Slime = function (file, position) {  //畫面的object
     this._slimeManGainExp = 0;
 
     this.update = function () {
-        this.greenSlime.update();
-        this.redSlime.update();
-        this.blackSlime.update();
-        this.slimeMan.update();
+        // this.greenSlime.update();
+        // this.redSlime.update();
+        // this.blackSlime.update();
+        // this.slimeMan.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

@@ -2,14 +2,9 @@ var MaleLevel = Framework.Class(Framework.Level, {
 
     load: function () {
         //0 空地  1牆壁  2空木箱  3增加炸彈木箱道具  4增加威力道具木箱  5有獎的箱 -1增加炸彈數道具  -2增加炸彈power道具 
-        this.mapArray = [];
         this.playerPositionArray = [];
         this.npcArray = [];
         var mapList = new Terrain();
-        for (var i = 0; i < mapList.terrainList.length; i++) {
-            this.mapArray[i] = [];
-            this.mapArray[i].push(mapList.terrainList[i]);
-        }
         console.log(mapList.spwanPositionList.length);
         for (var i = 0; i < mapList.spwanPositionList.length; i++) {
             this.playerPositionArray.push(mapList.spwanPositionList[i]);
@@ -19,7 +14,7 @@ var MaleLevel = Framework.Class(Framework.Level, {
             this.npcArray.push(mapList.npcList[i]);
         }
         console.log("Load Map from maleLevel");
-        this.map = new Map(this.mapArray, this.playerPositionArray);  //將關卡地圖 push進Map裡做畫面
+        this.map = new Map(mapList, this.playerPositionArray);  //將關卡地圖 push進Map裡做畫面
         this.map.load();
     },
 
