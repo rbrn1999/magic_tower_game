@@ -1,4 +1,4 @@
-var Level2_change = Framework.Class(Framework.Level, {
+var MaleLevel = Framework.Class(Framework.Level, {
 
     load: function () {
         //0 空地  1牆壁  2空木箱  3增加炸彈木箱道具  4增加威力道具木箱  5有獎的箱 -1增加炸彈數道具  -2增加炸彈power道具 
@@ -18,7 +18,7 @@ var Level2_change = Framework.Class(Framework.Level, {
         for (var i = 0; i < mapList.npcList.length; i++) {
             this.npcArray.push(mapList.npcList[i]);
         }
-        console.log("Load Map from Level2_change");
+        console.log("Load Map from maleLevel");
         this.map = new Map(this.mapArray, this.playerPositionArray);  //將關卡地圖 push進Map裡做畫面
         this.map.load();
     },
