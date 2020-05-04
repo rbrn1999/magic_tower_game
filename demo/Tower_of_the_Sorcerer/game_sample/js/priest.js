@@ -2,16 +2,16 @@ var Priest = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.bluePriest = new Framework.AnimationSprite({ url: define.imagePath + 'e17.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.bluePriest = new Framework.AnimationSprite({ url: define.imagePath + 'e17.png', col: 2, row: 1, loop: true, speed: 1 });
     this.bluePriest.scale = 2;
     this.bluePriest.index = 1;
 
-    this.redPriest = new Framework.AnimationSprite({ url: define.imagePath + 'e18.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.redPriest = new Framework.AnimationSprite({ url: define.imagePath + 'e18.png', col: 2, row: 1, loop: true, speed: 1 });
     this.redPriest.scale = 2;
     this.redPriest.index = 1;
 
-    this.bluePriest.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.redPriest.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.bluePriest.start({ from: 0, to: 1 });
+    this.redPriest.start({ from: 0, to: 1 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -31,7 +31,8 @@ var Priest = function (file, position) {  //畫面的object
     this._redPriestGainExp = 0;
 
     this.update = function () {
-
+        this.bluePriest.update();
+        this.redPriest.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

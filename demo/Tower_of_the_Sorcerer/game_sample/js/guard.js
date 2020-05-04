@@ -2,16 +2,16 @@ var Guard = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.yellowGuard = new Framework.AnimationSprite({ url: define.imagePath + 'e21.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.yellowGuard = new Framework.AnimationSprite({ url: define.imagePath + 'e21.png', col: 2, row: 1, loop: true, speed: 1 });
     this.yellowGuard.scale = 2;
     this.yellowGuard.index = 1;
 
-    this.blueGuard = new Framework.AnimationSprite({ url: define.imagePath + 'e22.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.blueGuard = new Framework.AnimationSprite({ url: define.imagePath + 'e22.png', col: 2, row: 1, loop: true, speed: 1 });
     this.blueGuard.scale = 2;
     this.blueGuard.index = 1;
 
-    this.yellowGuard.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.blueGuard.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.yellowGuard.start({ from: 0, to: 1 });
+    this.blueGuard.start({ from: 0, to: 1 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -31,7 +31,8 @@ var Guard = function (file, position) {  //畫面的object
     this._blueGuardGainExp = 0;
 
     this.update = function () {
-
+        this.yellowGuard.update();
+        this.blueGuard.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

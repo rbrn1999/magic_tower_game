@@ -14,9 +14,9 @@ var Skeleton = function (file, position) {  //畫面的object
     this.skeletonCaptain.scale = 2;
     this.skeletonCaptain.index = 1;
 
-    // this.skeletonMan.start({ from: 0, to: 1, loop: true, speed: 6 });
-    // this.skeletonSoldier.start({ from: 0, to: 4, loop: true, speed: 6 });
-    // this.skeletonCaptain.start({ from: 0, to: 4, loop: true, speed: 6 });
+    this.skeletonMan.start({ from: 0, to: 1, loop: true, speed: 1 });
+    this.skeletonSoldier.start({ from: 0, to: 1, loop: true, speed: 1 });
+    this.skeletonCaptain.start({ from: 0, to: 1, loop: true, speed: 1 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -43,6 +43,9 @@ var Skeleton = function (file, position) {  //畫面的object
 
 
     this.update = function () {
+        this.skeletonMan.update();
+        this.skeletonSoldier.update();
+        this.skeletonCaptain.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

@@ -14,9 +14,9 @@ var SpecialEnemys = function (file, position) {  //畫面的object
     this.vampire.scale = 2;
     this.vampire.index = 1;
 
-    this.rock.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.vampire.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.whiteDoor.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.rock.start({ from: 0, to: 1, loop: false, speed: 1 });
+    this.vampire.start({ from: 0, to: 1, loop: false, speed: 1 });
+    this.whiteDoor.start({ from: 0, to: 1, loop: false, speed: 1 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -36,7 +36,9 @@ var SpecialEnemys = function (file, position) {  //畫面的object
     this._vampireGainExp = 0;
 
     this.update = function () {
-
+        this.rock.update();
+        this.vampire.update();
+        this.whiteDoor.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
