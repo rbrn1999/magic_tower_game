@@ -48,6 +48,7 @@ var Slime = function (file, position) {  //畫面的object
     this._slimeManGainCoin = 15;
     this._slimeManGainExp = 0;
 
+
     this.update = function () {
         this.greenSlime.update();
         this.redSlime.update();
@@ -56,9 +57,15 @@ var Slime = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx.font = "20pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#FFC300";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "left";
         this.mapFloor.draw(ctx);
         if (this._tileType === 30) {
             this.greenSlime.draw(ctx);
+            //ctx.fillText(this._num, (this.mapPosition.x * 64), (this.mapPosition.y * 64));
         }
         else if (this._tileType === 31) {
             this.redSlime.draw(ctx);
