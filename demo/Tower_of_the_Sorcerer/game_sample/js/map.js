@@ -15,7 +15,7 @@ var Map = function (
   var _loseGameFlag = false;
   var _fairyChatCounter = 0;
   var _isFairyChat = false;
-  var _squidDead = false;
+  var storeUsages = 0;
   console.log(this.playerSpwanPositionArray);
   this.audio = new Framework.Audio({
     bgm: { mp3: define.musicPath + "bgm.mp3" },
@@ -1127,7 +1127,7 @@ var Map = function (
       }
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_SHOP__1) {
-      let price = this.tileArray[y * 26 + x].store.getPrice();
+      let price = this.tileArray[y * 26 + x].store.getPrice(storeUsages);
       if (this.playerState._coin < price) {
         this.npcMessageBoard.setMessage("You need " + price + " coins to enter");
       } else if (this.confirmBox != true) {
@@ -1144,7 +1144,7 @@ var Map = function (
           this.consoleBoard.setMessage("DEF +4");
         }
         this.playerState.increaseCoin(-price);
-        this.tileArray[y * 26 + x].store.itemBought();
+        storeUsages++;
         this.confirmItem_1 = false;
         this.confirmItem_2 = false;
         this.confirmItem_3 = false;
