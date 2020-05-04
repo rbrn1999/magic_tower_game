@@ -45,7 +45,7 @@ var Squid = function (file, position) {  //畫面的object
     this.spritePosition = {}
     this._tileType = 0;
 
-    this._squidHP = 1500;
+    this._squidHP = 600;
     this._squidATK = 90;
     this._squidDEF = 10;
     this._squidGainCoin = 50;
