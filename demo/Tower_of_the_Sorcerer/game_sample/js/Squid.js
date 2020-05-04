@@ -2,42 +2,42 @@ var Squid = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.squid_1 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.1.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_1 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.1.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_1.scale = 2;
     this.squid_1.index = 1;
-    this.squid_2 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.2.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_2 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.2.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_2.scale = 2;
     this.squid_2.index = 1;
-    this.squid_3 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.3.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_3 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.3.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_3.scale = 2;
     this.squid_3.index = 13
-    this.squid_4 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.4.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_4 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.4.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_4.scale = 2;
     this.squid_4.index = 1;
-    this.squid_5 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.5.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_5 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.5.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_5.scale = 2;
     this.squid_5.index = 1;
-    this.squid_6 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.6.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_6 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.6.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_6.scale = 2;
     this.squid_6.index = 1;
-    this.squid_7 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.7.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_7 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.7.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_7.scale = 2;
     this.squid_7.index = 1;
-    this.squid_8 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.8.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_8 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.8.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_8.scale = 2;
     this.squid_8.index = 1;
-    this.squid_9 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.9.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.squid_9 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.9.png', col: 2, row: 1, loop: true, speed: 3 });
     this.squid_9.scale = 2;
     this.squid_9.index = 1;
-    this.squid_1.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_2.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_3.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_4.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_5.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_6.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_7.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_8.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.squid_9.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.squid_1.start({ from: 0, to: 1 });
+    this.squid_2.start({ from: 0, to: 1 });
+    this.squid_3.start({ from: 0, to: 1 });
+    this.squid_4.start({ from: 0, to: 1 });
+    this.squid_5.start({ from: 0, to: 1 });
+    this.squid_6.start({ from: 0, to: 1 });
+    this.squid_7.start({ from: 0, to: 1 });
+    this.squid_8.start({ from: 0, to: 1 });
+    this.squid_9.start({ from: 0, to: 1 });
 
     var PIXEL_CONST = 64;
 
@@ -53,7 +53,15 @@ var Squid = function (file, position) {  //畫面的object
 
 
     this.update = function () {
-
+        this.squid_1.update();
+        this.squid_2.update();
+        this.squid_3.update();
+        this.squid_4.update();
+        this.squid_5.update();
+        this.squid_6.update();
+        this.squid_7.update();
+        this.squid_8.update();
+        this.squid_9.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

@@ -2,16 +2,16 @@ var Zombie = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.zombieMan = new Framework.AnimationSprite({ url: define.imagePath + 'e13.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.zombieMan = new Framework.AnimationSprite({ url: define.imagePath + 'e13.png', col: 2, row: 1, loop: true, speed: 1 });
     this.zombieMan.scale = 2;
     this.zombieMan.index = 1;
 
-    this.zombieKnight = new Framework.AnimationSprite({ url: define.imagePath + 'e14.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.zombieKnight = new Framework.AnimationSprite({ url: define.imagePath + 'e14.png', col: 2, row: 1, loop: true, speed: 1 });
     this.zombieKnight.scale = 2;
     this.zombieKnight.index = 1;
 
-    this.zombieMan.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.zombieKnight.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.zombieMan.start({ from: 0, to: 1});
+    this.zombieKnight.start({ from: 0, to: 1 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -31,7 +31,8 @@ var Zombie = function (file, position) {  //畫面的object
     this._zombieKnightGainExp = 0;
 
     this.update = function () {
-
+        this.zombieMan.update();
+        this.zombieKnight.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

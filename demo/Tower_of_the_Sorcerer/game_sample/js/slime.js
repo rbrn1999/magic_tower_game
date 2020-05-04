@@ -49,10 +49,10 @@ var Slime = function (file, position) {  //畫面的object
     this._slimeManGainExp = 0;
 
     this.update = function () {
-        // this.greenSlime.update();
-        // this.redSlime.update();
-        // this.blackSlime.update();
-        // this.slimeMan.update();
+        this.greenSlime.update();
+        this.redSlime.update();
+        this.blackSlime.update();
+        this.slimeMan.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??

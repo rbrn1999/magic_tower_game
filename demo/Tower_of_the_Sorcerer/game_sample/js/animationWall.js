@@ -1,21 +1,22 @@
 var AnimationWall = function(file,position) {  //畫面的object
-    this.lavaWall = new Framework.AnimationSprite({url:define.imagePath + 'lava.png', col:4 , row:1 , loop:true , speed:12}); 
+    this.lavaWall = new Framework.AnimationSprite({url:define.imagePath + 'lava.png', col:4 , row:1 , loop:true , speed:1}); 
     this.lavaWall.scale = 2;
     this.lavaWall.index = 1;
 
-    this.skyWall = new Framework.AnimationSprite({url:define.imagePath + 'sky.png', col:4 , row:1 , loop:true , speed:12}); 
+    this.skyWall = new Framework.AnimationSprite({url:define.imagePath + 'sky.png', col:4 , row:1 , loop:true , speed:1}); 
     this.skyWall.scale = 2;
     this.skyWall.index = 1;
-    this.lavaWall.start({from:0, to: 4, loop: true, speed: 6});
-    this.skyWall.start({from:0, to: 4, loop: true, speed: 6});
+    this.lavaWall.start({ from: 0, to: 3 });
+    this.skyWall.start({from:0, to: 3 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = {x:0, y:0};
     this.spritePosition = {}
     this._tileType = 0;
 
-    this.update = function(){
-
+    this.update = function () {
+        this.lavaWall.update();
+        this.skyWall.update();
     }
 
     this.draw = function(ctx){  //畫道具的圖??

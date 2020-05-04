@@ -2,23 +2,23 @@ var NPC = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.man = new Framework.AnimationSprite({ url: define.imagePath + 'n1.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.man = new Framework.AnimationSprite({ url: define.imagePath + 'n1.png', col: 2, row: 1, loop: true, speed: 1 });
     this.man.scale = 2;
     this.man.index = 1;
 
-    this.woman = new Framework.AnimationSprite({ url: define.imagePath + 'n2.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.woman = new Framework.AnimationSprite({ url: define.imagePath + 'n2.png', col: 2, row: 1, loop: true, speed: 1 });
     this.woman.scale = 2;
     this.woman.index = 1;
 
-    this.thief = new Framework.AnimationSprite({ url: define.imagePath + 'n3.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.thief = new Framework.AnimationSprite({ url: define.imagePath + 'n3.png', col: 2, row: 1, loop: true, speed: 1 });
     this.thief.scale = 2;
     this.thief.index = 1;
 
-    this.oldMan = new Framework.AnimationSprite({ url: define.imagePath + 'n1.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.oldMan = new Framework.AnimationSprite({ url: define.imagePath + 'n1.png', col: 2, row: 1, loop: true, speed: 1 });
     this.oldMan.scale = 2;
     this.oldMan.index = 1;
 
-    this.princess = new Framework.AnimationSprite({ url: define.imagePath + 'n6.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.princess = new Framework.AnimationSprite({ url: define.imagePath + 'n6.png', col: 2, row: 1, loop: true, speed: 1 });
     this.princess.scale = 2;
     this.princess.index = 1;
 
@@ -31,21 +31,21 @@ var NPC = function (file, position) {  //畫面的object
     this.blueShop2 = new Framework.Sprite(define.imagePath + 's26.png');
     this.blueShop2.scale = 2;    //size
 
-    this.skeletonCaptainNpc = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.skeletonCaptainNpc = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 1 });
     this.skeletonCaptainNpc.scale = 2;
     this.skeletonCaptainNpc.index = 1;
 
-    this.fairy = new Framework.AnimationSprite({ url: define.imagePath + 'e30.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.fairy = new Framework.AnimationSprite({ url: define.imagePath + 'e30.png', col: 2, row: 1, loop: true, speed: 1 });
     this.fairy.scale = 2;
     this.fairy.index = 1;
 
-    this.man.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.woman.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.thief.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.oldMan.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.princess.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.skeletonCaptainNpc.start({ from: 0, to: 4, loop: false, speed: 6 });
-    this.fairy.start({ from: 0, to: 4, loop: false, speed: 6 });
+    this.man.start({ from: 0, to: 1});
+    this.woman.start({ from: 0, to: 1});
+    this.thief.start({ from: 0, to: 1 });
+    this.oldMan.start({ from: 0, to: 1 });
+    this.princess.start({ from: 0, to: 1 });
+    this.skeletonCaptainNpc.start({ from: 0, to: 1 });
+    this.fairy.start({ from: 0, to: 1 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -55,7 +55,13 @@ var NPC = function (file, position) {  //畫面的object
     this.store = new Store();
 
     this.update = function () {
-
+        this.man.update();
+        this.woman.update();
+        this.thief.update();
+        this.oldMan.update();
+        this.princess.update();
+        this.skeletonCaptainNpc.update();
+        this.fairy.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
