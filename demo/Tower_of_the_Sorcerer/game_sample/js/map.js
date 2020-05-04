@@ -1092,7 +1092,7 @@ var Map = function (
           );
         }
         this.confirmBox = undefined;
-      } else if (mapPosition === 14) {
+      } else if (mapPosition === 15) {
         this.npcMessageBoard.setMessage(
           "Do you want to spend 200 coins",
           "to exchange for a blue key?",

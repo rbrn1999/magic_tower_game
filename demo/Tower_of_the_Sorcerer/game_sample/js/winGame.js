@@ -10,11 +10,15 @@ var WinGame = Framework.Class(Framework.Level, {
     //在initialize時會觸發的事件
     loadingProgress: function (ctx, requestInfo) {
         //console.log(Framework.ResourceManager.getFinishedRequestPercent())
-
+        this.loading.draw(ctx);
+        ctx.font = '90px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'white';
+        ctx.fillText(Math.round(requestInfo.percent) + '%', ctx.canvas.width / 2, ctx.canvas.height / 2 + 300);
     },
 
     load: function () {
-        this.menu = new Framework.Sprite(define.imagePath + 'GameOver.png');
+        this.menu = new Framework.Sprite(define.imagePath + 'winGame.png');
     },
 
     initialize: function () {
@@ -54,6 +58,16 @@ var WinGame = Framework.Class(Framework.Level, {
         this.menu.draw(parentCtx);
         //this.rootScene.draw();
         //可支援畫各種單純的圖形和字
+        parentCtx.globalAlpha = 0.7;
+        parentCtx.fillStyle = 'black'; //背景色
+        parentCtx.fillRect(this.rectPosition.x - 150, this.rectPosition.y - 50, 650, 400); //框的大小
+        parentCtx.font = '65pt bold';
+        parentCtx.fillStyle = 'white';
+        parentCtx.textBaseline = 'top';
+        parentCtx.textAlign = 'center';
+        parentCtx.globalAlpha = 1;
+        parentCtx.fillText('You Win The Game!', this.rectPosition.x + 160, this.rectPosition.y, 500);
+        parentCtx.fillText('Press any key to continuous....', this.rectPosition.x + 160, this.rectPosition.y + 200, 500);
     },
 
     mouseup: function (e) {

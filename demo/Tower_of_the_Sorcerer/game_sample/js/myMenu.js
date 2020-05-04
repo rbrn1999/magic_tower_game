@@ -61,6 +61,7 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
         parentCtx.textAlign = 'center';
         parentCtx.fillText('Tower of The Sorcerer', this.rectPosition.x + 160, this.rectPosition.y - 350, 500);
         parentCtx.fillText('魔塔', this.rectPosition.x + 160, this.rectPosition.y - 200, 500);
+        parentCtx.fillText('By: 吳軍樂　劉學逸', this.rectPosition.x + 160, this.rectPosition.y - 50, 600);
         parentCtx.fillText('Click To Start', this.rectPosition.x - 100, this.rectPosition.y + 250, 260);
         parentCtx.fillText('Exit', this.rectPosition.x + 390, this.rectPosition.y + 250, 260);
     },
