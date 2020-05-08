@@ -30,18 +30,30 @@ var Priest = function (file, position) {  //畫面的object
     this._redPriestGainCoin = 11;
     this._redPriestGainExp = 0;
 
+    this._bluePriestMinusHP = 0;
+    this._redPriestMinusHP = 0;
+
     this.update = function () {
         this.bluePriest.update();
         this.redPriest.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx.font = "15pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ff0000";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 40) {
             this.bluePriest.draw(ctx);
+            ctx.fillText(this._bluePriestMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
+
         }
         else if (this._tileType === 41) {
             this.redPriest.draw(ctx);
+            ctx.fillText(this._redPriestMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
+
         }
     }
 
@@ -49,6 +61,15 @@ var Priest = function (file, position) {  //畫面的object
         this.mapFloor = null;
         this.bluePriest = null;
         this.redPriest = null;
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 40) {
+            this._bluePriestMinusHP = minusHP;
+        }
+        else if (tileType === 41) {
+            this._redPriestMinusHP = minusHP;
+        }
     }
 
     this.getHP = function (tileType) {

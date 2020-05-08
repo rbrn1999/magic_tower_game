@@ -30,18 +30,30 @@ var Bat = function (file, position) {  //畫面的object
     this._bigBatGainCoin = 6;
     this._bigBatGainExp = 0;
 
+    this._smallBatMinusHP = 0;
+    this._bigBatMinusHP = 0;
+
     this.update = function () {
         this.smallBat.update();
         this.bigBat.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx.font = "15pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ff0000";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 38) {
             this.smallBat.draw(ctx);
+            ctx.fillText(this._smallBatMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
+
         }
         else if (this._tileType === 39) {
             this.bigBat.draw(ctx);
+            ctx.fillText(this._bigBatMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
+
         }
     }
 
@@ -49,6 +61,16 @@ var Bat = function (file, position) {  //畫面的object
         this.mapFloor = null;
         this.smallBat = null;
         this.bigBat = null;
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 38) {
+            this._smallBatMinusHP = minusHP;
+        }
+        else if (tileType === 39) {
+            this._bigBatMinusHP = minusHP;
+
+        }
     }
 
     this.getHP = function (tileType) {

@@ -30,18 +30,29 @@ var Guard = function (file, position) {  //畫面的object
     this._blueGuardGainCoin = 25;
     this._blueGuardGainExp = 0;
 
+    this._yellowGuardMinusHP = 0;
+    this._blueGuardMinusHP = 0;
+
+
     this.update = function () {
         this.yellowGuard.update();
         this.blueGuard.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx.font = "15pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ff0000";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 42) {
             this.yellowGuard.draw(ctx);
+            ctx.fillText(this._yellowGuardMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 43) {
             this.blueGuard.draw(ctx);
+            ctx.fillText(this._blueGuardMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
     }
 
@@ -49,6 +60,15 @@ var Guard = function (file, position) {  //畫面的object
         this.mapFloor = null;
         this.yellowGuard = null;
         this.blueGuard = null;
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 42) {
+            this._yellowGuardMinusHP = minusHP;
+        }
+        else if (tileType === 43) {
+            this._blueGuardMinusHP = minusHP;
+        }
     }
 
     this.getHP = function (tileType) {

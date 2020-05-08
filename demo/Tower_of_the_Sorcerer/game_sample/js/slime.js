@@ -48,6 +48,10 @@ var Slime = function (file, position) {  //畫面的object
     this._slimeManGainCoin = 15;
     this._slimeManGainExp = 0;
 
+    this._greenSlimeMinusHP = 0;
+    this._redSlimeMinusHP = 0;
+    this._blackSlimeMinusHP = 0;
+    this._slimeManMinusHP = 0;
 
     this.update = function () {
         this.greenSlime.update();
@@ -57,24 +61,27 @@ var Slime = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
-        ctx.font = "20pt Algerian";
+        ctx.font = "15pt Algerian";
         ctx.globalAlpha = 1;
-        ctx.fillStyle = "#FFC300";
+        ctx.fillStyle = "#ff0000";
         ctx.textBaseline = "top";
-        ctx.textAlign = "left";
+        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 30) {
             this.greenSlime.draw(ctx);
-            //ctx.fillText(this._num, (this.mapPosition.x * 64), (this.mapPosition.y * 64));
+            ctx.fillText(this._greenSlimeMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 31) {
             this.redSlime.draw(ctx);
+            ctx.fillText(this._redSlimeMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 32) {
             this.blackSlime.draw(ctx);
+            ctx.fillText(this._blackSlimeMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 44) {
             this.slimeMan.draw(ctx);
+            ctx.fillText(this._slimeManMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
     }
 
@@ -84,6 +91,23 @@ var Slime = function (file, position) {  //畫面的object
         this.redSlime = null;
         this.blackSlime = null;
         this.slimeMan = null;
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 30) {
+            this._greenSlimeMinusHP = minusHP;
+        }
+        else if (tileType === 31) {
+            this._redSlimeMinusHP = minusHP;
+
+        }
+        else if (tileType === 32) {
+            this._blackSlimeMinusHP = minusHP;
+
+        }
+        else if (tileType === 44) {
+            this._slimeManMinusHP = minusHP;
+        }
     }
 
     this.getHP = function (tileType) {

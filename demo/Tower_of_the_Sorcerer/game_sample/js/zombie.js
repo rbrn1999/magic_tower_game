@@ -10,7 +10,7 @@ var Zombie = function (file, position) {  //畫面的object
     this.zombieKnight.scale = 2;
     this.zombieKnight.index = 1;
 
-    this.zombieMan.start({ from: 0, to: 1});
+    this.zombieMan.start({ from: 0, to: 1 });
     this.zombieKnight.start({ from: 0, to: 1 });
     var PIXEL_CONST = 64;
 
@@ -30,18 +30,28 @@ var Zombie = function (file, position) {  //畫面的object
     this._zombieKnightGainCoin = 0;
     this._zombieKnightGainExp = 0;
 
+    this._zombieManMinusHP = 0;
+    this._zombieKnightMinusHP = 0;
+
     this.update = function () {
         this.zombieMan.update();
         this.zombieKnight.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx.font = "15pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ff0000";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 36) {
             this.zombieMan.draw(ctx);
+            ctx.fillText(this._zombieManMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 37) {
             this.zombieKnight.draw(ctx);
+            ctx.fillText(this._zombieKnightMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
     }
 
@@ -49,6 +59,15 @@ var Zombie = function (file, position) {  //畫面的object
         this.mapFloor = null;
         this.zombieMan = null;
         this.zombieKnight = null;
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 36) {
+            this._zombieManMinusHP = minusHP;
+        }
+        else if (tileType === 37) {
+            this._zombieKnightMinusHP = minusHP;
+        }
     }
 
     this.getHP = function (tileType) {

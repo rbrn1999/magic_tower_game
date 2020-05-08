@@ -26,7 +26,7 @@ var Map = function (
     floor: { mp3: define.musicPath + "floor.mp3" },
     tryOpen: { mp3: define.musicPath + "tryOpen.mp3" },
   });
-  this.audio.play({ name: "bgm", loop: true });
+  //this.audio.play({ name: "bgm", loop: true });
   this.load = function () {
     this._numDoorPickAxe = 0;
     this.constants = new Constants();
@@ -532,6 +532,7 @@ var Map = function (
         }
       }
     }
+    this.setMonsterMinusHP();
   };
 
   this.setMapPosition = function (newMapPosition) {
@@ -619,12 +620,14 @@ var Map = function (
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increasePower(3);
       m_map.consoleBoard.setMessage("Get:", "Red Gem !", "ATK +3");
+      m_map.setMonsterMinusHP();
     } else if (item === m_map.constants.ItemEnum.BLUE_GEM) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(3);
       m_map.consoleBoard.setMessage("Get:", "Blue Gem !", "DEF +3");
+      m_map.setMonsterMinusHP();
     } else if (item === m_map.constants.ItemEnum.RED_POTION) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
@@ -643,30 +646,35 @@ var Map = function (
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increasePower(10);
       m_map.consoleBoard.setMessage("Get:", "Silver Sword !", "ATK +10");
+      m_map.setMonsterMinusHP();
     } else if (item === m_map.constants.ItemEnum.IRON_SHIELD) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(5);
       m_map.consoleBoard.setMessage("Get:", "Iron Shield !", "DEF +5");
+      m_map.setMonsterMinusHP();
     } else if (item === m_map.constants.ItemEnum.SILVER_SHIELD) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increaseDef(10);
       m_map.consoleBoard.setMessage("Get:", "Silver Shield !", "DEF +10");
+      m_map.setMonsterMinusHP();
     } else if (item === m_map.constants.ItemEnum.IRON_SWORD) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.increasePower(5);
       m_map.consoleBoard.setMessage("Get:", "Iron Sword !", "ATK +5");
+      m_map.setMonsterMinusHP();
     } else if (item === m_map.constants.ItemEnum.HOLLY_WATER) {
       m_map.audio.play({ name: "item", loop: false });
       m_map.mapArray[player.position.y][player.position.x] = 0;
       m_map.tileArray[player.position.y * 26 + player.position.x].tileType = 0;
       m_map.playerState.doubleHp();
       m_map.consoleBoard.setMessage("Get:", "Holly Water !", "HP DOUBLED");
+      m_map.setMonsterMinusHP();
     }
 
     if (mapPosition === 20) {
@@ -860,6 +868,7 @@ var Map = function (
       this.playerState.increasePower(50);
       this.update();
       this.draw(Framework.Game._context);
+      this.setMonsterMinusHP();
     }
     if (e.key === "C") {
       this.playerState.increaseCoin(50);
@@ -1136,11 +1145,14 @@ var Map = function (
         if (this.confirmItem_1) {
           this.playerState.increaseHp(100);
           this.consoleBoard.setMessage("HP +100");
+          this.setMonsterMinusHP();
         } else if (this.confirmItem_2) {
           this.playerState.increasePower(2);
+          this.setMonsterMinusHP();
           this.consoleBoard.setMessage("ATK +2");
         } else if (this.confirmItem_3) {
           this.playerState.increaseDef(4);
+          this.setMonsterMinusHP();
           this.consoleBoard.setMessage("DEF +4");
         }
         this.playerState.increaseCoin(-price);
@@ -1404,6 +1416,33 @@ var Map = function (
     }
   };
 
+  this.setMonsterMinusHP = function () {
+    if (this.tileArray != null) {
+      for (var i = 0; i < this.tileArray.length; i++) {
+        if (this.tileArray[i]._tileType >= 30 && this.tileArray[i]._tileType <= 46 || this.tileArray[i]._tileType == 55) {
+          //this.tileArray[i]._tileType <= 55
+          var tileType = this.tileArray[i]._tileType
+          var monsterHP = this.tileArray[i].getHP(tileType);
+          var monsterATK = this.tileArray[i].getATK(tileType);
+          var monsterDEF = this.tileArray[i].getDEF(tileType);
+          var playerHP = this.playerState._hp;
+          var playerATK = this.playerState._power;
+          var playerDEF = this.playerState._defense;
+          var numberOfRound = Math.ceil(monsterHP / (playerATK - monsterDEF));
+          var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
+          console.log(monsterHP, monsterATK, monsterDEF, playerATK, playerDEF, numberOfRound, minusHP);
+          if (numberOfRound < 0 || minusHP >= playerHP) {
+            this.tileArray[i].setMinusHP(tileType, "");
+            //this.tileArray[i].setMinusHP(tileType, "???");
+          }
+          else {
+            this.tileArray[i].setMinusHP(tileType, "");
+            //this.tileArray[i].setMinusHP(tileType, minusHP);
+          }
+        }
+      }
+    }
+  }
   this.keyup = function (e, list) {
     if (
       e.key === "Down" ||

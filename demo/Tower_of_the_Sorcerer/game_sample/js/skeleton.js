@@ -41,6 +41,9 @@ var Skeleton = function (file, position) {  //畫面的object
     this._skeletonCaptainGainCoin = 15;
     this._skeletonCaptainGainExp = 0;
 
+    this._skeletonManMinusHP = 0;
+    this._skeletonSoldierMinusHP = 0;
+    this._skeletonCaptainMinusHP = 0;
 
     this.update = function () {
         this.skeletonMan.update();
@@ -50,14 +53,36 @@ var Skeleton = function (file, position) {  //畫面的object
 
     this.draw = function (ctx) {  //畫道具的圖??
         this.mapFloor.draw(ctx);
+        ctx.font = "15pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ff0000";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "right";
         if (this._tileType === 33) {
             this.skeletonMan.draw(ctx);
+            ctx.fillText(this._skeletonManMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 34) {
             this.skeletonSoldier.draw(ctx);
+            ctx.fillText(this._skeletonSoldierHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 35) {
             this.skeletonCaptain.draw(ctx);
+            ctx.fillText(this._skeletonCaptainMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
+        }
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 33) {
+            this._skeletonManMinusHP = minusHP;
+        }
+        else if (tileType === 34) {
+            this._skeletonSoldierHP = minusHP;
+
+        }
+        else if (tileType === 35) {
+            this._skeletonCaptainMinusHP = minusHP;
+
         }
     }
 

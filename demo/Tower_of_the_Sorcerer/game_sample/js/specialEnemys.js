@@ -35,6 +35,9 @@ var SpecialEnemys = function (file, position) {  //畫面的object
     this._vampireGainCoin = 24;
     this._vampireGainExp = 0;
 
+    this._rockMinusHP = 0;
+    this._vampireMinusHP = 0;
+
     this.update = function () {
         this.rock.update();
         this.vampire.update();
@@ -42,18 +45,32 @@ var SpecialEnemys = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx.font = "15pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ff0000";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 45) {
             this.rock.draw(ctx);
+            ctx.fillText(this._rockMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 46) {
             this.vampire.draw(ctx);
-        }
-        else if (this._tileType === 47) {
-            this.vampire.draw(ctx);
+            ctx.fillText(this._vampireMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 99) {
             this.whiteDoor.draw(ctx);
+        }
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 45) {
+            this._rockMinusHP = minusHP;
+        }
+        else if (tileType === 46) {
+            this._vampireMinusHP = minusHP;
+
         }
     }
 

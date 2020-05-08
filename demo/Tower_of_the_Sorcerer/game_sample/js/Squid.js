@@ -2,31 +2,31 @@ var Squid = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.squid_1 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.1.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_1 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.1.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_1.scale = 2;
     this.squid_1.index = 1;
-    this.squid_2 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.2.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_2 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.2.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_2.scale = 2;
     this.squid_2.index = 1;
-    this.squid_3 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.3.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_3 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.3.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_3.scale = 2;
     this.squid_3.index = 13
-    this.squid_4 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.4.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_4 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.4.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_4.scale = 2;
     this.squid_4.index = 1;
-    this.squid_5 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.5.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_5 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.5.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_5.scale = 2;
     this.squid_5.index = 1;
-    this.squid_6 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.6.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_6 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.6.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_6.scale = 2;
     this.squid_6.index = 1;
-    this.squid_7 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.7.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_7 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.7.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_7.scale = 2;
     this.squid_7.index = 1;
-    this.squid_8 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.8.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_8 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.8.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_8.scale = 2;
     this.squid_8.index = 1;
-    this.squid_9 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.9.png', col: 2, row: 1, loop: true, speed: 3 });
+    this.squid_9 = new Framework.AnimationSprite({ url: define.imagePath + 'n7.9.png', col: 2, row: 1, loop: true, speed: 1 });
     this.squid_9.scale = 2;
     this.squid_9.index = 1;
     this.squid_1.start({ from: 0, to: 1 });
@@ -51,6 +51,7 @@ var Squid = function (file, position) {  //畫面的object
     this._squidGainCoin = 50;
     this._squidGainExp = 0;
 
+    this._squidMinusHP = 0;
 
     this.update = function () {
         this.squid_1.update();
@@ -65,6 +66,11 @@ var Squid = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx.font = "20pt Algerian";
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#ffffff";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 47) {
             this.squid_1.draw(ctx);
@@ -92,6 +98,7 @@ var Squid = function (file, position) {  //畫面的object
         }
         else if (this._tileType === 55) {
             this.squid_9.draw(ctx);
+            ctx.fillText(this._squidMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
     }
 
@@ -106,6 +113,12 @@ var Squid = function (file, position) {  //畫面的object
         this.squid_7 = null;
         this.squid_8 = null;
         this.squid_9 = null;
+    }
+
+    this.setMinusHP = function (tileType, minusHP) {
+        if (tileType === 55) {
+            this._squidMinusHP = minusHP;
+        }
     }
 
     this.getHP = function (tileType) {
