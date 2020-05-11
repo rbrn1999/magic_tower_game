@@ -93,6 +93,7 @@ var loadGameEnd;
     { src: "game_sample/js/map.js", lookFor: "Map" },
     { src: "game_sample/js/maleLevel.js", lookFor: "MaleLevel" },
     { src: "game_sample/js/femaleLevel.js", lookFor: "FemaleLevel" },
+    { src: "game_sample/js/MonsterHpDisplay.js", lookFor: "monsterHpDisplay" },
     { src: "game_sample/js/gameOver.js", lookFor: "GameOver" },
     { src: "game_sample/js/winGame.js", lookFor: "WinGame" },
     { src: "game_sample/js/mainGame.js" }

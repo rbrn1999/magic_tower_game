@@ -66,11 +66,9 @@ var Squid = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
-        ctx.font = "20pt Algerian";
-        ctx.globalAlpha = 1;
+        ctx = monsterHpDisplay(ctx);
+        ctx.font = "20px";
         ctx.fillStyle = "#ffffff";
-        ctx.textBaseline = "top";
-        ctx.textAlign = "right";
         this.mapFloor.draw(ctx);
         if (this._tileType === 47) {
             this.squid_1.draw(ctx);

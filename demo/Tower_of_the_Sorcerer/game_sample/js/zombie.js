@@ -39,11 +39,7 @@ var Zombie = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
-        ctx.font = "15pt Algerian";
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = "#ff0000";
-        ctx.textBaseline = "top";
-        ctx.textAlign = "right";
+        ctx = monsterHpDisplay(ctx);
         this.mapFloor.draw(ctx);
         if (this._tileType === 36) {
             this.zombieMan.draw(ctx);

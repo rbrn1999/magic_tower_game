@@ -52,12 +52,8 @@ var Skeleton = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
+        ctx = monsterHpDisplay(ctx);
         this.mapFloor.draw(ctx);
-        ctx.font = "15pt Algerian";
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = "#ff0000";
-        ctx.textBaseline = "top";
-        ctx.textAlign = "right";
         if (this._tileType === 33) {
             this.skeletonMan.draw(ctx);
             ctx.fillText(this._skeletonManMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);

@@ -834,7 +834,7 @@ var Map = function (
     }
     if (e.key === "D") {
       if (mapPosition < this.mapList.terrainList.length - 1) {
-        this.setMapPosition(++mapPosition);
+        this.setMapPosition(10);//++mapPosition);
       } else {
         console.log("You can not go upper, there is sky!!");
       }
@@ -957,9 +957,10 @@ var Map = function (
   this.checkIsOpenDoor = function (x, y) {
     if (this.mapArray[y][x] === this.constants.ItemEnum.YELLOW_DOOR) {
       if (this.yellowKeyItemInventory._yellowKey > 0) {
+        this.tileArray[y * 26 + x].doorOpened = true;
         this.audio.play({ name: "door", loop: false });
         this.mapArray[y][x] = 0; //碰撞盒換成0
-        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        // this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.yellowKeyItemInventory.addYellowKey(-1);
         m_map.consoleBoard.setMessage("Door Unlocked!", "Yellow Key -1");
       } else {
@@ -969,9 +970,10 @@ var Map = function (
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_DOOR) {
       if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_DOOR) {
         if (this.blueKeyItemInventory._blueKey > 0) {
+          this.tileArray[y * 26 + x].doorOpened = true;
           this.audio.play({ name: "door", loop: false });
           this.mapArray[y][x] = 0; //碰撞盒換成0
-          this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+          // this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
           this.blueKeyItemInventory.addBlueKey(-1);
           m_map.consoleBoard.setMessage("Door Unlocked!", "Blue Key -1");
         } else {
@@ -982,9 +984,10 @@ var Map = function (
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.RED_DOOR) {
       if (this.mapArray[y][x] === this.constants.ItemEnum.RED_DOOR) {
         if (this.redKeyItemInventory._redKey > 0) {
+          this.tileArray[y * 26 + x].doorOpened = true;
           this.audio.play({ name: "door", loop: false });
           this.mapArray[y][x] = 0; //碰撞盒換成0
-          this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+          // this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
           this.redKeyItemInventory.addRedKey(-1);
           m_map.consoleBoard.setMessage("Door Unlocked!", "Red Key -1");
         } else {
@@ -994,9 +997,10 @@ var Map = function (
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.IRON_DOOR) {
       if (this.ironKeyItemInventory._ironKey > 0) {
+        this.tileArray[y * 26 + x].doorOpened = true;
         this.audio.play({ name: "gate", loop: false });
         this.mapArray[y][x] = 0; //碰撞盒換成0
-        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        // this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.ironKeyItemInventory.addIronKey(-1);
         m_map.consoleBoard.setMessage("Door Unlocked!", "Iron Key -1");
       } else {
@@ -1005,9 +1009,10 @@ var Map = function (
       }
     } else if (this.mapArray[y][x] === this.constants.ItemEnum.WHITE_DOOR) {
       if (this._numDoorPickAxe > 0) {
+        this.tileArray[y * 26 + x].doorOpened = true;
         this.audio.play({ name: "door", loop: false });
         this.mapArray[y][x] = 0; //碰撞盒換成0
-        this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
+        // this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         m_map.consoleBoard.setMessage("Door Unlocked!");
       } else {
         this.audio.play({ name: "tryOpen", loop: false });
@@ -1281,18 +1286,20 @@ var Map = function (
             console.log(_level10MonsterCounter);
             if (_level10MonsterCounter === 8) {
               this.audio.play({ name: "door", loop: false });
+              this.tileArray[3 * 26 + 19].doorOpened = true;
               this.mapArray[3][19] = 0;
-              this.init();
             }
             if (_level10MonsterCounter === 9) {
               this.audio.play({ name: "door", loop: false });
               this.audio.play({ name: "door", loop: false });
               this.audio.play({ name: "door", loop: false });
+              this.tileArray[4 * 26 + 17].doorOpened = true;
+              this.tileArray[4 * 26 + 21].doorOpened = true;
+              this.tileArray[7 * 26 + 19].doorOpened = true;
               this.mapArray[4][17] = 0;
               this.mapArray[4][21] = 0;
               this.mapArray[7][19] = 0;
               this.mapArray[11][19] = this.constants.ItemEnum.STAGE_UP;
-              this.init();
               _levelBoss = false;
             }
           }
@@ -1432,11 +1439,11 @@ var Map = function (
           var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
           console.log(monsterHP, monsterATK, monsterDEF, playerATK, playerDEF, numberOfRound, minusHP);
           if (numberOfRound < 0 || minusHP >= playerHP) {
-            this.tileArray[i].setMinusHP(tileType, "");
+             this.tileArray[i].setMinusHP(tileType, "");
             //this.tileArray[i].setMinusHP(tileType, "???");
           }
           else {
-            this.tileArray[i].setMinusHP(tileType, "");
+             this.tileArray[i].setMinusHP(tileType, "");
             //this.tileArray[i].setMinusHP(tileType, minusHP);
           }
         }

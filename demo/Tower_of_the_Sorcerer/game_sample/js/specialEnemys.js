@@ -2,26 +2,28 @@ var SpecialEnemys = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.whiteDoor = new Framework.AnimationSprite({ url: define.imagePath + 'd5.png', col: 4, row: 1, loop: true, speed: 12 });
+    this.whiteDoor = new Framework.AnimationSprite({ url: define.imagePath + 'd5.png', col: 5, row: 1, loop: false, speed: 8 });
     this.whiteDoor.scale = 2;
     this.whiteDoor.index = 1;
 
-    this.rock = new Framework.AnimationSprite({ url: define.imagePath + 'e15.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.rock = new Framework.AnimationSprite({ url: define.imagePath + 'e15.png', col: 2, row: 1, loop: true, speed: 1 });
     this.rock.scale = 2;
     this.rock.index = 1;
 
-    this.vampire = new Framework.AnimationSprite({ url: define.imagePath + 'e8.png', col: 2, row: 1, loop: true, speed: 12 });
+    this.vampire = new Framework.AnimationSprite({ url: define.imagePath + 'e8.png', col: 2, row: 1, loop: true, speed: 1 });
     this.vampire.scale = 2;
     this.vampire.index = 1;
 
-    this.rock.start({ from: 0, to: 1, loop: false, speed: 1 });
-    this.vampire.start({ from: 0, to: 1, loop: false, speed: 1 });
-    this.whiteDoor.start({ from: 0, to: 1, loop: false, speed: 1 });
+    this.rock.start({ from: 0, to: 1 });
+    this.vampire.start({ from: 0, to: 1 });
+    this.whiteDoor.start({ from: 0, to: 4 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
     this.spritePosition = {}
     this._tileType = 0;
+    this.doorOpened = false;
+    this.frameCount = 0;
 
     this._rockHP = 10;
     this._rockATK = 50;
@@ -39,9 +41,13 @@ var SpecialEnemys = function (file, position) {  //畫面的object
     this._vampireMinusHP = 0;
 
     this.update = function () {
+        if (this._tileType === 99 && this.doorOpened && this.frameCount < 30) {
+            console.log("door animation played");
+            this.whiteDoor.update();
+            this.frameCount++;
+        }
         this.rock.update();
         this.vampire.update();
-        this.whiteDoor.update();
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
