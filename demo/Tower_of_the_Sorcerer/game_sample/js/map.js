@@ -54,7 +54,7 @@ var Map = function (
       speed: 3
     });
     this.fightAnimation.scale = 2;
-    this.fightAnimation.index = 1;
+    this.fightAnimation.index = 2;
     this.mapFloor = new Framework.Sprite(
       define.imagePath + "stone0.png",
       this,
