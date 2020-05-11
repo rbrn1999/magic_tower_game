@@ -81,7 +81,6 @@ var MyMenu = Framework.exClass(Framework.GameMainMenu, {
             console.log("is exit button");
         }
         else {
-            Framework.Game.goToLevel("maleLevel");
             console.log("is not button");
         }
 
