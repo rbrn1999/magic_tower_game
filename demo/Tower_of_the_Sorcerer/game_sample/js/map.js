@@ -834,7 +834,7 @@ var Map = function (
     }
     if (e.key === "D") {
       if (mapPosition < this.mapList.terrainList.length - 1) {
-        this.setMapPosition(10);//++mapPosition);
+        this.setMapPosition(++mapPosition);
       } else {
         console.log("You can not go upper, there is sky!!");
       }
