@@ -764,6 +764,7 @@ var Map = function (
     this.ironKeyItemInventory.draw(ctx);
     this.consoleBoard.draw(ctx);
     this.npcMessageBoard.draw(ctx);
+    this.fightAnimation.draw(ctx);
   };
 
   this.getLeftMonsterNum = function () {
