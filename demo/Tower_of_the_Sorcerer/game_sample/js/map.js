@@ -26,7 +26,7 @@ var Map = function (
     floor: { mp3: define.musicPath + "floor.mp3" },
     tryOpen: { mp3: define.musicPath + "tryOpen.mp3" },
   });
-  //this.audio.play({ name: "bgm", loop: true });
+  this.audio.play({ name: "bgm", loop: true });
   this.load = function () {
     this._numDoorPickAxe = 0;
     this.constants = new Constants();
@@ -1439,11 +1439,11 @@ var Map = function (
           var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
           console.log(monsterHP, monsterATK, monsterDEF, playerATK, playerDEF, numberOfRound, minusHP);
           if (numberOfRound < 0 || minusHP >= playerHP) {
-             this.tileArray[i].setMinusHP(tileType, "");
+            this.tileArray[i].setMinusHP(tileType, "");
             //this.tileArray[i].setMinusHP(tileType, "???");
           }
           else {
-             this.tileArray[i].setMinusHP(tileType, "");
+            this.tileArray[i].setMinusHP(tileType, "");
             //this.tileArray[i].setMinusHP(tileType, minusHP);
           }
         }
