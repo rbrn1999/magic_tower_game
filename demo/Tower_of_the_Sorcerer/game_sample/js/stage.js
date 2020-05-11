@@ -7,18 +7,21 @@ var Stage = function() {  //畫面的object
     this.doorDown.scale = 1.5; //size
     this.doorUp = new Framework.Sprite(define.imagePath + 'doorup.png');
     this.doorUp.scale = 1.5; //size
+    
 
     this.mapPosition = {x:0, y:0};
     this.spritePosition = {}
     this._tileType = 0;
 
-    this.update = function(){
-
+    this.update = function () {
+        if (this._tileType === -97) {
+            this.doorUp.update();
+        }
     }
 
     this.draw = function(ctx){  //畫道具的圖??
         this.mapFloor.draw(ctx);
-        if(this._tileType === -97){
+        if (this._tileType === -97) {
             this.doorUp.draw(ctx);
         }else if(this._tileType === -98){
             this.doorDown.draw(ctx);

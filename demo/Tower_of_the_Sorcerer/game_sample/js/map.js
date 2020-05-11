@@ -46,6 +46,15 @@ var Map = function (
     this.redKeyItemInventory.position = { x: 400, y: 600 }; //分數板位置
     this.ironKeyItemInventory = new IronKeyItemInventory();
     this.ironKeyItemInventory.position = { x: 300, y: 700 }; //分數板位置
+    this.fightAnimation = new Framework.AnimationSprite({
+      url: define.imagePath + "fight.png",
+      col: 3,
+      row: 1,
+      loop: false,
+      speed: 3
+    });
+    this.fightAnimation.scale = 2;
+    this.fightAnimation.index = 1;
     this.mapFloor = new Framework.Sprite(
       define.imagePath + "stone0.png",
       this,
@@ -542,8 +551,6 @@ var Map = function (
     this.mapArray = this.mapList.terrainList[mapPosition]; //設定顯示第幾張地圖
     this.showLevelBoard.setMapLevel(mapPosition);
     this.init();
-    this.update();
-    this.draw(Framework.Game._context);
   };
 
   this.deleteTileArray = function () {
@@ -702,7 +709,6 @@ var Map = function (
         )
       ) {
         this.player1.walk(this.playerWalkDirection);
-        // console.log("player position:" + this.player1.position.x + ", " +this.player1.position.y /*+ "tile: " , this.tileArray[this.player1.position.y*26+this.player1.position.x]*/);
       }
     }
     this.player1.update();
@@ -739,6 +745,7 @@ var Map = function (
     this.ironKeyItemInventory.update();
     this.consoleBoard.update();
     this.npcMessageBoard.update();
+    this.fightAnimation.update();
     this.draw(Framework.Game._context);
   };
   this.draw = function (ctx) {
@@ -834,46 +841,32 @@ var Map = function (
     }
     if (e.key === "D") {
       if (mapPosition < this.mapList.terrainList.length - 1) {
-        this.setMapPosition(++mapPosition);
+        this.setMapPosition(10);
       } else {
         console.log("You can not go upper, there is sky!!");
       }
     }
     if (e.key === "U") {
       this.ironKeyItemInventory.addIronKey(1);
-      this.update();
-      this.draw(Framework.Game._context);
     }
     if (e.key === "I") {
       this.yellowKeyItemInventory.addYellowKey(1);
-      this.update();
-      this.draw(Framework.Game._context);
     }
     if (e.key === "O") {
       this.blueKeyItemInventory.addBlueKey(1);
-      this.update();
-      this.draw(Framework.Game._context);
     }
     if (e.key === "P") {
       this.redKeyItemInventory.addRedKey(1);
-      this.update();
-      this.draw(Framework.Game._context);
     }
     if (e.key === "Q") {
       this.playerState.increaseHp(1000);
-      this.update();
-      this.draw(Framework.Game._context);
     }
     if (e.key === "W") {
       this.playerState.increasePower(50);
-      this.update();
-      this.draw(Framework.Game._context);
       this.setMonsterMinusHP();
     }
     if (e.key === "C") {
       this.playerState.increaseCoin(50);
-      this.update();
-      this.draw(Framework.Game._context);
     }
     if (e.key === "Y") {
       if (this.npcMessageBoard.display) {
@@ -1189,7 +1182,6 @@ var Map = function (
       _winGameFlag = true;
     }
     else if (this.mapArray[y][x] === this.constants.ItemEnum.FAIRY_NPC) {
-      console.log(_fairyChatCounter);
       switch (_fairyChatCounter) {
         case 0:
           _isFairyChat = true;
@@ -1254,6 +1246,8 @@ var Map = function (
       );
       if (this.playerState._hp > minusHP) {
         if (playerATK - monsterDEF > 0) {
+          this.fightAnimation.position = { x: x * 64, y: y * 64 };
+          this.fightAnimation.start({ from: 0, to: 2 });
           this.audio.play({ name: "attack", loop: false });
           this.playerState.increaseHp(-minusHP);
           this.playerState.increaseExp(
@@ -1279,8 +1273,6 @@ var Map = function (
               }
             }
           }
-          this.update();
-          this.draw(Framework.Game._context);
           if (mapPosition === 10 && _levelBoss === true) {
             _level10MonsterCounter += 1;
             console.log(_level10MonsterCounter);
@@ -1300,6 +1292,10 @@ var Map = function (
               this.mapArray[4][21] = 0;
               this.mapArray[7][19] = 0;
               this.mapArray[11][19] = this.constants.ItemEnum.STAGE_UP;
+              this.tileArray[11 * 26 + 19] = new Stage();
+              this.tileArray[11 * 26 + 19].tileType = this.constants.ItemEnum.STAGE_UP;
+              this.tileArray[11 * 26 + 19].position = { x: 19, y: 11 };
+              
               _levelBoss = false;
             }
           }
@@ -1315,8 +1311,8 @@ var Map = function (
               "this monster!!!"
             );
           }
-          this.update();
-          this.draw(Framework.Game._context);
+          // this.update();
+          // this.draw(Framework.Game._context);
           console.log("You are too weak, you can't damage the monster!!!");
           return;
         }
@@ -1331,8 +1327,8 @@ var Map = function (
           "You can't figth",
           "this monster!!!"
         );
-        this.update();
-        this.draw(Framework.Game._context);
+        // this.update();
+        // this.draw(Framework.Game._context);
         console.log("You are too weak, you can't figth this monster!!!");
       }
       if (mapPosition === 20) {
@@ -1437,7 +1433,7 @@ var Map = function (
           var playerDEF = this.playerState._defense;
           var numberOfRound = Math.ceil(monsterHP / (playerATK - monsterDEF));
           var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
-          console.log(monsterHP, monsterATK, monsterDEF, playerATK, playerDEF, numberOfRound, minusHP);
+          // console.log(monsterHP, monsterATK, monsterDEF, playerATK, playerDEF, numberOfRound, minusHP);
           if (numberOfRound < 0 || minusHP >= playerHP) {
              this.tileArray[i].setMinusHP(tileType, "");
             //this.tileArray[i].setMinusHP(tileType, "???");
