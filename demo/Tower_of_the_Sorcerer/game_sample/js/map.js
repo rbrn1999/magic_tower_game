@@ -842,7 +842,7 @@ var Map = function (
     }
     if (e.key === "D") {
       if (mapPosition < this.mapList.terrainList.length - 1) {
-        this.setMapPosition(10);
+        this.setMapPosition(++mapPosition);
       } else {
         console.log("You can not go upper, there is sky!!");
       }
@@ -1296,7 +1296,7 @@ var Map = function (
               this.tileArray[11 * 26 + 19] = new Stage();
               this.tileArray[11 * 26 + 19].tileType = this.constants.ItemEnum.STAGE_UP;
               this.tileArray[11 * 26 + 19].position = { x: 19, y: 11 };
-              
+
               _levelBoss = false;
             }
           }
