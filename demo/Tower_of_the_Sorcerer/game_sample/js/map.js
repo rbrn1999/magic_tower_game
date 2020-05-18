@@ -1092,7 +1092,7 @@ var Map = function (
         );
         if (this.playerState._coin >= 800 && this.confirmBox) {
           this.playerState.increaseCoin(-800);
-          this.yellowKeyItemInventory.addIronKey(1);
+          this.ironKeyItemInventory.addIronKey(1);
         } else if (this.confirmBox) {
           this.npcMessageBoard.setMessage(
             "You don't have enough money,",
