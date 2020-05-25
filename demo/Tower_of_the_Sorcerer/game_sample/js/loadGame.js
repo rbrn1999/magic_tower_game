@@ -16,7 +16,9 @@ var loadGameEnd;
 
         if (typeof blanket != "undefined") {
           blanket.utils.cache[jsConf[0].src] = {};
-          blanket.utils.attachScript({ url: jsConf[0].src }, function (content) {
+          blanket.utils.attachScript({ url: jsConf[0].src }, function (
+            content
+          ) {
             blanket.instrument(
               { inputFile: content, inputFileName: jsConf[0].src },
               function (instrumented) {
@@ -61,10 +63,23 @@ var loadGameEnd;
     { src: "game_sample/js/showLevelBoard.js", lookFor: "ShowLevelBoard" },
     { src: "game_sample/js/consoleBoard.js", lookFor: "ConsoleBoard" },
     { src: "game_sample/js/npcMessageBoard.js", lookFor: "NPCMessageBoard" },
-    { src: "game_sample/js/yellowKeyItemInventory.js", lookFor: "YellowKeyItemInventory" },
-    { src: "game_sample/js/blueKeyItemInventory.js", lookFor: "BlueKeyItemInventory" },
-    { src: "game_sample/js/redKeyItemInventory.js", lookFor: "RedKeyItemInventory" },
-    { src: "game_sample/js/ironKeyItemInventory.js", lookFor: "IronKeyItemInventory" },
+    {
+      src: "game_sample/js/yellowKeyItemInventory.js",
+      lookFor: "YellowKeyItemInventory",
+    },
+    {
+      src: "game_sample/js/blueKeyItemInventory.js",
+      lookFor: "BlueKeyItemInventory",
+    },
+    {
+      src: "game_sample/js/redKeyItemInventory.js",
+      lookFor: "RedKeyItemInventory",
+    },
+    {
+      src: "game_sample/js/ironKeyItemInventory.js",
+      lookFor: "IronKeyItemInventory",
+    },
+    { src: "game_sample/js/settingBoard.js", lookFor: "SettingBoard" },
     { src: "game_sample/js/bombMan.js", lookFor: "BombMan" },
     { src: "game_sample/js/monster.js", lookFor: "Monster" },
     { src: "game_sample/js/box.js", lookFor: "Box" },
@@ -96,7 +111,7 @@ var loadGameEnd;
     { src: "game_sample/js/MonsterHpDisplay.js", lookFor: "monsterHpDisplay" },
     { src: "game_sample/js/gameOver.js", lookFor: "GameOver" },
     { src: "game_sample/js/winGame.js", lookFor: "WinGame" },
-    { src: "game_sample/js/mainGame.js" }
+    { src: "game_sample/js/mainGame.js" },
   ];
   importJS(listScript);
 })();

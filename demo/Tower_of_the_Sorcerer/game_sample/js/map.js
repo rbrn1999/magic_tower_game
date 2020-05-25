@@ -4,7 +4,7 @@ var Map = function (
 ) {
   var m_map = this;
   var mapPosition = 0;
-  this.mapList = map
+  this.mapList = map;
   this.mapArray = this.mapList.terrainList[mapPosition]; //設定顯示第幾張地圖
   this.playerSpwanPositionArray = this.mapList.spwanPositionList[mapPosition]; //設定player在第幾張地圖的重生點位置
   this.npcArray = this.mapList.npcList[mapPosition]; //設定npc的內容
@@ -26,14 +26,14 @@ var Map = function (
     floor: { mp3: define.musicPath + "floor.mp3" },
     tryOpen: { mp3: define.musicPath + "tryOpen.mp3" },
   });
-  this.audio.play({ name: "bgm", loop: true });
+  //this.audio.play({ name: "bgm", loop: true });
   this.load = function () {
     this._numDoorPickAxe = 0;
     this.constants = new Constants();
     this.showLevelBoard = new ShowLevelBoard();
     this.showLevelBoard.position = { x: 200, y: 0 }; //分數板位置
     this.consoleBoard = new ConsoleBoard();
-    this.consoleBoard.position = { x: 510, y: 600 };
+    this.consoleBoard.position = { x: 510, y: 500 };
     this.npcMessageBoard = new NPCMessageBoard();
     this.npcMessageBoard.position = { x: 600, y: 200 };
     this.playerState = new PlayerState();
@@ -46,12 +46,14 @@ var Map = function (
     this.redKeyItemInventory.position = { x: 400, y: 600 }; //分數板位置
     this.ironKeyItemInventory = new IronKeyItemInventory();
     this.ironKeyItemInventory.position = { x: 300, y: 700 }; //分數板位置
+    this.settingBoard = new SettingBoard();
+    this.settingBoard.position = { x: 500, y: 700 }; //分數板位置
     this.fightAnimation = new Framework.AnimationSprite({
       url: define.imagePath + "fight.png",
       col: 3,
       row: 1,
       loop: false,
-      speed: 3
+      speed: 3,
     });
     this.fightAnimation.scale = 2;
     this.fightAnimation.index = 2;
@@ -74,55 +76,55 @@ var Map = function (
       col: 4,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var skyWall = new Framework.AnimationSprite({
       url: define.imagePath + "sky.png",
       col: 4,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var yellowDoor = new Framework.AnimationSprite({
       url: define.imagePath + "d1.png",
       col: 4,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var blueDoor = new Framework.AnimationSprite({
       url: define.imagePath + "d2.png",
       col: 4,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var redDoor = new Framework.AnimationSprite({
       url: define.imagePath + "d3.png",
       col: 4,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var ironDoor = new Framework.AnimationSprite({
       url: define.imagePath + "d6.png",
       col: 4,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var whiteDoor = new Framework.AnimationSprite({
       url: define.imagePath + "d5.png",
       col: 4,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var newMonster = new Monster(define.imagePath + "monster.png", this, {
       down: { from: 0, to: 2 },
       left: { from: 3, to: 5 },
       right: { from: 6, to: 8 },
-      up: { from: 9, to: 11 }
+      up: { from: 9, to: 11 },
     }); //定義
 
     this.stageDown = new Framework.Sprite(define.imagePath + "doordown.png");
@@ -143,13 +145,15 @@ var Map = function (
     this.ironSword = new Framework.Sprite(define.imagePath + "i28.png");
     this.hollyWater = new Framework.Sprite(define.imagePath + "i35.png");
     this.blueShop0 = new Framework.Sprite(define.imagePath + "s25.png");
-    this.blueShop1 = new Framework.Sprite(define.imagePath + "NPC01-02_3_1.png");
+    this.blueShop1 = new Framework.Sprite(
+      define.imagePath + "NPC01-02_3_1.png"
+    );
     this.blueShop2 = new Framework.Sprite(define.imagePath + "s26.png");
     this.player1 = new BombMan(define.imagePath + "player1.png", {
       down: { from: 0, to: 2 },
       left: { from: 3, to: 5 },
       right: { from: 6, to: 8 },
-      up: { from: 9, to: 11 }
+      up: { from: 9, to: 11 },
     }); //定義 玩家
     this.player1.position = { x: 1, y: 1 }; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
 
@@ -158,217 +162,217 @@ var Map = function (
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var redSlime = new Framework.AnimationSprite({
       url: define.imagePath + "e2.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var blackSlime = new Framework.AnimationSprite({
       url: define.imagePath + "e3.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var skeletonMan = new Framework.AnimationSprite({
       url: define.imagePath + "e9.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 1
+      speed: 1,
     });
     var skeletonSoldier = new Framework.AnimationSprite({
       url: define.imagePath + "e10.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var skeletonCaptain = new Framework.AnimationSprite({
       url: define.imagePath + "e11.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var zombieMan = new Framework.AnimationSprite({
       url: define.imagePath + "e13.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var zombieKnight = new Framework.AnimationSprite({
       url: define.imagePath + "e14.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var smallBat = new Framework.AnimationSprite({
       url: define.imagePath + "e5.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var bigBat = new Framework.AnimationSprite({
       url: define.imagePath + "e6.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var bluePriest = new Framework.AnimationSprite({
       url: define.imagePath + "e17.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var redPriest = new Framework.AnimationSprite({
       url: define.imagePath + "e18.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var yellowGuard = new Framework.AnimationSprite({
       url: define.imagePath + "e21.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var blueGuard = new Framework.AnimationSprite({
       url: define.imagePath + "e22.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var slimeMan = new Framework.AnimationSprite({
       url: define.imagePath + "e16.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_1 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.1.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_2 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.2.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_3 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.3.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_4 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.4.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_5 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.5.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_6 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.6.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_7 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.7.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_8 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.8.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var squid_9 = new Framework.AnimationSprite({
       url: define.imagePath + "n7.9.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var rock = new Framework.AnimationSprite({
       url: define.imagePath + "e15.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var vampire = new Framework.AnimationSprite({
       url: define.imagePath + "e8.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var man = new Framework.AnimationSprite({
       url: define.imagePath + "n1.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var woman = new Framework.AnimationSprite({
       url: define.imagePath + "n2.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var thief = new Framework.AnimationSprite({
       url: define.imagePath + "n3.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var oldMan = new Framework.AnimationSprite({
       url: define.imagePath + "n1.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
     var princess = new Framework.AnimationSprite({
       url: define.imagePath + "n6.png",
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
 
     var princess = new Framework.AnimationSprite({
@@ -376,7 +380,7 @@ var Map = function (
       col: 2,
       row: 1,
       loop: true,
-      speed: 6
+      speed: 6,
     });
 
     this.monster = []; //有n個怪物 怪物array
@@ -396,7 +400,9 @@ var Map = function (
       var line = this.mapArray[i];
       for (var j = 0; j < line.length; j++) {
         if (
-          line[j] === this.constants.ItemEnum.STONE_WALL || line[j] === this.constants.ItemEnum.BLUE_STONE || line[j] === this.constants.ItemEnum.PINK_STONE
+          line[j] === this.constants.ItemEnum.STONE_WALL ||
+          line[j] === this.constants.ItemEnum.BLUE_STONE ||
+          line[j] === this.constants.ItemEnum.PINK_STONE
         ) {
           var stoneWall = new StoneWall();
           stoneWall.position = { x: j, y: i };
@@ -513,27 +519,32 @@ var Map = function (
           guard.position = { x: j, y: i };
           guard.tileType = line[j];
           this.tileArray.push(guard);
-        }
-        else if (line[j] >= this.constants.ItemEnum.ROCK &&
-          line[j] <= this.constants.ItemEnum.VAMPIRE || line[j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+        } else if (
+          (line[j] >= this.constants.ItemEnum.ROCK &&
+            line[j] <= this.constants.ItemEnum.VAMPIRE) ||
+          line[j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR
+        ) {
           var specialEnemys = new SpecialEnemys();
           specialEnemys.position = { x: j, y: i };
           specialEnemys.tileType = line[j];
           this.tileArray.push(specialEnemys);
-        }
-        else if (line[j] >= this.constants.ItemEnum.FAIRY_NPC && line[j] <= this.constants.ItemEnum.OLD_MAN_NPC) {
+        } else if (
+          line[j] >= this.constants.ItemEnum.FAIRY_NPC &&
+          line[j] <= this.constants.ItemEnum.OLD_MAN_NPC
+        ) {
           var npc = new NPC();
           npc.position = { x: j, y: i };
           npc.tileType = line[j];
           this.tileArray.push(npc);
-        }
-        else if (line[j] >= this.constants.ItemEnum.SQUID_1 && line[j] <= this.constants.ItemEnum.SQUID_9) {
+        } else if (
+          line[j] >= this.constants.ItemEnum.SQUID_1 &&
+          line[j] <= this.constants.ItemEnum.SQUID_9
+        ) {
           var squid = new Squid();
           squid.position = { x: j, y: i };
           squid.tileType = line[j];
           this.tileArray.push(squid);
-        }
-        else {
+        } else {
           var tile = new MapTile();
           tile.position = { x: j, y: i };
           tile.tileType = line[j];
@@ -571,7 +582,7 @@ var Map = function (
       down: { from: 0, to: 2 },
       left: { from: 3, to: 5 },
       right: { from: 6, to: 8 },
-      up: { from: 9, to: 11 }
+      up: { from: 9, to: 11 },
     });
     newMonster.position = monsterPosition;
     this.monster.push(newMonster);
@@ -687,13 +698,12 @@ var Map = function (
     if (mapPosition === 20) {
       if (player.position.y === 8 && player.position.x === 19) {
         m_map.audio.play({ name: "door", loop: false });
-        m_map.mapArray[player.position.y + 1][player.position.x] = m_map.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
+        m_map.mapArray[player.position.y + 1][player.position.x] =
+          m_map.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
         _levelBoss = true;
         m_map.init();
       }
-    }
-    else if (mapPosition === 17) {
-
+    } else if (mapPosition === 17) {
     }
   };
 
@@ -764,6 +774,7 @@ var Map = function (
     this.ironKeyItemInventory.draw(ctx);
     this.consoleBoard.draw(ctx);
     this.npcMessageBoard.draw(ctx);
+    this.settingBoard.draw(ctx);
     this.fightAnimation.draw(ctx);
   };
 
@@ -775,6 +786,20 @@ var Map = function (
       }
     }
     return count;
+  };
+
+  this.countCurrentLevelTotalMapCoinSystem = function () {
+    var totalCoin = 0;
+    for (var i = 0; i < this.tileArray.length; i++) {
+      if (
+        this.tileArray[i]._tileType >= 30 &&
+        this.tileArray[i]._tileType <= 47
+      ) {
+        console.log(this.tileArray[i].getGainCoin(this.tileArray[i]._tileType));
+        totalCoin += this.tileArray[i].getGainCoin(this.tileArray[i]._tileType);
+      }
+    }
+    return totalCoin;
   };
 
   this.playerWalkDirection = { x: 0, y: 0 };
@@ -877,6 +902,17 @@ var Map = function (
       }
     }
 
+    if (e.key === "S") {
+      console.log("Press S for Stat.");
+      if (!this.npcMessageBoard.display) {
+        this.npcMessageBoard.display = true;
+        this.npcMessageBoard.setMessage(
+          "The total coin in this level: " +
+            this.countCurrentLevelTotalMapCoinSystem()
+        );
+      }
+    }
+
     if (e.key === "N") {
       if (this.npcMessageBoard.display) {
         this.confirmBox = false;
@@ -915,8 +951,7 @@ var Map = function (
       }
       if (_winGameFlag === true) {
         this.player1.win();
-      }
-      else if (_loseGameFlag === true) {
+      } else if (_loseGameFlag === true) {
         this.player1.die();
       }
     }
@@ -1012,8 +1047,9 @@ var Map = function (
         this.audio.play({ name: "tryOpen", loop: false });
         m_map.consoleBoard.setMessage("You can't open", "this door");
       }
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+    } else if (
+      this.mapArray[y][x] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR
+    ) {
       this.consoleBoard.setMessage(
         "You can't get out",
         "untill all monsters",
@@ -1029,22 +1065,32 @@ var Map = function (
       if (mapPosition === 2) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-        this.npcMessageBoard.setMessage("Thanks for your help! I love you !!", "Here is all the money I have,", "please take 500 coins!");
+        this.npcMessageBoard.setMessage(
+          "Thanks for your help! I love you !!",
+          "Here is all the money I have,",
+          "please take 500 coins!"
+        );
         this.playerState.increaseCoin(500);
-      }
-      else if (mapPosition === 12) {
+      } else if (mapPosition === 12) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.redKeyItemInventory.addRedKey(1);
-        this.npcMessageBoard.setMessage("No one is willing to spend 800 coins", "for a red key. And I've to leave too.", "Here's my last red key, take it");
+        this.npcMessageBoard.setMessage(
+          "No one is willing to spend 800 coins",
+          "for a red key. And I've to leave too.",
+          "Here's my last red key, take it"
+        );
       }
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.WOMAN_NPC) {
+    } else if (this.mapArray[y][x] === this.constants.ItemEnum.WOMAN_NPC) {
       if (mapPosition === 2) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.playerState._hp *= 1.03;
-        this.npcMessageBoard.setMessage("Thanks for your help!", "I can increase 3% of your", "power and defense!")
+        this.npcMessageBoard.setMessage(
+          "Thanks for your help!",
+          "I can increase 3% of your",
+          "power and defense!"
+        );
       }
       if (mapPosition === 6) {
         this.npcMessageBoard.setMessage(
@@ -1118,28 +1164,37 @@ var Map = function (
         }
         this.confirmBox = undefined;
       }
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.THIEF_NPC) {
+    } else if (this.mapArray[y][x] === this.constants.ItemEnum.THIEF_NPC) {
       if (mapPosition === 2) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
         this.mapList.terrainList[13][7][19] = 0;
-        this.npcMessageBoard.setMessage("Thanks for your help!", "I can unlock the door in level 13 for you.");
+        this.npcMessageBoard.setMessage(
+          "Thanks for your help!",
+          "I can unlock the door in level 13 for you."
+        );
       }
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.OLD_MAN_NPC) {
+    } else if (this.mapArray[y][x] === this.constants.ItemEnum.OLD_MAN_NPC) {
       if (mapPosition === 2) {
         this.mapArray[y][x] = 0; //碰撞盒換成0
         this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
-        this.npcMessageBoard.setMessage("Thanks for your help! I love you !!", "But I have nothing to give.");
+        this.npcMessageBoard.setMessage(
+          "Thanks for your help! I love you !!",
+          "But I have nothing to give."
+        );
       }
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_SHOP__1) {
+    } else if (this.mapArray[y][x] === this.constants.ItemEnum.BLUE_SHOP__1) {
       let price = this.tileArray[y * 26 + x].store.getPrice(storeUsages);
       if (this.playerState._coin < price) {
-        this.npcMessageBoard.setMessage("You need " + price + " coins to enter");
+        this.npcMessageBoard.setMessage(
+          "You need " + price + " coins to enter"
+        );
       } else if (this.confirmBox != true) {
-        this.npcMessageBoard.setMessage("[1] increase 100 HP: $" + price, "[2] increase 2 ATK points: $" + price, "[3] increase 4 DEF points: $" + price);
+        this.npcMessageBoard.setMessage(
+          "[1] increase 100 HP: $" + price,
+          "[2] increase 2 ATK points: $" + price,
+          "[3] increase 4 DEF points: $" + price
+        );
       } else {
         if (this.confirmItem_1) {
           this.playerState.increaseHp(100);
@@ -1162,9 +1217,14 @@ var Map = function (
         this.confirmBox = undefined;
       }
       //The cost of each item should be a valuable, the cost will change depence on the buying times.
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC) {
-      this.npcMessageBoard.setMessage("HA HA HA You are trapped", "You can only battle with me after", "defeating all my soldiers!!");
+    } else if (
+      this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC
+    ) {
+      this.npcMessageBoard.setMessage(
+        "HA HA HA You are trapped",
+        "You can only battle with me after",
+        "defeating all my soldiers!!"
+      );
       this.mapArray[y][x] = this.constants.ItemEnum.SKELETON_SOLDIER; //碰撞盒換成0
       this.mapArray[5][18] = this.constants.ItemEnum.SKELETON_MAN;
       this.mapArray[4][18] = this.constants.ItemEnum.SKELETON_MAN;
@@ -1177,29 +1237,47 @@ var Map = function (
       this.mapArray[1][19] = this.constants.ItemEnum.SKELETON_CAPTAIN;
       _levelBoss = true;
       m_map.init();
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.PRINCESS_NPC) {
-      this.npcMessageBoard.setMessage("OMG! Darling! You come to get me", "out of here~ I love you!", "Let's get married!");
+    } else if (this.mapArray[y][x] === this.constants.ItemEnum.PRINCESS_NPC) {
+      this.npcMessageBoard.setMessage(
+        "OMG! Darling! You come to get me",
+        "out of here~ I love you!",
+        "Let's get married!"
+      );
       _winGameFlag = true;
-    }
-    else if (this.mapArray[y][x] === this.constants.ItemEnum.FAIRY_NPC) {
+    } else if (this.mapArray[y][x] === this.constants.ItemEnum.FAIRY_NPC) {
       switch (_fairyChatCounter) {
         case 0:
           _isFairyChat = true;
-          this.npcMessageBoard.setMessage("Welcome to Tower of the Sorcerer", "21-level verson!");
+          this.npcMessageBoard.setMessage(
+            "Welcome to Tower of the Sorcerer",
+            "21-level verson!"
+          );
           break;
         case 1:
-          this.npcMessageBoard.setMessage("This tower is too old now,", "so levels over 21 are doomed.");
+          this.npcMessageBoard.setMessage(
+            "This tower is too old now,",
+            "so levels over 21 are doomed."
+          );
           break;
         case 2:
-          this.npcMessageBoard.setMessage("Also, the power of all the enemys", "are weakened, but all the potions", "have become ineffective.");
+          this.npcMessageBoard.setMessage(
+            "Also, the power of all the enemys",
+            "are weakened, but all the potions",
+            "have become ineffective."
+          );
           break;
         case 3:
-          this.npcMessageBoard.setMessage("By the way I think it's just a piece", "of cake for you.");
+          this.npcMessageBoard.setMessage(
+            "By the way I think it's just a piece",
+            "of cake for you."
+          );
           break;
         case 4:
           _isFairyChat = false;
-          this.npcMessageBoard.setMessage("Let's crack on to find you princess!", "Good Luck!");
+          this.npcMessageBoard.setMessage(
+            "Let's crack on to find you princess!",
+            "Good Luck!"
+          );
           this.mapArray[y][x] = 0; //碰撞盒換成0
           this.tileArray[y * 26 + x].tileType = 0; //圖片換成0
           break;
@@ -1215,12 +1293,15 @@ var Map = function (
     let monster = this.tileArray[x + 26 * y];
     let counteredSquid = false;
     console.log(this.player1.position.y + ", " + this.player1.position.x);
-    if (typeof (monster.squid_1) !== "undefined") {
+    if (typeof monster.squid_1 !== "undefined") {
       console.log("COUNTER SQUID " + (x + 26 * y));
       monster = this.tileArray[201];
       counteredSquid = true;
     }
-    if (this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME && this.mapArray[y][x] <= 55) {
+    if (
+      this.mapArray[y][x] >= this.constants.ItemEnum.GREEN_SLIME &&
+      this.mapArray[y][x] <= 55
+    ) {
       var tileType = this.mapArray[y][x];
       var monsterHP = monster.getHP(tileType);
       var monsterATK = monster.getATK(tileType);
@@ -1231,19 +1312,19 @@ var Map = function (
       var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
       console.log(
         "Monster HP :" +
-        monsterHP +
-        " monsterATK: " +
-        monsterATK +
-        " monsterDEF: " +
-        monsterDEF +
-        " PlayerATKmonsterInRound: " +
-        (playerATK - monsterDEF) +
-        " monsterATKplayerInRound: " +
-        (monsterATK - playerDEF) +
-        " Round: " +
-        numberOfRound +
-        " minusHP: " +
-        minusHP
+          monsterHP +
+          " monsterATK: " +
+          monsterATK +
+          " monsterDEF: " +
+          monsterDEF +
+          " PlayerATKmonsterInRound: " +
+          (playerATK - monsterDEF) +
+          " monsterATKplayerInRound: " +
+          (monsterATK - playerDEF) +
+          " Round: " +
+          numberOfRound +
+          " minusHP: " +
+          minusHP
       );
       if (this.playerState._hp > minusHP) {
         if (playerATK - monsterDEF > 0) {
@@ -1270,7 +1351,7 @@ var Map = function (
             for (let i = 5; i < 8; i++) {
               for (let j = 18; j < 21; j++) {
                 this.mapArray[i][j] = 0;
-                this.tileArray[i * 26 + j].tileType = 0
+                this.tileArray[i * 26 + j].tileType = 0;
               }
             }
           }
@@ -1294,7 +1375,9 @@ var Map = function (
               this.mapArray[7][19] = 0;
               this.mapArray[11][19] = this.constants.ItemEnum.STAGE_UP;
               this.tileArray[11 * 26 + 19] = new Stage();
-              this.tileArray[11 * 26 + 19].tileType = this.constants.ItemEnum.STAGE_UP;
+              this.tileArray[
+                11 * 26 + 19
+              ].tileType = this.constants.ItemEnum.STAGE_UP;
               this.tileArray[11 * 26 + 19].position = { x: 19, y: 11 };
 
               _levelBoss = false;
@@ -1302,10 +1385,13 @@ var Map = function (
           }
         } else {
           if (_levelBoss === true) {
-            this.npcMessageBoard.setMessage("You are too weak, you can't", "damage the Boss!!!", "You Are Dead!!");
+            this.npcMessageBoard.setMessage(
+              "You are too weak, you can't",
+              "damage the Boss!!!",
+              "You Are Dead!!"
+            );
             _loseGameFlag = true;
-          }
-          else {
+          } else {
             this.consoleBoard.setMessage(
               "You are too weak!",
               "You can't damage ",
@@ -1317,10 +1403,13 @@ var Map = function (
           console.log("You are too weak, you can't damage the monster!!!");
           return;
         }
-      }
-      else {
+      } else {
         if (_levelBoss === true) {
-          this.npcMessageBoard.setMessage("You are too weak! You can't", "figth this Boss!!!", "You Are Dead!!");
+          this.npcMessageBoard.setMessage(
+            "You are too weak! You can't",
+            "figth this Boss!!!",
+            "You Are Dead!!"
+          );
           _loseGameFlag = true;
         }
         this.consoleBoard.setMessage(
@@ -1339,11 +1428,14 @@ var Map = function (
           for (var j = 0; j < this.mapArray[y].length; j++) {
             if (this.mapArray[i][j] === this.constants.ItemEnum.VAMPIRE) {
               return;
-            }
-            else if (this.mapArray[i][j] === this.constants.ItemEnum.BIG_BAT) {
+            } else if (
+              this.mapArray[i][j] === this.constants.ItemEnum.BIG_BAT
+            ) {
               numOfBigBat += 1;
             }
-            if (this.mapArray[i][j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR) {
+            if (
+              this.mapArray[i][j] === this.constants.ItemEnum.VAMPIRE_WHITE_DOOR
+            ) {
               console.log(i + " " + j);
             }
           }
@@ -1388,28 +1480,41 @@ var Map = function (
         }
       }
       if (mapPosition === 17) {
-        if (this.mapArray[8][14] === 0 && this.mapArray[8][16] === 0 && this.mapArray[7][15] != 0) {
+        if (
+          this.mapArray[8][14] === 0 &&
+          this.mapArray[8][16] === 0 &&
+          this.mapArray[7][15] != 0
+        ) {
           this.audio.play({ name: "door", loop: false });
           this.mapArray[7][15] = 0; //碰撞盒換成0
           this.tileArray[7 * 26 + 15].tileType = 0; //圖片換成0
           this.update();
           this.draw(Framework.Game._context);
-        }
-        else if (this.mapArray[5][14] === 0 && this.mapArray[5][16] === 0 && this.mapArray[4][15] != 0) {
+        } else if (
+          this.mapArray[5][14] === 0 &&
+          this.mapArray[5][16] === 0 &&
+          this.mapArray[4][15] != 0
+        ) {
           this.audio.play({ name: "door", loop: false });
           this.mapArray[4][15] = 0; //碰撞盒換成0
           this.tileArray[4 * 26 + 15].tileType = 0; //圖片換成0
           this.update();
           this.draw(Framework.Game._context);
-        }
-        else if (this.mapArray[8][22] === 0 && this.mapArray[8][24] === 0 && this.mapArray[7][23] != 0) {
+        } else if (
+          this.mapArray[8][22] === 0 &&
+          this.mapArray[8][24] === 0 &&
+          this.mapArray[7][23] != 0
+        ) {
           this.audio.play({ name: "door", loop: false });
           this.mapArray[7][23] = 0; //碰撞盒換成0
           this.tileArray[7 * 26 + 23].tileType = 0; //圖片換成0
           this.update();
           this.draw(Framework.Game._context);
-        }
-        else if (this.mapArray[5][22] === 0 && this.mapArray[5][24] === 0 && this.mapArray[4][23] != 0) {
+        } else if (
+          this.mapArray[5][22] === 0 &&
+          this.mapArray[5][24] === 0 &&
+          this.mapArray[4][23] != 0
+        ) {
           this.audio.play({ name: "door", loop: false });
           this.mapArray[4][23] = 0; //碰撞盒換成0
           this.tileArray[4 * 26 + 23].tileType = 0; //圖片換成0
@@ -1423,9 +1528,13 @@ var Map = function (
   this.setMonsterMinusHP = function () {
     if (this.tileArray != null) {
       for (var i = 0; i < this.tileArray.length; i++) {
-        if (this.tileArray[i]._tileType >= 30 && this.tileArray[i]._tileType <= 46 || this.tileArray[i]._tileType == 55) {
+        if (
+          (this.tileArray[i]._tileType >= 30 &&
+            this.tileArray[i]._tileType <= 46) ||
+          this.tileArray[i]._tileType == 55
+        ) {
           //this.tileArray[i]._tileType <= 55
-          var tileType = this.tileArray[i]._tileType
+          var tileType = this.tileArray[i]._tileType;
           var monsterHP = this.tileArray[i].getHP(tileType);
           var monsterATK = this.tileArray[i].getATK(tileType);
           var monsterDEF = this.tileArray[i].getDEF(tileType);
@@ -1435,18 +1544,21 @@ var Map = function (
           var numberOfRound = Math.ceil(monsterHP / (playerATK - monsterDEF));
           var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
           // console.log(monsterHP, monsterATK, monsterDEF, playerATK, playerDEF, numberOfRound, minusHP);
-          if (numberOfRound < 0 || minusHP >= playerHP) {
-            this.tileArray[i].setMinusHP(tileType, "");
-            //this.tileArray[i].setMinusHP(tileType, "???");
-          }
-          else {
-            this.tileArray[i].setMinusHP(tileType, "");
-            //this.tileArray[i].setMinusHP(tileType, minusHP);
+          if (
+            numberOfRound < 0 ||
+            minusHP >= playerHP ||
+            playerATK < monsterDEF
+          ) {
+            // this.tileArray[i].setMinusHP(tileType, "");
+            this.tileArray[i].setMinusHP(tileType, "???");
+          } else {
+            // this.tileArray[i].setMinusHP(tileType, "");
+            this.tileArray[i].setMinusHP(tileType, minusHP);
           }
         }
       }
     }
-  }
+  };
   this.keyup = function (e, list) {
     if (
       e.key === "Down" ||
