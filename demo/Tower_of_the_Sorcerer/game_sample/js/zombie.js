@@ -2,11 +2,11 @@ var Zombie = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.zombieMan = new Framework.AnimationSprite({ url: define.imagePath + 'e13.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.zombieMan = new Framework.AnimationSprite({ url: define.imagePath + 'e13.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.zombieMan.scale = 2;
     this.zombieMan.index = 1;
 
-    this.zombieKnight = new Framework.AnimationSprite({ url: define.imagePath + 'e14.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.zombieKnight = new Framework.AnimationSprite({ url: define.imagePath + 'e14.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.zombieKnight.scale = 2;
     this.zombieKnight.index = 1;
 
@@ -39,13 +39,15 @@ var Zombie = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
-        ctx = monsterHpDisplay(ctx);
+        //ctx = monsterHpDisplay(ctx);
         this.mapFloor.draw(ctx);
         if (this._tileType === 36) {
+            ctx = monsterHpDisplay(ctx, this._zombieManMinusHP);
             this.zombieMan.draw(ctx);
             ctx.fillText(this._zombieManMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 37) {
+            ctx = monsterHpDisplay(ctx, this._zombieKnightMinusHP);
             this.zombieKnight.draw(ctx);
             ctx.fillText(this._zombieKnightMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
@@ -107,6 +109,14 @@ var Zombie = function (file, position) {  //畫面的object
         }
         else if (tileType === 37) {
             return this._zombieKnightGainExp;
+        }
+    }
+    this.getMinus = function (tileType) {
+        if (tileType === 36) {
+            return this._zombieManMinusHP;
+        }
+        else if (tileType === 37) {
+            return this._zombieKnightMinusHP;
         }
     }
 };

@@ -18,7 +18,7 @@ var SpecialEnemys = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.rock.scale = 2;
   this.rock.index = 1;
@@ -28,7 +28,7 @@ var SpecialEnemys = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.vampire.scale = 2;
   this.vampire.index = 1;
@@ -71,9 +71,10 @@ var SpecialEnemys = function (file, position) {
 
   this.draw = function (ctx) {
     //畫道具的圖??
-    ctx = monsterHpDisplay(ctx);
+    //ctx = monsterHpDisplay(ctx);
     this.mapFloor.draw(ctx);
     if (this._tileType === 45) {
+      ctx = monsterHpDisplay(ctx, this._rockMinusHP);
       this.rock.draw(ctx);
       ctx.fillText(
         this._rockMinusHP,
@@ -81,6 +82,8 @@ var SpecialEnemys = function (file, position) {
         this.mapPosition.y * 64 + 5
       );
     } else if (this._tileType === 46) {
+      ctx = monsterHpDisplay(ctx, this._vampireMinusHP);
+      console.log(this._vampireHP);
       this.vampire.draw(ctx);
       ctx.fillText(
         this._vampireMinusHP,
@@ -143,6 +146,13 @@ var SpecialEnemys = function (file, position) {
       return this._rockGainExp;
     } else if (tileType === 46) {
       return this._vampireGainExp;
+    }
+  };
+  this.getMinus = function (tileType) {
+    if (tileType === 45) {
+      return this._rockMinusHP;
+    } else if (tileType === 46) {
+      return this._vampireMinusHP;
     }
   };
 };

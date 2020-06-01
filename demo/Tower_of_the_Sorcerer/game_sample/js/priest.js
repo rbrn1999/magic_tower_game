@@ -2,11 +2,11 @@ var Priest = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.bluePriest = new Framework.AnimationSprite({ url: define.imagePath + 'e17.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.bluePriest = new Framework.AnimationSprite({ url: define.imagePath + 'e17.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.bluePriest.scale = 2;
     this.bluePriest.index = 1;
 
-    this.redPriest = new Framework.AnimationSprite({ url: define.imagePath + 'e18.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.redPriest = new Framework.AnimationSprite({ url: define.imagePath + 'e18.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.redPriest.scale = 2;
     this.redPriest.index = 1;
 
@@ -39,14 +39,16 @@ var Priest = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
-        ctx = monsterHpDisplay(ctx);
+        //ctx = monsterHpDisplay(ctx);
         this.mapFloor.draw(ctx);
         if (this._tileType === 40) {
+            ctx = monsterHpDisplay(ctx, this._bluePriestMinusHP);
             this.bluePriest.draw(ctx);
             ctx.fillText(this._bluePriestMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
 
         }
         else if (this._tileType === 41) {
+            ctx = monsterHpDisplay(ctx, this._redPriestMinusHP);
             this.redPriest.draw(ctx);
             ctx.fillText(this._redPriestMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
 
@@ -109,6 +111,14 @@ var Priest = function (file, position) {  //畫面的object
         }
         else if (tileType === 41) {
             return this._redPriestGainExp;
+        }
+    }
+    this.getMinus = function (tileType) {
+        if (tileType === 40) {
+            return this._bluePriestMinusHP;
+        }
+        else if (tileType === 41) {
+            return this._redPriestMinusHP;
         }
     }
 };

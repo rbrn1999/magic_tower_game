@@ -8,7 +8,7 @@ var Guard = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.yellowGuard.scale = 2;
   this.yellowGuard.index = 1;
@@ -18,7 +18,7 @@ var Guard = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.blueGuard.scale = 2;
   this.blueGuard.index = 1;
@@ -53,9 +53,10 @@ var Guard = function (file, position) {
 
   this.draw = function (ctx) {
     //畫道具的圖??
-    ctx = monsterHpDisplay(ctx);
+    //ctx = monsterHpDisplay(ctx);
     this.mapFloor.draw(ctx);
     if (this._tileType === 42) {
+      ctx = monsterHpDisplay(ctx, this._yellowGuardMinusHP);
       this.yellowGuard.draw(ctx);
       ctx.fillText(
         this._yellowGuardMinusHP,
@@ -63,6 +64,7 @@ var Guard = function (file, position) {
         this.mapPosition.y * 64 + 5
       );
     } else if (this._tileType === 43) {
+      ctx = monsterHpDisplay(ctx, this._blueGuardMinusHP);
       this.blueGuard.draw(ctx);
       ctx.fillText(
         this._blueGuardMinusHP,
@@ -124,6 +126,14 @@ var Guard = function (file, position) {
       return this._blueGuardGainExp;
     }
   };
+  this.getMinus = function (tileType) {
+    if (tileType === 42) {
+      return this._yellowGuardMinusHP;
+    }
+    else if (tileType === 43) {
+      return this._blueGuardMinusHP;
+    }
+  }
 };
 
 Object.defineProperty(Guard.prototype, "position", {

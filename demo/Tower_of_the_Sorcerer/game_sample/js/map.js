@@ -18,7 +18,8 @@ var Map = function (
   var storeUsages = 0;
   console.log(this.playerSpwanPositionArray);
   this.audio = new Framework.Audio({
-    bgm: { mp3: define.musicPath + "bgm.mp3" },
+    bgm1: { mp3: define.musicPath + "bgm1.mp3" },
+    bgm2: { mp3: define.musicPath + "bgm2.mp3" },
     attack: { mp3: define.musicPath + "attack.mp3" },
     door: { mp3: define.musicPath + "door.mp3" },
     item: { mp3: define.musicPath + "item.mp3" },
@@ -26,7 +27,33 @@ var Map = function (
     floor: { mp3: define.musicPath + "floor.mp3" },
     tryOpen: { mp3: define.musicPath + "tryOpen.mp3" },
   });
-  //this.audio.play({ name: "bgm", loop: true });
+  this.playBGM = function (index) {
+    var i = 0;
+    if (index === 1) {
+      for (i = 1; i >= 0; i -= 0.001) {
+        this.audio.setVolume('bgm2', i);
+      }
+      this.audio.stop('bgm2');
+      this.audio.play({ name: "bgm1", loop: true });
+      for (i = 0; i <= 1; i += 0.001) {
+        this.audio.setVolume('bgm1', i);
+      }
+    }
+    else if (index === 2) {
+      for (i = 1; i >= 0; i -= 0.001) {
+        this.audio.setVolume('bgm1', i);
+      }
+      this.audio.stop('bgm1');
+      this.audio.play({ name: "bgm2", loop: true });
+      for (i = 0; i <= 1; i += 0.001) {
+        this.audio.setVolume('bgm2', i);
+      }
+    }
+    else {
+      this.audio.play({ name: "bgm1", loop: true });
+    }
+  }
+  this.playBGM(0);
   this.load = function () {
     this._numDoorPickAxe = 0;
     this.constants = new Constants();
@@ -696,12 +723,13 @@ var Map = function (
     }
 
     if (mapPosition === 20) {
-      if (player.position.y === 8 && player.position.x === 19) {
+      if (player.position.y === 8 && player.position.x === 19 && _levelBoss === false) {
         m_map.audio.play({ name: "door", loop: false });
         m_map.mapArray[player.position.y + 1][player.position.x] =
           m_map.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
         _levelBoss = true;
         m_map.init();
+        m_map.playBGM(2);
       }
     } else if (mapPosition === 17) {
     }
@@ -790,6 +818,7 @@ var Map = function (
 
   this.countCurrentLevelTotalMapCoinSystem = function () {
     var totalCoin = 0;
+    var data = { totalCoin: 0, totalHP: 0 };
     for (var i = 0; i < this.tileArray.length; i++) {
       if (
         this.tileArray[i]._tileType >= 30 &&
@@ -797,8 +826,11 @@ var Map = function (
       ) {
         console.log(this.tileArray[i].getGainCoin(this.tileArray[i]._tileType));
         totalCoin += this.tileArray[i].getGainCoin(this.tileArray[i]._tileType);
+        data.totalCoin += this.tileArray[i].getGainCoin(this.tileArray[i]._tileType);
+        //data.totalHP += this.tileArray[i].getMinus(this.tileArray[i]._tileType);
       }
     }
+    //console.log("data:" + data.totalCoin + ", " + data.totalHP);
     return totalCoin;
   };
 
@@ -908,7 +940,7 @@ var Map = function (
         this.npcMessageBoard.display = true;
         this.npcMessageBoard.setMessage(
           "The total coin in this level: " +
-            this.countCurrentLevelTotalMapCoinSystem()
+          this.countCurrentLevelTotalMapCoinSystem()
         );
       }
     }
@@ -1220,6 +1252,7 @@ var Map = function (
     } else if (
       this.mapArray[y][x] === this.constants.ItemEnum.SKELETON_CAPTAIN_NPC
     ) {
+      this.playBGM(2);
       this.npcMessageBoard.setMessage(
         "HA HA HA You are trapped",
         "You can only battle with me after",
@@ -1312,19 +1345,19 @@ var Map = function (
       var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
       console.log(
         "Monster HP :" +
-          monsterHP +
-          " monsterATK: " +
-          monsterATK +
-          " monsterDEF: " +
-          monsterDEF +
-          " PlayerATKmonsterInRound: " +
-          (playerATK - monsterDEF) +
-          " monsterATKplayerInRound: " +
-          (monsterATK - playerDEF) +
-          " Round: " +
-          numberOfRound +
-          " minusHP: " +
-          minusHP
+        monsterHP +
+        " monsterATK: " +
+        monsterATK +
+        " monsterDEF: " +
+        monsterDEF +
+        " PlayerATKmonsterInRound: " +
+        (playerATK - monsterDEF) +
+        " monsterATKplayerInRound: " +
+        (monsterATK - playerDEF) +
+        " Round: " +
+        numberOfRound +
+        " minusHP: " +
+        minusHP
       );
       if (this.playerState._hp > minusHP) {
         if (playerATK - monsterDEF > 0) {
@@ -1381,6 +1414,7 @@ var Map = function (
               this.tileArray[11 * 26 + 19].position = { x: 19, y: 11 };
 
               _levelBoss = false;
+              this.playBGM(1);
             }
           }
         } else {
@@ -1549,10 +1583,8 @@ var Map = function (
             minusHP >= playerHP ||
             playerATK < monsterDEF
           ) {
-            // this.tileArray[i].setMinusHP(tileType, "");
             this.tileArray[i].setMinusHP(tileType, "???");
           } else {
-            // this.tileArray[i].setMinusHP(tileType, "");
             this.tileArray[i].setMinusHP(tileType, minusHP);
           }
         }

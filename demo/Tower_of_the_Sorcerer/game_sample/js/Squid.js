@@ -8,7 +8,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_1.scale = 2;
   this.squid_1.index = 1;
@@ -17,7 +17,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_2.scale = 2;
   this.squid_2.index = 1;
@@ -26,7 +26,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_3.scale = 2;
   this.squid_3.index = 13;
@@ -35,7 +35,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_4.scale = 2;
   this.squid_4.index = 1;
@@ -44,7 +44,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_5.scale = 2;
   this.squid_5.index = 1;
@@ -53,7 +53,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_6.scale = 2;
   this.squid_6.index = 1;
@@ -62,7 +62,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_7.scale = 2;
   this.squid_7.index = 1;
@@ -71,7 +71,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_8.scale = 2;
   this.squid_8.index = 1;
@@ -80,7 +80,7 @@ var Squid = function (file, position) {
     col: 2,
     row: 1,
     loop: true,
-    speed: 1,
+    speed: 0.98,
   });
   this.squid_9.scale = 2;
   this.squid_9.index = 1;
@@ -122,9 +122,7 @@ var Squid = function (file, position) {
 
   this.draw = function (ctx) {
     //畫道具的圖??
-    ctx = monsterHpDisplay(ctx);
-    ctx.font = "20px";
-    ctx.fillStyle = "#ffffff";
+    ctx = monsterHpDisplay(ctx, this._squidMinusHP);
     this.mapFloor.draw(ctx);
     if (this._tileType === 47) {
       this.squid_1.draw(ctx);
@@ -188,6 +186,9 @@ var Squid = function (file, position) {
   };
   this.getGainExp = function (tileType) {
     return this._squidGainExp;
+  };
+  this.getMinus = function (tileType) {
+    return this._squidMinusHP;
   };
 };
 

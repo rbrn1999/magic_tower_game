@@ -2,16 +2,16 @@ var Slime = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.greenSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e1.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.greenSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e1.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.greenSlime.scale = 2;
 
-    this.redSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e2.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.redSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e2.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.redSlime.scale = 2;
 
-    this.blackSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e3.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.blackSlime = new Framework.AnimationSprite({ url: define.imagePath + 'e3.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.blackSlime.scale = 2;
 
-    this.slimeMan = new Framework.AnimationSprite({ url: define.imagePath + 'e16.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.slimeMan = new Framework.AnimationSprite({ url: define.imagePath + 'e16.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.slimeMan.scale = 2;
 
     this.greenSlime.start({ from: 0, to: 1, loop: true });
@@ -61,21 +61,25 @@ var Slime = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
-        ctx = monsterHpDisplay(ctx);
+        //ctx = monsterHpDisplay(ctx);
         this.mapFloor.draw(ctx);
         if (this._tileType === 30) {
+            ctx = monsterHpDisplay(ctx, this._greenSlimeMinusHP);
             this.greenSlime.draw(ctx);
             ctx.fillText(this._greenSlimeMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 31) {
+            ctx = monsterHpDisplay(ctx, this._redSlimeMinusHP);
             this.redSlime.draw(ctx);
             ctx.fillText(this._redSlimeMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 32) {
+            ctx = monsterHpDisplay(ctx, this._blackSlimeMinusHP);
             this.blackSlime.draw(ctx);
             ctx.fillText(this._blackSlimeMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 44) {
+            ctx = monsterHpDisplay(ctx, this._slimeManMinusHP);
             this.slimeMan.draw(ctx);
             ctx.fillText(this._slimeManMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
@@ -177,6 +181,20 @@ var Slime = function (file, position) {  //畫面的object
         }
         else if (tileType === 44) {
             return this._slimeManGainExp;
+        }
+    }
+    this.getMinus = function (tileType) {
+        if (tileType === 30) {
+            return this._greenSlimeMinusHP;
+        }
+        else if (tileType === 31) {
+            return this._redSlimeMinusHP;
+        }
+        else if (tileType === 32) {
+            return this._blackSlimeMinusHP;
+        }
+        else if (tileType === 44) {
+            return this._slimeManMinusHP;
         }
     }
 };

@@ -2,21 +2,21 @@ var Skeleton = function (file, position) {  //畫面的object
     this.mapFloor = new Framework.Sprite(define.imagePath + 'stone0.png');
     this.mapFloor.scale = 2;    //size
 
-    this.skeletonMan = new Framework.AnimationSprite({ url: define.imagePath + 'e9.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.skeletonMan = new Framework.AnimationSprite({ url: define.imagePath + 'e9.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.skeletonMan.scale = 2;
     this.skeletonMan.index = 1;
 
-    this.skeletonSoldier = new Framework.AnimationSprite({ url: define.imagePath + 'e10.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.skeletonSoldier = new Framework.AnimationSprite({ url: define.imagePath + 'e10.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.skeletonSoldier.scale = 2;
     this.skeletonSoldier.index = 1;
 
-    this.skeletonCaptain = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 1 });
+    this.skeletonCaptain = new Framework.AnimationSprite({ url: define.imagePath + 'e11.png', col: 2, row: 1, loop: true, speed: 0.98 });
     this.skeletonCaptain.scale = 2;
     this.skeletonCaptain.index = 1;
 
-    this.skeletonMan.start({ from: 0, to: 1, loop: true, speed: 1 });
-    this.skeletonSoldier.start({ from: 0, to: 1, loop: true, speed: 1 });
-    this.skeletonCaptain.start({ from: 0, to: 1, loop: true, speed: 1 });
+    this.skeletonMan.start({ from: 0, to: 1, loop: true, speed: 0.98 });
+    this.skeletonSoldier.start({ from: 0, to: 1, loop: true, speed: 0.98 });
+    this.skeletonCaptain.start({ from: 0, to: 1, loop: true, speed: 0.98 });
     var PIXEL_CONST = 64;
 
     this.mapPosition = { x: 0, y: 0 };
@@ -52,17 +52,20 @@ var Skeleton = function (file, position) {  //畫面的object
     }
 
     this.draw = function (ctx) {  //畫道具的圖??
-        ctx = monsterHpDisplay(ctx);
+        //ctx = monsterHpDisplay(ctx);
         this.mapFloor.draw(ctx);
         if (this._tileType === 33) {
+            ctx = monsterHpDisplay(ctx, this._skeletonManMinusHP);
             this.skeletonMan.draw(ctx);
             ctx.fillText(this._skeletonManMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 34) {
+            ctx = monsterHpDisplay(ctx, this._skeletonSoldierHP);
             this.skeletonSoldier.draw(ctx);
             ctx.fillText(this._skeletonSoldierHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
         else if (this._tileType === 35) {
+            ctx = monsterHpDisplay(ctx, this._skeletonCaptainMinusHP);
             this.skeletonCaptain.draw(ctx);
             ctx.fillText(this._skeletonCaptainMinusHP, ((this.mapPosition.x * 64) + 20), ((this.mapPosition.y * 64)) + 5);
         }
@@ -142,6 +145,17 @@ var Skeleton = function (file, position) {  //畫面的object
         }
         else if (tileType === 35) {
             return this._skeletonCaptainGainCoin;
+        }
+    }
+    this.getMinus = function (tileType) {
+        if (tileType === 33) {
+            return this._skeletonManMinusHP;
+        }
+        else if (tileType === 34) {
+            return this._skeletonSoldierMinusHP;
+        }
+        else if (tileType === 35) {
+            return this._skeletonCaptainMinusHP;
         }
     }
 };
