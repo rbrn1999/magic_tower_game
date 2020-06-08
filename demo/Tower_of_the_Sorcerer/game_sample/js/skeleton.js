@@ -76,7 +76,7 @@ var Skeleton = function (file, position) {  //畫面的object
             this._skeletonManMinusHP = minusHP;
         }
         else if (tileType === 34) {
-            this._skeletonSoldierHP = minusHP;
+            this._skeletonSoldierMinusHP = minusHP;
 
         }
         else if (tileType === 35) {

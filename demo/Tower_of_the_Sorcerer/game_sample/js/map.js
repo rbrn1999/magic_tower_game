@@ -1557,6 +1557,7 @@ var Map = function (
         }
       }
     }
+    this.setMonsterMinusHP();
   };
 
   this.setMonsterMinusHP = function () {
