@@ -176,12 +176,21 @@ var Map = function (
       define.imagePath + "NPC01-02_3_1.png"
     );
     this.blueShop2 = new Framework.Sprite(define.imagePath + "s26.png");
-    this.player1 = new BombMan(define.imagePath + "player1.png", {
-      down: { from: 0, to: 2 },
-      left: { from: 3, to: 5 },
-      right: { from: 6, to: 8 },
-      up: { from: 9, to: 11 },
-    }); //定義 玩家
+    if (this.mapList.terrainList[0][0][0] === -99) {
+      this.player1 = new BombMan(define.imagePath + "player1.png", {
+        down: { from: 0, to: 2 },
+        left: { from: 3, to: 5 },
+        right: { from: 6, to: 8 },
+        up: { from: 9, to: 11 },
+      }); //定義 玩家
+    } else {
+      this.player1 = new BombMan(define.imagePath + "player2.png", {
+        down: { from: 0, to: 2 },
+        left: { from: 3, to: 5 },
+        right: { from: 6, to: 8 },
+        up: { from: 9, to: 11 },
+      });
+    }
     this.player1.position = { x: 1, y: 1 }; //初始玩家位置 可以用.setPlayerPosition(x:,y:)改
 
     var greenSlime = new Framework.AnimationSprite({
@@ -419,7 +428,6 @@ var Map = function (
     this.player1.StepMovedCallBack = []; //delete
     this.deleteTileArray();
     this.player1.StepMovedCallBack.push(this.playerMovedHandler);
-    //this.mapArray = [];
     this.tileArray = [];
 
     for (var i = 0; i < this.mapArray.length; i++) {
