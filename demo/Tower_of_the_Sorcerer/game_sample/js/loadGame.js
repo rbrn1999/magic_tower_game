@@ -57,6 +57,7 @@ var loadGameEnd;
   var listScript = [
     { src: "game_sample/js/define.js", lookFor: "define" },
     { src: "game_sample/js/myMenu.js", lookFor: "MyMenu" },
+    { src: "game_sample/js/myAbout.js", lookFor: "MyAbout" },
     { src: "game_sample/js/genderMenu.js", lookFor: "GenderMenu" },
     { src: "game_sample/js/constants.js", lookFor: "Constants" },
     { src: "game_sample/js/playerState.js", lookFor: "PlayerState" },

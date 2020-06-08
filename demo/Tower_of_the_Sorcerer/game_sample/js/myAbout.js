@@ -1,4 +1,4 @@
-var GenderMenu = Framework.exClass(Framework.GameMainMenu, {
+var MyAbout = Framework.exClass(Framework.GameMainMenu, {
   //初始化loadingProgress需要用到的圖片
   initializeProgressResource: function () {
     this.loading = new Framework.Sprite(define.imagePath + "loading.jpg");
@@ -13,11 +13,19 @@ var GenderMenu = Framework.exClass(Framework.GameMainMenu, {
   //在initialize時會觸發的事件
   loadingProgress: function (ctx, requestInfo) {
     //console.log(Framework.ResourceManager.getFinishedRequestPercent())
+    this.loading.draw(ctx);
+    ctx.font = "90px Arial";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "white";
+    ctx.fillText(
+      Math.round(requestInfo.percent) + "%",
+      ctx.canvas.width / 2,
+      ctx.canvas.height / 2 + 300
+    );
   },
 
   load: function () {
     this.menu = new Framework.Sprite(define.imagePath + "background.png");
-    this.control = new Framework.Sprite(define.imagePath + "control.png");
   },
 
   initialize: function () {
@@ -28,13 +36,6 @@ var GenderMenu = Framework.exClass(Framework.GameMainMenu, {
       y: Framework.Game.getCanvasHeight() / 2,
     };
     this.menu.scale = 2;
-    this.rootScene.attach(this.menu);
-
-    this.control.position = {
-      x: 10,
-      y: 180,
-    };
-    this.control.scale = 1;
     this.rootScene.attach(this.menu);
 
     this.rectPosition = {
@@ -75,25 +76,37 @@ var GenderMenu = Framework.exClass(Framework.GameMainMenu, {
     parentCtx.textBaseline = "top";
     parentCtx.textAlign = "center";
     parentCtx.fillText(
-      "Control",
+      "Course: Object-Oriented Programming Labs",
       this.rectPosition.x + 160,
       this.rectPosition.y - 350,
-      500
+      1000
     );
     parentCtx.fillText(
-      "Please choose your gender",
+      "Professor: 陳偉凱",
       this.rectPosition.x + 160,
-      this.rectPosition.y + 150,
-      500
+      this.rectPosition.y - 200,
+      1000
     );
     parentCtx.fillText(
-      "Male",
+      "Game's Name: Tower of The Sorcerer (魔塔)",
+      this.rectPosition.x + 160,
+      this.rectPosition.y - 50,
+      1000
+    );
+    parentCtx.fillText(
+      "By: 吳軍樂　劉學逸 (Group 6)",
+      this.rectPosition.x + 160,
+      this.rectPosition.y + 100,
+      1000
+    );
+    parentCtx.fillText(
+      "Back To Menu",
       this.rectPosition.x - 100,
       this.rectPosition.y + 250,
       260
     );
     parentCtx.fillText(
-      "Female",
+      "Exit",
       this.rectPosition.x + 390,
       this.rectPosition.y + 250,
       260
@@ -105,10 +118,11 @@ var GenderMenu = Framework.exClass(Framework.GameMainMenu, {
   mousedown: function (e) {
     //console.log為Browser提供的function, 可以在debugger的console內看到被印出的訊息
     if (e.x >= 418 && e.x <= 720 && e.y >= 688 && e.y <= 791) {
-      Framework.Game.goToLevel("maleLevel");
+      //Framework.Game.goToNextLevel();
+      Framework.Game.goToLevel("menu");
       console.log("is start button");
     } else if (e.x >= 920 && e.x <= 1217 && e.y >= 691 && e.y <= 788) {
-      Framework.Game.goToLevel("femaleLevel");
+      window.close();
       console.log("is exit button");
     } else {
       console.log("is not button");
