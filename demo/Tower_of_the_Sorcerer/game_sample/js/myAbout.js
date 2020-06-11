@@ -55,7 +55,6 @@ var MyAbout = Framework.exClass(Framework.GameMainMenu, {
     //this.rootScene.draw();一定要在第一行
     this.rootScene.draw(parentCtx);
     this.menu.draw(parentCtx);
-    this.control.draw(parentCtx);
     //this.rootScene.draw();
     //可支援畫各種單純的圖形和字
     parentCtx.fillStyle = "black"; //背景色
@@ -113,7 +112,7 @@ var MyAbout = Framework.exClass(Framework.GameMainMenu, {
     );
   },
 
-  mouseup: function (e) {},
+  mouseup: function (e) { },
 
   mousedown: function (e) {
     //console.log為Browser提供的function, 可以在debugger的console內看到被印出的訊息

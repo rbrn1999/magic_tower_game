@@ -103,7 +103,6 @@ var loadGameEnd;
     { src: "game_sample/js/gems.js", lookFor: "Gems" },
     { src: "game_sample/js/potions.js", lookFor: "Potions" },
     { src: "game_sample/js/doorPickAxe.js", lookFor: "DoorPickAxe" },
-    { src: "game_sample/js/increaseBombNum.js", lookFor: "IncreaseBombNum" },
     { src: "game_sample/js/terrain.js", lookFor: "Terrain" },
     { src: "game_sample/js/mapTile.js", lookFor: "MapTile" },
     { src: "game_sample/js/map.js", lookFor: "Map" },

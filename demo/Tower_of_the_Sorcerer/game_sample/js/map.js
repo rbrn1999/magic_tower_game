@@ -579,7 +579,8 @@ var Map = function (
           squid.position = { x: j, y: i };
           squid.tileType = line[j];
           this.tileArray.push(squid);
-        } else {
+        }
+        else {
           var tile = new MapTile();
           tile.position = { x: j, y: i };
           tile.tileType = line[j];
