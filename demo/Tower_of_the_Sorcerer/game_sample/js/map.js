@@ -31,28 +31,29 @@ var Map = function (
     var i = 0;
     if (index === 1) {
       for (i = 1; i >= 0; i -= 0.001) {
-        this.audio.setVolume('bgm2', i);
+        this.audio.setVolume("bgm2", i);
       }
-      this.audio.stop('bgm2');
+      this.audio.stop("bgm2");
       this.audio.play({ name: "bgm1", loop: true });
       for (i = 0; i <= 1; i += 0.001) {
-        this.audio.setVolume('bgm1', i);
+        this.audio.setVolume("bgm1", i);
       }
-    }
-    else if (index === 2) {
+    } else if (index === 2) {
       for (i = 1; i >= 0; i -= 0.001) {
-        this.audio.setVolume('bgm1', i);
+        this.audio.setVolume("bgm1", i);
       }
-      this.audio.stop('bgm1');
+      this.audio.stop("bgm1");
       this.audio.play({ name: "bgm2", loop: true });
       for (i = 0; i <= 1; i += 0.001) {
-        this.audio.setVolume('bgm2', i);
+        this.audio.setVolume("bgm2", i);
       }
-    }
-    else {
+    } else if (index === 3) {
+      this.audio.stop("bgm1");
+      this.audio.stop("bgm2");
+    } else {
       this.audio.play({ name: "bgm1", loop: true });
     }
-  }
+  };
   this.playBGM(0);
   this.load = function () {
     this._numDoorPickAxe = 0;
@@ -579,8 +580,7 @@ var Map = function (
           squid.position = { x: j, y: i };
           squid.tileType = line[j];
           this.tileArray.push(squid);
-        }
-        else {
+        } else {
           var tile = new MapTile();
           tile.position = { x: j, y: i };
           tile.tileType = line[j];
@@ -732,7 +732,11 @@ var Map = function (
     }
 
     if (mapPosition === 20) {
-      if (player.position.y === 8 && player.position.x === 19 && _levelBoss === false) {
+      if (
+        player.position.y === 8 &&
+        player.position.x === 19 &&
+        _levelBoss === false
+      ) {
         m_map.audio.play({ name: "door", loop: false });
         m_map.mapArray[player.position.y + 1][player.position.x] =
           m_map.constants.ItemEnum.VAMPIRE_WHITE_DOOR;
@@ -835,7 +839,9 @@ var Map = function (
       ) {
         console.log(this.tileArray[i].getGainCoin(this.tileArray[i]._tileType));
         totalCoin += this.tileArray[i].getGainCoin(this.tileArray[i]._tileType);
-        data.totalCoin += this.tileArray[i].getGainCoin(this.tileArray[i]._tileType);
+        data.totalCoin += this.tileArray[i].getGainCoin(
+          this.tileArray[i]._tileType
+        );
         //data.totalHP += this.tileArray[i].getMinus(this.tileArray[i]._tileType);
       }
     }
@@ -949,7 +955,7 @@ var Map = function (
         this.npcMessageBoard.display = true;
         this.npcMessageBoard.setMessage(
           "The total coin in this level: " +
-          this.countCurrentLevelTotalMapCoinSystem()
+            this.countCurrentLevelTotalMapCoinSystem()
         );
       }
     }
@@ -992,6 +998,7 @@ var Map = function (
       }
       if (_winGameFlag === true) {
         this.player1.win();
+        this.playBGM(3);
       } else if (_loseGameFlag === true) {
         this.player1.die();
       }
@@ -1354,19 +1361,19 @@ var Map = function (
       var minusHP = Math.max(0, (monsterATK - playerDEF) * numberOfRound);
       console.log(
         "Monster HP :" +
-        monsterHP +
-        " monsterATK: " +
-        monsterATK +
-        " monsterDEF: " +
-        monsterDEF +
-        " PlayerATKmonsterInRound: " +
-        (playerATK - monsterDEF) +
-        " monsterATKplayerInRound: " +
-        (monsterATK - playerDEF) +
-        " Round: " +
-        numberOfRound +
-        " minusHP: " +
-        minusHP
+          monsterHP +
+          " monsterATK: " +
+          monsterATK +
+          " monsterDEF: " +
+          monsterDEF +
+          " PlayerATKmonsterInRound: " +
+          (playerATK - monsterDEF) +
+          " monsterATKplayerInRound: " +
+          (monsterATK - playerDEF) +
+          " Round: " +
+          numberOfRound +
+          " minusHP: " +
+          minusHP
       );
       if (this.playerState._hp > minusHP) {
         if (playerATK - monsterDEF > 0) {
